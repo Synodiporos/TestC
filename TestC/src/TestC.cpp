@@ -10,6 +10,16 @@
 using namespace std;
 
 int main() {
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
+
+	cout << "Testing Started." << endl; // prints !!!Hello World!!!
+
+	char str[] = "This str!";
+	int size = sizeof(str);
+
+	cout << "The size of str: ";
+	cout << str;
+	cout << " is ";
+	cout << size <<endl;
+
 	return 0;
 }
