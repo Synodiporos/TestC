@@ -7,9 +7,23 @@
 
 #include "CDComponent.h"
 
-CDComponent::CDComponent() {
-	// TODO Auto-generated constructor stub
+CDComponent::CDComponent() : CDElement(){
+	this->elements = new ICDElement*[capacity];
+}
 
+CDComponent::CDComponent(uint8_t capacity) : CDElement(){
+	this->elements = new ICDElement*[capacity];
+}
+
+CDComponent::CDComponent(uint8_t x, uint8_t y, int8_t w, int8_t h) :
+		CDElement(x, y, w, h){
+	this->elements = new ICDElement*[capacity];
+}
+
+CDComponent::CDComponent(uint8_t x, uint8_t y,
+		int8_t w, int8_t h, uint8_t capacity) :
+				CDElement(x, y, w, h){
+	this->elements = new ICDElement*[capacity];
 }
 
 CDComponent::~CDComponent() {
@@ -25,19 +39,32 @@ uint8_t CDComponent::getCapacity(){
 }
 
 void CDComponent::addElement(ICDElement* element){
-
+	if(element!=nullptr && size<capacity){
+		//elements[size] = element;
+		size++;
+	}
 }
 
 void CDComponent::setElementAt(ICDElement* elem, uint8_t index){
-
+	if(index<capacity){
+		elements[index] = elem;
+		size++;
+	}
 }
 
 ICDElement* CDComponent::getElementAt(uint8_t index){
-
+	if(index<capacity)
+		return elements[index];
+	return nullptr;
 }
 
 ICDElement* CDComponent::getElementAt(uint8_t x, uint8_t y){
-
+	for(unsigned int i=0; i<capacity; i++){
+		ICDElement* elem = elements[i];
+		if(elem->getBounds().equals(x, y))
+			return elem;
+	}
+	return nullptr;
 }
 
 ICDElement** CDComponent::getElements(){
@@ -45,16 +72,34 @@ ICDElement** CDComponent::getElements(){
 }
 
 void CDComponent::removeElement(ICDElement* element){
-
+	for(unsigned int i=0; i<capacity; i++){
+		ICDElement* elem = elements[i];
+		if(elem==element)
+			elements[i] = nullptr;
+	}
 }
 
 void CDComponent::removeElementAt(uint8_t index){
-
+	if(index<capacity)
+		elements[index] = nullptr;
 }
 
 void CDComponent::print(LCD* lcd){
-	//
+	CDElement::print(lcd);
 	printChilds(lcd);
+}
+
+void CDComponent::printArea(LCD* lcd, Rectangle area){
+	CDComponent::printArea(lcd, area);
+	for(int i=0; i<capacity; i++){
+		ICDElement* elem = elements[i];
+		if(elem){
+			//Check if is visible
+			Rectangle r = area.intersection(elem->getBounds());
+			lcd->setCursor(r);
+			elem->printArea(lcd, r);
+		}
+	}
 }
 
 void CDComponent::validate(){
@@ -63,16 +108,18 @@ void CDComponent::validate(){
 }
 
 void CDComponent::printChilds(LCD* lcd){
-	for(int i=0; i<size; i++){
+	for(int i=0; i<capacity; i++){
 		ICDElement* elem = elements[i];
 		if(elem){
-			lcd->setCursor(elem->getPosition());
+			//Check if is visible
+
+			lcd->setCursor(elem->getBounds());
 		}
 	}
 }
 
 void CDComponent::validateChilds(){
-	for(int i=0; i<size; i++){
+	for(int i=0; i<capacity; i++){
 		ICDElement* elem = elements[i];
 		if(elem){
 			elem->validate();

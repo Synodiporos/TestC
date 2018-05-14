@@ -23,7 +23,7 @@ char* normalize(char* str, uint8_t size, uint8_t start);
 int main() {
 	cout << "Testing Started." << endl; // prints !!!Hello World!!!
 
-	char str[] = "This str!";
+	char str[] = "This str! ";
 	int size = sizeof(str);
 
 	cout << "The size of str: ";
@@ -51,15 +51,22 @@ int main() {
 
 
 	//==========================================
-	//CDElement* elem1 = new CDElement();
+	LCD* lcd = new LCD();
+	CDElement* elem1 = new CDElement();
 
-	//CDComponent* comp1 = new CDComponent();
+	CDComponent* comp1 = new CDComponent(0, 1, 16, 2);
+	CDComponent* comp2 = new CDComponent(0, 0, 10, 2);
+	CDComponent* comp3 = new CDComponent(11, 0, 5, 2);
+	CDComponent* comp = new CDComponent(0, 0, 16, 40, 3);
 
-	//comp1->addElement(elem1);
-	//comp1->setPosition(1, 1);
+	//comp->addElement(comp1);
+	//comp->addElement(comp2);
+	//comp->addElement(comp3);
+	//comp->printArea(lcd, comp1->getBounds());
 
 	//=============================================
-	/*
+/*
+
 	Rectangle* rec1 = new Rectangle(0, 0, 10, 10);
 	Rectangle* rec2 = new Rectangle(-2, -2, 5, 5);
 	Rectangle* rec3 = new Rectangle(2, 2, 4, 4);
@@ -92,7 +99,18 @@ int main() {
 	Rectangle r7 = Rectangle::intersection(*rec1, *rec8);
 	printRect(&r7);
 	interRect(rec1, rec8);
+
+	Rectangle* rec10 = new Rectangle(0, 0, 16, 2);
+	Rectangle* rec11 = new Rectangle(0, 0, 5, 2);
+	Rectangle* rec12 = new Rectangle(0, 1, 18, 2);
+	Rectangle r10 = Rectangle::intersection(*rec10, *rec11);
+	printRect(&r10);
+	interRect(rec10, rec11);
+	Rectangle r11 = Rectangle::intersection(*rec10, *rec12);
+	printRect(&r11);
+	interRect(rec10, rec12);
 */
+
 
 
 	return 0;

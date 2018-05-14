@@ -14,10 +14,10 @@ public:
 	Dimension(unsigned short int width, unsigned short int height);
 	virtual ~Dimension();
 
-	void setDimensions(unsigned short int w, unsigned short h);
-	void setWidth(unsigned short int width);
+	bool setDimensions(unsigned short int w, unsigned short h);
+	bool setWidth(unsigned short int width);
 	unsigned short int getWidth();
-	void setHeight(unsigned short int height);
+	bool setHeight(unsigned short int height);
 	unsigned short int getHeight();
 	Dimension copy();
 

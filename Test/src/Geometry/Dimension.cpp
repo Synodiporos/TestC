@@ -21,20 +21,32 @@ Dimension::~Dimension() {
 	// TODO Auto-generated destructor stub
 }
 
-void Dimension::setDimensions(unsigned short int w, unsigned short h){
-	this->width = w;
-	this->height = h;
+bool Dimension::setDimensions(unsigned short int w, unsigned short h){
+	if(this->width!=w || this->height!=h){
+		this->width = w;
+		this->height = h;
+		return true;
+	}
+	return false;
 }
 
-void Dimension::setWidth(unsigned short int width){
-	this->width = width;
+bool Dimension::setWidth(unsigned short int width){
+	if(this->width!=width){
+		this->width = width;
+		return true;
+	}
+	return false;
 }
 unsigned short int Dimension::getWidth(){
 	return this->width;
 }
 
-void Dimension::setHeight(unsigned short int height){
-	this->height = height;
+bool Dimension::setHeight(unsigned short int height){
+	if(this->height!=height){
+		this->height = height;
+		return true;
+	}
+	return false;
 }
 
 unsigned short int Dimension::getHeight(){

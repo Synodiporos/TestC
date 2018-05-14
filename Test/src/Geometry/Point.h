@@ -14,11 +14,12 @@ public:
 	Point(short int x, short int y);
 	virtual ~Point();
 
-	void setX(short int x);
+	bool setX(short int x);
 	short int getX();
-	void setY(short int y);
+	bool setY(short int y);
 	short int getY();
-	void setPoint(short int x, short int y);
+	bool setPoint(short int x, short int y);
+	bool setPointBy(short int x, short int y);
 	Point copy();
 	bool equals(Point c);
 	bool equals(short int x, short int y);

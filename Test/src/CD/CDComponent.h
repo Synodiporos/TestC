@@ -13,6 +13,10 @@
 class CDComponent : public CDElement{
 public:
 	CDComponent();
+	CDComponent(uint8_t capacity);
+	CDComponent(uint8_t x, uint8_t y, int8_t w, int8_t h);
+	CDComponent(uint8_t x, uint8_t y,
+			int8_t w, int8_t h, uint8_t capacity);
 	virtual ~CDComponent();
 
 	uint8_t getSize();
@@ -25,8 +29,9 @@ public:
 	void removeElement(ICDElement* element);
 	void removeElementAt(uint8_t index);
 
-	void print(LCD* lcd);
-	void validate();
+	virtual void print(LCD* lcd);
+	virtual void printArea(LCD* lcd, Rectangle area);
+	virtual void validate();
 
 private:
 	uint8_t size = 0;

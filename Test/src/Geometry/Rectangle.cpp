@@ -27,20 +27,26 @@ Rectangle::~Rectangle() {
 	// TODO Auto-generated destructor stub
 }
 
-void Rectangle::setWidth(uint8_t width){
-	this->dims.setWidth(width);
+bool Rectangle::setRectangle(int8_t x, int8_t y,
+		uint8_t width, uint8_t height){
+	bool res = setPoint(x, y);
+	return setDimensions(width, height) || res;
 }
 
-void Rectangle::setHeight(uint8_t height){
-	this->dims.setHeight(height);
+bool Rectangle::setWidth(uint8_t width){
+	return this->dims.setWidth(width);
 }
 
-void Rectangle::setDimensions(uint8_t width, uint8_t height){
-	this->dims.setDimensions(width, height);
+bool Rectangle::setHeight(uint8_t height){
+	return this->dims.setHeight(height);
+}
+
+bool Rectangle::setDimensions(uint8_t width, uint8_t height){
+	return this->dims.setDimensions(width, height);
 }
 
 uint8_t Rectangle::getWidth(){
-	this->dims.getWidth();
+	return this->dims.getWidth();
 }
 
 uint8_t Rectangle::getHeight(){

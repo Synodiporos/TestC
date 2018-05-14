@@ -21,25 +21,46 @@ Point::~Point() {
 	// TODO Auto-generated destructor stub
 }
 
-void Point::setX(short int x){
-	this->x = x;
+bool Point::setX(short int x){
+	if(this->x!=x){
+		this->x = x;
+		return true;
+	}
+	return false;
 }
 
 short int Point::getX(){
 	return this->x;
 }
 
-void Point::setY(short int y){
-	this->y = y;
+bool Point::setY(short int y){
+	if(this->y!=y){
+		this->y = y;
+		return true;
+	}
+	return false;
 }
 
 short int Point::getY(){
 	return this->y;
 }
 
-void Point::setPoint(short int x, short int y){
-	this->x = x;
-	this->y = y;
+bool Point::setPoint(short int x, short int y){
+	if(this->x!=x || this->y!=y){
+		this->x = x;
+		this->y = y;
+		return true;
+	}
+	return false;
+}
+
+bool Point::setPointBy(short int x, short int y){
+	if(x!=0 || y!=0){
+		this->x = this->x + x;
+		this->y = this->y + y;
+		return true;
+	}
+	return false;
 }
 
 Point Point::copy(){

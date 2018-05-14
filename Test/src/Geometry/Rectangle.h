@@ -18,10 +18,11 @@ public:
 	Rectangle(int8_t x, int8_t y, uint8_t width, uint8_t height);
 	virtual ~Rectangle();
 
-	void setWidth(uint8_t width);
-	void setHeight(uint8_t height);
-	void setDimensions(uint8_t width, uint8_t height);
-	void setDimensions(Dimension dims);
+	bool setRectangle(int8_t x, int8_t y, uint8_t width, uint8_t height);
+	bool setWidth(uint8_t width);
+	bool setHeight(uint8_t height);
+	bool setDimensions(uint8_t width, uint8_t height);
+	bool setDimensions(Dimension dims);
 	uint8_t getWidth();
 	uint8_t getHeight();
 	Dimension getDimensions();
