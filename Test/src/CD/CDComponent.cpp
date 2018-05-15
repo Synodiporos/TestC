@@ -5,6 +5,8 @@
  *      Author: Synodiporos
  */
 
+#include <iostream>
+using namespace std;
 #include "CDComponent.h"
 
 CDComponent::CDComponent() : CDElement(){
@@ -23,6 +25,7 @@ CDComponent::CDComponent(uint8_t x, uint8_t y, int8_t w, int8_t h) :
 CDComponent::CDComponent(uint8_t x, uint8_t y,
 		int8_t w, int8_t h, uint8_t capacity) :
 				CDElement(x, y, w, h){
+	this->capacity = capacity;
 	this->elements = new ICDElement*[capacity];
 }
 
@@ -40,7 +43,7 @@ uint8_t CDComponent::getCapacity(){
 
 void CDComponent::addElement(ICDElement* element){
 	if(element!=nullptr && size<capacity){
-		//elements[size] = element;
+		elements[size] = element;
 		size++;
 	}
 }
@@ -61,7 +64,7 @@ ICDElement* CDComponent::getElementAt(uint8_t index){
 ICDElement* CDComponent::getElementAt(uint8_t x, uint8_t y){
 	for(unsigned int i=0; i<capacity; i++){
 		ICDElement* elem = elements[i];
-		if(elem->getBounds().equals(x, y))
+		if(elem->getBounds()->equals(x, y))
 			return elem;
 	}
 	return nullptr;
@@ -89,17 +92,24 @@ void CDComponent::print(LCD* lcd){
 	printChilds(lcd);
 }
 
-void CDComponent::printArea(LCD* lcd, Rectangle area){
-	CDComponent::printArea(lcd, area);
+void CDComponent::printArea(LCD* lcd, Rectangle* area){
+	CDElement::printArea(lcd, area);
+
+	cout << " childs[ " << endl;
+
 	for(int i=0; i<capacity; i++){
 		ICDElement* elem = elements[i];
 		if(elem){
 			//Check if is visible
-			Rectangle r = area.intersection(elem->getBounds());
-			lcd->setCursor(r);
-			elem->printArea(lcd, r);
+			if(area->intersects(elem->getBounds())){
+				Rectangle r = area->intersection(elem->getBounds());
+				lcd->setCursor(&r);
+				elem->printArea(lcd, &r);
+			}
 		}
 	}
+
+	cout << "]" << endl;
 }
 
 void CDComponent::validate(){

@@ -18,15 +18,15 @@ public:
 	void init(uint8_t width, uint8_t y);
 
 	void setCursor(uint8_t x, uint8_t y);
-	void setCursor(Point cords);
+	void setCursor(Point* cords);
 	uint8_t getCursorX();
 	uint8_t getCursorY();
-	Point getCursor();
+	Point* getCursor();
 
 private:
-	Point cursor = Point();
-	uint8_t width;
-	uint8_t height;
+	Point* cursor = new Point();
+	uint8_t width = 0;
+	uint8_t height = 0;
 };
 
 #endif /* CD_LCD_H_ */

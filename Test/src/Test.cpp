@@ -54,15 +54,23 @@ int main() {
 	LCD* lcd = new LCD();
 	CDElement* elem1 = new CDElement();
 
-	CDComponent* comp1 = new CDComponent(0, 1, 16, 2);
-	CDComponent* comp2 = new CDComponent(0, 0, 10, 2);
-	CDComponent* comp3 = new CDComponent(11, 0, 5, 2);
+	CDComponent* comp1 = new CDComponent(0, 1, 16, 1);
+	CDComponent* comp2 = new CDComponent(0, 0, 10, 1);
+	CDComponent* comp3 = new CDComponent(11, 0, 5, 1);
+	CDComponent* comp4 = new CDComponent(-1, 2, 20, 5);
 	CDComponent* comp = new CDComponent(0, 0, 16, 40, 3);
 
+	cout << "comp1: " << comp1 << endl;
+	cout << "comp2: " << comp2 << endl;
+	cout << "comp3: " << comp3 << endl;
+	cout << "comp4: " << comp3 << endl;
+	cout << "comp: " << comp << endl;
+
 	//comp->addElement(comp1);
-	//comp->addElement(comp2);
-	//comp->addElement(comp3);
-	//comp->printArea(lcd, comp1->getBounds());
+	comp->addElement(comp2);
+	comp->addElement(comp3);
+	comp->addElement(comp4);
+	comp->printArea(lcd, comp1->getBounds());
 
 	//=============================================
 /*
@@ -129,7 +137,7 @@ void printRect(Rectangle* rec){
 }
 
 void interRect(Rectangle* r1, Rectangle* r2){
-	cout << Rectangle::intersects(*r1, *r2) << endl;
+	cout << Rectangle::intersects(r1, r2) << endl;
 }
 
 void test(int &s){

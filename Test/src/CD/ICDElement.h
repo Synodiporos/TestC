@@ -24,9 +24,9 @@ public:
 	//virtual void setPosition(uint8_t x, uint8_t y) = 0;
 	//virtual Point getPosition() = 0;
 	//virtual void moveBy(uint8_t x, uint8_t y) = 0;
-	virtual Rectangle getBounds() = 0;
+	virtual Rectangle* getBounds() = 0;
 	virtual void print(LCD* lcd) = 0;
-	virtual void printArea(LCD* lcd, Rectangle area) = 0;
+	virtual void printArea(LCD* lcd, Rectangle* area) = 0;
 	virtual void validate() = 0;
 
 };

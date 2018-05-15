@@ -57,42 +57,52 @@ Dimension Rectangle::getDimensions(){
 	return this->dims;
 }
 
-Rectangle Rectangle::intersection(Rectangle rec){
-	return Rectangle::intersection(*this, rec);
+Rectangle Rectangle::intersection(Rectangle* rec){
+	if(rec)
+		return Rectangle::intersection(this, rec);
+	return Rectangle();
 }
 
-bool Rectangle::intersects(Rectangle rec){
-	return Rectangle::intersects(*this, rec);
+bool Rectangle::intersects(Rectangle* rec){
+	if(rec)
+		return Rectangle::intersects(this, rec);
+	return false;
 }
 
 Rectangle Rectangle::intersection(
-		Rectangle rec1, Rectangle rec2){
+		Rectangle* rec1, Rectangle* rec2){
 
-	int left = GeometryUtil::max(rec1.x, rec2.x);
-	int top = GeometryUtil::max(rec1.y, rec2.y);
+	if(!rec1 || !rec2)
+		return Rectangle();
+
+	int left = GeometryUtil::max(rec1->x, rec2->x);
+	int top = GeometryUtil::max(rec1->y, rec2->y);
 	int right = GeometryUtil::min(
-			rec1.x+rec1.getWidth(), rec2.x+rec2.getWidth());
+			rec1->x+rec1->getWidth(), rec2->x+rec2->getWidth());
 	int bottom = GeometryUtil::min(
-				rec1.y+rec1.getHeight(), rec2.y+rec2.getHeight());
+				rec1->y+rec1->getHeight(), rec2->y+rec2->getHeight());
 
 	right = GeometryUtil::positive(right-left);
 	bottom = GeometryUtil::positive(bottom-top);
-	if(right==0 || bottom==0)
-		right = bottom = 0;
+	//if(right==0 || bottom==0)
+	//	right = bottom = 0;
 
 	return Rectangle(left, top, right, bottom);
 }
 
-bool Rectangle::intersects(Rectangle A, Rectangle B){
+bool Rectangle::intersects(Rectangle* A, Rectangle* B){
+	if(!A || !B)
+			return false;
+
     bool xOverlap = GeometryUtil::valueInRange(
-    					A.x, B.x, B.x + B.getWidth()) ||
+    					A->x, B->x, B->x + B->getWidth()) ||
     				GeometryUtil::valueInRange(
-    					B.x, A.x, A.x + A.getWidth());
+    					B->x, A->x, A->x + A->getWidth());
 
     bool yOverlap = GeometryUtil::valueInRange(
-    					A.y, B.y, B.y + B.getHeight()) ||
+    					A->y, B->y, B->y + B->getHeight()) ||
     				GeometryUtil::valueInRange(
-    						B.y, A.y, A.y + A.getHeight());
+    						B->y, A->y, A->y + A->getHeight());
 
     return xOverlap && yOverlap;
 }

@@ -49,6 +49,10 @@ public:
 		return 0;
 	}
 
+	static bool valueInRangeOrEqual(int value, int min, int max){
+		return (value >= min) && (value <= max);
+	}
+
 	static bool valueInRange(int value, int min, int max){
 		return (value >= min) && (value <= max);
 	}

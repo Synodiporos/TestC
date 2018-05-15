@@ -21,7 +21,7 @@ public:
 	bool setPoint(short int x, short int y);
 	bool setPointBy(short int x, short int y);
 	Point copy();
-	bool equals(Point c);
+	bool equals(Point* c);
 	bool equals(short int x, short int y);
 
 protected:

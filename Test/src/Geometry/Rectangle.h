@@ -27,10 +27,10 @@ public:
 	uint8_t getHeight();
 	Dimension getDimensions();
 
-	Rectangle intersection(Rectangle rec);
-	bool intersects(Rectangle rec);
-	static Rectangle intersection(Rectangle rec1, Rectangle rec2);
-	static bool intersects(Rectangle rec1 , Rectangle rec2);
+	Rectangle intersection(Rectangle* rec);
+	bool intersects(Rectangle* rec);
+	static Rectangle intersection(Rectangle* rec1, Rectangle* rec2);
+	static bool intersects(Rectangle* rec1 , Rectangle* rec2);
 
 
 private:

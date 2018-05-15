@@ -67,8 +67,8 @@ Point Point::copy(){
 	return Point(this->x, this->y);
 }
 
-bool Point::equals(Point c){
-	return equals(c.x, c.y);
+bool Point::equals(Point* c){
+	return equals(c->x, c->y);
 }
 
 bool Point::equals(short int x, short int y){
