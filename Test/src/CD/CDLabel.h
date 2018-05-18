@@ -8,9 +8,9 @@
 #ifndef CD_CDLABEL_H_
 #define CD_CDLABEL_H_
 #include "ICDElement.h"
-#include "../Geometry/Rectangle.h"
+//#include "../Geometry/Rectangle.h"
 
-class CDLabel : public ICDElement{
+class CDLabel {
 public:
 	CDLabel();
 	CDLabel(uint8_t width, char* label);
@@ -22,16 +22,16 @@ public:
 	uint8_t getWidth();
 	void setLocation(int8_t x, int8_t y);
 	Point* getLocation();
-	virtual Rectangle* getBounds();
-	virtual void print(LCD* lcd);
-	virtual void printArea(LCD* lcd, Rectangle* area);
-	virtual void validate();
+	Rectangle* getBounds();
+	void print(LCD* lcd);
+	void printArea(LCD* lcd, Rectangle* area);
+	void validate();
 
 private:
 	int8_t x = 0;
 	int8_t y = 0;
 	uint8_t width = 0;
-	char* label;
+	char* label = nullptr;
 };
 
 #endif /* CD_CDLABEL_H_ */

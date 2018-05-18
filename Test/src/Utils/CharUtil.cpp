@@ -18,7 +18,8 @@ CharUtil::~CharUtil() {
 	// TODO Auto-generated destructor stub
 }
 
-char* CharUtil::strFilling(char* str, uint8_t size, int8_t start){
+char* CharUtil::strFilling(char* str,
+		uint8_t size, int8_t start, char appender){
 	if(start>=size)
 		return nullptr;
 
@@ -33,7 +34,7 @@ char* CharUtil::strFilling(char* str, uint8_t size, int8_t start){
 		}
 	}
 	for(int i=h; i<size; i++)
-		res[i] = '.';
+		res[i] = appender;
 
 	res[size] = '\0';
 

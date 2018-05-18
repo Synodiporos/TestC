@@ -32,7 +32,7 @@ int main() {
 	cout << " is ";
 	cout << size <<endl;
 
-	//CharUtil::strFilling(str, 10, 0);
+	CharUtil::strFilling(str, 20, 0, '-');
 
 	/*int i = 5;
 	test(i);

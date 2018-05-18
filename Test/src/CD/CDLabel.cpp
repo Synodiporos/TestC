@@ -64,6 +64,6 @@ void CDLabel::printArea(LCD* lcd, Rectangle* area){
 
 }
 
-void validate(){
+void CDLabel::validate(){
 
 }
