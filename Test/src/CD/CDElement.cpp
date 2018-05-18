@@ -65,17 +65,21 @@ void CDElement::print(LCD* lcd){
 }
 
 void CDElement::printArea(LCD* lcd, Rectangle* area){
-	//lcd->setCursor(area);
-	cout << "PrintArea: [";
-	cout << (int)area->getX();
-	cout << ", ";
-	cout << (int)area->getY();
-	cout << ", ";
-	cout << (int)area->getWidth();
-	cout << ", ";
-	cout << (int)area->getHeight();
-	cout << "] of" ;
-	cout << this << endl;
+	//if(area->intersects(getBounds())){
+		//Rectangle r = area->intersection(getBounds());
+
+		//lcd->setCursor(area);
+		cout << "PrintArea: [";
+		cout << (int)area->getX();
+		cout << ", ";
+		cout << (int)area->getY();
+		cout << ", ";
+		cout << (int)area->getWidth();
+		cout << ", ";
+		cout << (int)area->getHeight();
+		cout << "] of" ;
+		cout << this << endl;
+	//}
 }
 
 void CDElement::validate(){

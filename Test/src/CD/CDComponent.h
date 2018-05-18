@@ -38,8 +38,11 @@ private:
 	uint8_t capacity = 0;
 	ICDElement** elements = nullptr;
 
-	void printChilds(LCD* lcd);
-	void validateChilds();
+protected:
+	virtual void printComponentsArea(LCD* lcd, Rectangle* area);
+	virtual void printChildsArea(LCD* lcd, Rectangle* area);
+	virtual void printChilds(LCD* lcd);
+	virtual void validateChilds();
 };
 
 #endif /* CD_CDCOMPONENT_H_ */

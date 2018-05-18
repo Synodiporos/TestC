@@ -15,7 +15,7 @@ public:
 	LCD();
 	virtual ~LCD();
 
-	void init(uint8_t width, uint8_t y);
+	void init(uint8_t width, uint8_t height);
 
 	void setCursor(uint8_t x, uint8_t y);
 	void setCursor(Point* cords);

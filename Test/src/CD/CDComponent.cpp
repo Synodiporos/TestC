@@ -92,40 +92,66 @@ void CDComponent::print(LCD* lcd){
 	printChilds(lcd);
 }
 
-void CDComponent::printArea(LCD* lcd, Rectangle* area){
-	CDElement::printArea(lcd, area);
+void CDComponent::printChilds(LCD* lcd){
+	for(int i=0; i<capacity; i++){
+		ICDElement* elem = elements[i];
+		if(elem){
+			lcd->setCursor(elem->getBounds());
+		}
+	}
+}
 
+void CDComponent::printArea(LCD* lcd, Rectangle* area){
+
+	printComponentsArea(lcd, area);
+	printChildsArea(lcd, area);
+}
+
+void CDComponent::printComponentsArea(LCD* lcd, Rectangle* area){
+	//lcd->setCursor(area);
+	cout << "PrintArea: [";
+	cout << (int)area->getX();
+	cout << ", ";
+	cout << (int)area->getY();
+	cout << ", ";
+	cout << (int)area->getWidth();
+	cout << ", ";
+	cout << (int)area->getHeight();
+	cout << "] of" ;
+	cout << this << endl;
+}
+
+void CDComponent::printChildsArea(LCD* lcd, Rectangle* area){
 	cout << " childs[ " << endl;
+	int ccx = lcd->getCursorX();
+	int ccy = lcd->getCursorY();
 
 	for(int i=0; i<capacity; i++){
 		ICDElement* elem = elements[i];
 		if(elem){
-			//Check if is visible
+
 			if(area->intersects(elem->getBounds())){
 				Rectangle r = area->intersection(elem->getBounds());
-				lcd->setCursor(&r);
+
+
+				int cx =  ccx + r.getX() + 0;
+				int cy =  ccy + r.getY() + 0;
+
+				lcd->setCursor(cx, cy);
+				cout << "Set Cursor[" << cx << ", " << cy << "] " << endl;
+
+				r.setPointBy(-elem->getBounds()->getX(),
+						-elem->getBounds()->getY());
 				elem->printArea(lcd, &r);
 			}
 		}
 	}
-
 	cout << "]" << endl;
 }
 
 void CDComponent::validate(){
 	//
 	validateChilds();
-}
-
-void CDComponent::printChilds(LCD* lcd){
-	for(int i=0; i<capacity; i++){
-		ICDElement* elem = elements[i];
-		if(elem){
-			//Check if is visible
-
-			lcd->setCursor(elem->getBounds());
-		}
-	}
 }
 
 void CDComponent::validateChilds(){

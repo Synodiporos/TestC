@@ -52,25 +52,36 @@ int main() {
 
 	//==========================================
 	LCD* lcd = new LCD();
-	CDElement* elem1 = new CDElement();
 
-	CDComponent* comp1 = new CDComponent(0, 1, 16, 1);
-	CDComponent* comp2 = new CDComponent(0, 0, 10, 1);
-	CDComponent* comp3 = new CDComponent(11, 0, 5, 1);
-	CDComponent* comp4 = new CDComponent(-1, 2, 20, 5);
-	CDComponent* comp = new CDComponent(0, 0, 16, 40, 3);
+	CDComponent* comp1 = new CDComponent(0, 0, 15, 0);
+	CDComponent* comp2 = new CDComponent(0, 1, 10, 1);
+	CDComponent* comp3 = new CDComponent(11, 1, 5, 1);
+	CDComponent* comp4 = new CDComponent(-1, 2, 20, 5, 2);
+	CDElement* elem1 = new CDElement(0, 0, 7, 3);
+	CDElement* elem2 = new CDElement(8, 0, 8, 3);
+	CDComponent* comp = new CDComponent(0, 0, 16, 40, 4);
 
 	cout << "comp1: " << comp1 << endl;
 	cout << "comp2: " << comp2 << endl;
 	cout << "comp3: " << comp3 << endl;
 	cout << "comp4: " << comp3 << endl;
+	cout << "elem1: " << elem1 << endl;
+	cout << "elem2: " << elem2 << endl;
 	cout << "comp: " << comp << endl;
 
-	//comp->addElement(comp1);
+	comp4->addElement(elem1);
+	comp4->addElement(elem2);
+
+	comp->addElement(comp1);
 	comp->addElement(comp2);
 	comp->addElement(comp3);
 	comp->addElement(comp4);
-	comp->printArea(lcd, comp1->getBounds());
+
+	Rectangle sc = Rectangle(0, 1, 16, 1);
+	sc.setPointBy(-comp->getBounds()->getX(), -comp->getBounds()->getY());
+	//Rectangle isc = comp->getBounds()->intersection(&sc);
+	lcd->setCursor(0, 0);
+	comp->printArea(lcd, &sc);
 
 	//=============================================
 /*
