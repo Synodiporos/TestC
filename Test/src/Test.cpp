@@ -13,6 +13,7 @@ using namespace std;
 #include "CD/LCD.h"
 #include "Geometry/Point.h"
 #include "Geometry/Rectangle.h"
+#include "Utils/CharUtil.h"
 
 void test(int& i);
 void printRect(Rectangle* rec);
@@ -23,13 +24,15 @@ char* normalize(char* str, uint8_t size, uint8_t start);
 int main() {
 	cout << "Testing Started." << endl; // prints !!!Hello World!!!
 
-	char str[] = "This str! ";
+	char* str = "This str! ";
 	int size = sizeof(str);
 
 	cout << "The size of str: ";
 	cout << str;
 	cout << " is ";
 	cout << size <<endl;
+
+	//CharUtil::strFilling(str, 10, 0);
 
 	/*int i = 5;
 	test(i);
@@ -81,7 +84,7 @@ int main() {
 	sc.setPointBy(-comp->getBounds()->getX(), -comp->getBounds()->getY());
 	//Rectangle isc = comp->getBounds()->intersection(&sc);
 	lcd->setCursor(0, 0);
-	comp->printArea(lcd, &sc);
+	//comp->printArea(lcd, &sc);
 
 	//=============================================
 /*
