@@ -15,6 +15,10 @@ using namespace std;
 #include "Geometry/Point.h"
 #include "Geometry/Rectangle.h"
 #include "Utils/CharUtil.h"
+<<<<<<< Upstream, based on origin/master
+=======
+#include <ctime>
+>>>>>>> 8a34775 Clock
 
 void test(int& i);
 void printRect(Rectangle* rec);
@@ -127,6 +131,18 @@ int main() {
 */
 
 
+
+	clock_t start = clock();
+	for(int i=0; i<5000; i++)
+		cout << "dasdasd asd asd asa " << endl;
+
+	long m = clock() - start;
+	cout << m << endl;
+
+
+	while(true){
+		comp->validate();
+	}
 
 	return 0;
 }
