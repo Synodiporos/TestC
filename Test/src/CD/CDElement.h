@@ -28,10 +28,13 @@ public:
 	void setPosition(uint8_t x, uint8_t y);
 	Point* getPosition();
 	void moveBy(uint8_t x, uint8_t y);
-
 	virtual Rectangle* getBounds();
 	virtual void setBounds(Rectangle bounds);
 	virtual void setBounds(uint8_t x, uint8_t y, int8_t w, int8_t h);
+
+	virtual void setParent(ICDElement* parent);
+	virtual ICDElement* getParent();
+
 	//virtual void print(LCD* lcd);
 	//virtual void reprint();
 	virtual void printArea(LCD* lcd, Rectangle* area);
@@ -41,6 +44,7 @@ public:
 private:
 	//Dimensions in pixels
 	Rectangle* bounds = new Rectangle();
+	ICDElement* parent = nullptr;
 };
 
 #endif /* CD_CDELEMENT_H_ */

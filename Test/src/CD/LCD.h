@@ -1,12 +1,13 @@
 /*
  * LCD.h
  *
- *  Created on: 12 Μαΐ 2018
+ *  Created on: 12 Ξ�Ξ±Ξ� 2018
  *      Author: Synodiporos
  */
 
 #ifndef CD_LCD_H_
 #define CD_LCD_H_
+
 #include "../Geometry/Point.h"
 #include "../Geometry/Rectangle.h"
 
@@ -26,9 +27,10 @@ public:
 	void print(char* str);
 
 private:
-	Point* cursor = new Point();
+	Rectangle* bounds = new Rectangle();
 	uint8_t width = 0;
 	uint8_t height = 0;
+	Point* cursor = new Point(0, 0);
 };
 
 #endif /* CD_LCD_H_ */

@@ -1,7 +1,7 @@
 /*
  * CDComponent.h
  *
- *  Created on: 12 Μαΐ 2018
+ *  Created on: 12 Ξ�Ξ±Ξ� 2018
  *      Author: Synodiporos
  */
 

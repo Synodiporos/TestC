@@ -12,13 +12,11 @@ using namespace std;
 #include "CD/CDComponent.h"
 #include "CD/CDLabel.h"
 #include "CD/LCD.h"
+#include "CD/CDFrame.h"
 #include "Geometry/Point.h"
 #include "Geometry/Rectangle.h"
 #include "Utils/CharUtil.h"
-<<<<<<< Upstream, based on origin/master
-=======
 #include <ctime>
->>>>>>> 8a34775 Clock
 
 void test(int& i);
 void printRect(Rectangle* rec);
@@ -52,7 +50,7 @@ int main() {
 	CDComponent* comp4 = new CDComponent(-1, 2, 20, 5, 2);
 	CDElement* elem1 = new CDElement(0, 0, 7, 3);
 	CDElement* elem2 = new CDElement(8, 0, 8, 3);
-	char lstr1[] = "Label 101";
+	char lstr1[] = "Label 101 TEsting";
 	char lstr2[] = "ArduinoArduino";
 	CDLabel* l1 = new CDLabel(0, 0, 8, lstr1);
 	CDLabel* l2 = new CDLabel(8, 0, 8, lstr2);
@@ -64,6 +62,8 @@ int main() {
 	cout << "comp4: " << comp3 << endl;
 	cout << "elem1: " << elem1 << endl;
 	cout << "elem2: " << elem2 << endl;
+	cout << "l1: " << l1 << endl;
+	cout << "12: " << l2 << endl;
 	cout << "comp: " << comp << endl;
 
 	comp4->addElement(elem1);
@@ -80,9 +80,13 @@ int main() {
 	Rectangle sc = Rectangle(0, 1, 16, 1);
 	sc.setPointBy(-comp->getBounds()->getX(), -comp->getBounds()->getY());
 	//Rectangle isc = comp->getBounds()->intersection(&sc);
-	lcd->setCursor(0, 0);
-	comp->printArea(lcd, &sc);
+	//lcd->setCursor(0, 0);
+	//comp->printArea(lcd, new Rectangle());
 
+
+	CDFrame frame = CDFrame(16, 2, 1);
+	frame.setPage(comp, 0);
+	//frame.print();
 	//=============================================
 /*
 
@@ -131,14 +135,15 @@ int main() {
 */
 
 
-	l1->startRolling();
+	l1->setLabelIndex(1);
+	//l1->startRolling();
 
 	clock_t start = clock();
 
 
-	while(clock()-start<10000){
-		comp->validate();
-	}
+	//while(clock()-start<10000){
+	//	comp->validate();
+	//}
 
 	cout<< "Finished!" << endl;
 	return 0;
