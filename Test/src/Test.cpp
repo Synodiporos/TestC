@@ -12,9 +12,11 @@ using namespace std;
 #include "CD/CDComponent.h"
 #include "CD/CDLabel.h"
 #include "CD/LCD.h"
+#include "CD/CDFrame.h"
 #include "Geometry/Point.h"
 #include "Geometry/Rectangle.h"
 #include "Utils/CharUtil.h"
+#include <ctime>
 
 void test(int& i);
 void printRect(Rectangle* rec);
@@ -40,17 +42,17 @@ int main() {
 
 
 	//==========================================
-	LCD* lcd = new LCD();
+	//LCD* lcd = new LCD();
 
 	CDComponent* comp1 = new CDComponent(0, 0, 15, 0);
-	CDComponent* comp2 = new CDComponent(0, 1, 10, 1, 2);
+	CDComponent* comp2 = new CDComponent(0, 1, 12, 1, 2);
 	CDComponent* comp3 = new CDComponent(11, 1, 5, 1, 0);
 	CDComponent* comp4 = new CDComponent(-1, 2, 20, 5, 2);
 	CDElement* elem1 = new CDElement(0, 0, 7, 3);
 	CDElement* elem2 = new CDElement(8, 0, 8, 3);
-	char lstr1[] = "Label_1";
+	char lstr1[] = "Label 101 TEsting";
 	char lstr2[] = "ArduinoArduino";
-	CDLabel* l1 = new CDLabel(0, 0, 8, lstr1);
+	CDLabel* l1 = new CDLabel(0, 0, 7, lstr1);
 	CDLabel* l2 = new CDLabel(8, 0, 8, lstr2);
 	CDComponent* comp = new CDComponent(0, 0, 16, 40, 4);
 
@@ -60,6 +62,8 @@ int main() {
 	cout << "comp4: " << comp3 << endl;
 	cout << "elem1: " << elem1 << endl;
 	cout << "elem2: " << elem2 << endl;
+	cout << "l1: " << l1 << endl;
+	cout << "12: " << l2 << endl;
 	cout << "comp: " << comp << endl;
 
 	comp4->addElement(elem1);
@@ -73,61 +77,30 @@ int main() {
 	comp->addElement(comp3);
 	comp->addElement(comp4);
 
-	Rectangle sc = Rectangle(0, 1, 16, 1);
-	sc.setPointBy(-comp->getBounds()->getX(), -comp->getBounds()->getY());
+	Rectangle sc = Rectangle(0, 0, 12, 1);
+	//sc.setPointBy(-comp->getBounds()->getX(), -comp->getBounds()->getY());
 	//Rectangle isc = comp->getBounds()->intersection(&sc);
-	lcd->setCursor(0, 0);
-	comp->printArea(lcd, &sc);
+	//lcd->setCursor(comp->getBounds()->getX(), comp->getBounds()->getY());
+	//comp->printArea(lcd, &sc);
 
-	//=============================================
-/*
 
-	Rectangle* rec1 = new Rectangle(0, 0, 10, 10);
-	Rectangle* rec2 = new Rectangle(-2, -2, 5, 5);
-	Rectangle* rec3 = new Rectangle(2, 2, 4, 4);
-	Rectangle* rec4 = new Rectangle(8, 8, 5, 5);
-	Rectangle* rec5 = new Rectangle(6, 12, 10, 5);
-	Rectangle* rec6 = new Rectangle(-5, -5, 20, 20);
-	Rectangle* rec7 = new Rectangle(0, 5, 10, 10);
-	Rectangle* rec8 = new Rectangle(-5, 15, 2, 2);
+	CDFrame frame = CDFrame(16, 1, 1);
+	frame.setPosition(0, -1);
+	frame.setPage(comp, 0);
+	frame.print();
 
-	printRect(rec1);
 
-	Rectangle r1 = Rectangle::intersection(*rec1, *rec2);
-	printRect(&r1);
-	interRect(rec1, rec2);
-	Rectangle r2 = Rectangle::intersection(*rec1, *rec3);
-	printRect(&r2);
-	interRect(rec1, rec3);
-	Rectangle r3 = Rectangle::intersection(*rec1, *rec4);
-	printRect(&r3);
-	interRect(rec1, rec4);
-	Rectangle r4 = Rectangle::intersection(*rec1, *rec5);
-	printRect(&r4);
-	interRect(rec1, rec5);
-	Rectangle r5 = Rectangle::intersection(*rec1, *rec6);
-	printRect(&r5);
-	interRect(rec1, rec6);
-	Rectangle r6 = Rectangle::intersection(*rec1, *rec7);
-	printRect(&r6);
-	interRect(rec1, rec7);
-	Rectangle r7 = Rectangle::intersection(*rec1, *rec8);
-	printRect(&r7);
-	interRect(rec1, rec8);
+	//l2->setLabelIndex(2);
+	/*l2->startRolling();
 
-	Rectangle* rec10 = new Rectangle(0, 0, 16, 2);
-	Rectangle* rec11 = new Rectangle(0, 0, 5, 2);
-	Rectangle* rec12 = new Rectangle(0, 1, 18, 2);
-	Rectangle r10 = Rectangle::intersection(*rec10, *rec11);
-	printRect(&r10);
-	interRect(rec10, rec11);
-	Rectangle r11 = Rectangle::intersection(*rec10, *rec12);
-	printRect(&r11);
-	interRect(rec10, rec12);
+	clock_t start = clock();
+
+
+	while(clock()-start<10000){
+		comp->validate();
+	}
 */
-
-
-
+	cout<< "Finished!" << endl;
 	return 0;
 }
 

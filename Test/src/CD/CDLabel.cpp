@@ -1,7 +1,7 @@
 /*
  * CDLabel.cpp
  *
- *  Created on: 18 Μαΐ 2018
+ *  Created on: 18 Ξ�οΏ½Ξ�Β±Ξ�οΏ½ 2018
  *      Author: Synodiporos
  */
 #include <iostream>
@@ -9,6 +9,7 @@ using namespace std;
 #include "CDLabel.h"
 #include "../Utils/CharUtil.h"
 #include "CDConstants.h"
+#include <ctime>
 
 CDLabel::CDLabel() {
 	// TODO Auto-generated constructor stub
@@ -45,12 +46,14 @@ char* CDLabel::getLabel(){
 	return this->label;
 }
 
-void CDLabel::setRolling(){
-
+void CDLabel::startRolling(){
+	this->millis = clock();
+	this->rollState = CDLabelStartRolling;
 }
 
 void CDLabel::stopRolling(){
-
+	this->millis = clock();
+	this->rollState = CDLabelStopRolling;
 }
 
 bool CDLabel::isRolling(){
@@ -58,6 +61,19 @@ bool CDLabel::isRolling(){
 	if(this->rollState == r)
 		return true;
 	return false;
+}
+
+void CDLabel::setLabelIndex(uint8_t index){
+	if(this->strIndex!=index){
+		this->strIndex = index;
+		//cout << "Label: " << label << " index: " << (int)strIndex << endl;
+		//
+		reprint();
+	}
+}
+
+uint8_t CDLabel::getLabelIndex(){
+	return this->strIndex;
 }
 
 void CDLabel::setWidth(uint8_t width){
@@ -81,8 +97,26 @@ Rectangle* CDLabel::getBounds(){
 	return new Rectangle(this->x, this->y, this->width, 0);
 }
 
-void CDLabel::print(LCD* lcd){
+void CDLabel::setParent(ICDElement* parent){
+	this->parent = parent;
+}
 
+ICDElement* CDLabel::getParent(){
+	return this->parent;
+}
+
+/*void CDLabel::print(LCD* lcd){
+
+}
+*/
+void CDLabel::reprint(){
+
+	ICDElement::reprint();
+	/*
+	uint8_t x = strIndex;
+	char* p = CharUtil::strFilling(
+				label, lenght, width, x, ' ');
+	cout << "Reprint: " << p << endl;*/
 }
 
 void CDLabel::printArea(LCD* lcd, Rectangle* area){
@@ -95,7 +129,20 @@ void CDLabel::printArea(LCD* lcd, Rectangle* area){
 }
 
 void CDLabel::validate(){
-	unsigned int delay = CDOptionStartRollDelay;
+	if(isRolling()){
+		unsigned int m = clock() - millis;
+		unsigned int interval = CDLabelRollPI;
+		if(m >= interval){
+			int8_t mvs = lenght - width - strIndex;
+			//cout << "mvs: " << (int)mvs << endl;
+			if(mvs>0){
+				setLabelIndex( strIndex + 1);
+				if(mvs==1)
+					stopRolling();
+			}
+			millis = clock();
+		}
+	}
 }
 
 void CDLabel::recreateStr(){

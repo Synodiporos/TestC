@@ -60,15 +60,28 @@ void CDElement::setBounds(uint8_t x, uint8_t y, int8_t w, int8_t h){
 	this->bounds->setRectangle(x, y, w, h);
 }
 
-void CDElement::print(LCD* lcd){
-
+void CDElement::setParent(ICDElement* parent){
+	this->parent = parent;
 }
+
+
+ICDElement* CDElement::getParent(){
+	return this->parent;
+}
+
+/*void CDElement::print(LCD* lcd){
+	ICDElement::reprint();
+}
+
+void CDElement::reprint(){
+	ICDElement::reprint();
+}*/
 
 void CDElement::printArea(LCD* lcd, Rectangle* area){
 	//if(area->intersects(getBounds())){
 		//Rectangle r = area->intersection(getBounds());
 
-		//lcd->setCursor(area);
+		//lcd->setCursorBy(area);
 		cout << "PrintArea: [";
 		cout << (int)area->getX();
 		cout << ", ";
@@ -77,7 +90,7 @@ void CDElement::printArea(LCD* lcd, Rectangle* area){
 		cout << (int)area->getWidth();
 		cout << ", ";
 		cout << (int)area->getHeight();
-		cout << "] of" ;
+		cout << "] of " ;
 		cout << this << endl;
 	//}
 }

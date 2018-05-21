@@ -1,7 +1,7 @@
 /*
  * CDComponent.cpp
  *
- *  Created on: 12 Μαΐ 2018
+ *  Created on: 12 Ξ�Ξ±Ξ� 2018
  *      Author: Synodiporos
  */
 
@@ -10,16 +10,20 @@ using namespace std;
 #include "CDComponent.h"
 
 CDComponent::CDComponent() : CDElement(){
-	this->elements = new ICDElement*[capacity];
+	this->elements = new ICDElement*[0];
 }
 
 CDComponent::CDComponent(uint8_t capacity) : CDElement(){
 	this->elements = new ICDElement*[capacity];
+	for(int i=0; i<capacity; i++)
+		elements[i] = nullptr;
 }
 
 CDComponent::CDComponent(uint8_t x, uint8_t y, int8_t w, int8_t h) :
 		CDElement(x, y, w, h){
 	this->elements = new ICDElement*[capacity];
+	for(int i=0; i<capacity; i++)
+			elements[i] = nullptr;
 }
 
 CDComponent::CDComponent(uint8_t x, uint8_t y,
@@ -27,6 +31,8 @@ CDComponent::CDComponent(uint8_t x, uint8_t y,
 				CDElement(x, y, w, h){
 	this->capacity = capacity;
 	this->elements = new ICDElement*[capacity];
+	for(int i=0; i<capacity; i++)
+			elements[i] = nullptr;
 }
 
 CDComponent::~CDComponent() {
@@ -42,16 +48,19 @@ uint8_t CDComponent::getCapacity(){
 }
 
 void CDComponent::addElement(ICDElement* element){
-	if(element!=nullptr && size<capacity){
-		elements[size] = element;
+	if(size<capacity){
+		setElementAt(element, size);
 		size++;
 	}
 }
 
 void CDComponent::setElementAt(ICDElement* elem, uint8_t index){
-	if(index<capacity){
+	if(elem && index<capacity){
+		ICDElement* old = elements[index];
+		if(old)
+			old->setParent(nullptr);
 		elements[index] = elem;
-		size++;
+		elem->setParent(this);
 	}
 }
 
@@ -75,16 +84,21 @@ ICDElement** CDComponent::getElements(){
 }
 
 void CDComponent::removeElement(ICDElement* element){
+	if(element)
 	for(unsigned int i=0; i<capacity; i++){
 		ICDElement* elem = elements[i];
 		if(elem==element)
-			elements[i] = nullptr;
+			removeElementAt(i);
 	}
 }
 
 void CDComponent::removeElementAt(uint8_t index){
-	if(index<capacity)
+	if(index<capacity){
+		ICDElement* old = elements[index];
+		if(old)
+			old->setParent(nullptr);
 		elements[index] = nullptr;
+	}
 }
 
 void CDComponent::print(LCD* lcd){
@@ -108,17 +122,7 @@ void CDComponent::printArea(LCD* lcd, Rectangle* area){
 }
 
 void CDComponent::printComponentsArea(LCD* lcd, Rectangle* area){
-	//lcd->setCursor(area);
-	cout << "PrintArea: [";
-	cout << (int)area->getX();
-	cout << ", ";
-	cout << (int)area->getY();
-	cout << ", ";
-	cout << (int)area->getWidth();
-	cout << ", ";
-	cout << (int)area->getHeight();
-	cout << "] of" ;
-	cout << this << endl;
+	CDElement::printArea(lcd, area);
 }
 
 void CDComponent::printChildsArea(LCD* lcd, Rectangle* area){
@@ -129,12 +133,14 @@ void CDComponent::printChildsArea(LCD* lcd, Rectangle* area){
 	for(int i=0; i<capacity; i++){
 		ICDElement* elem = elements[i];
 		if(elem){
-
 			if(area->intersects(elem->getBounds())){
-				Rectangle r = area->intersection(elem->getBounds());
+				Rectangle r = area->intersection(
+						elem->getBounds());
 
-				int cx =  ccx + r.getX() + 0;
-				int cy =  ccy + r.getY() + 0;
+				//int cx =  ccx + r.getX() + 0;
+				//int cy =  ccy + r.getY() + 0;
+				int cx =  ccx + elem->getBounds()->getX();
+				int cy =  ccy + elem->getBounds()->getY();
 
 				lcd->setCursor(cx, cy);
 
@@ -149,6 +155,7 @@ void CDComponent::printChildsArea(LCD* lcd, Rectangle* area){
 
 void CDComponent::validate(){
 	//
+	this->CDElement::validate();
 	validateChilds();
 }
 
