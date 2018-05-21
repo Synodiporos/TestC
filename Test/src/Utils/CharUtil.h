@@ -15,7 +15,8 @@ public:
 	CharUtil();
 	virtual ~CharUtil();
 
-	static char* strFilling(char* str,
+	static char* strFilling(const char* str,
+			uint8_t lenght,
 			uint8_t size, int8_t start, char appender);
 };
 

@@ -10,6 +10,7 @@
 using namespace std;
 #include "CD/CDElement.h"
 #include "CD/CDComponent.h"
+#include "CD/CDLabel.h"
 #include "CD/LCD.h"
 #include "Geometry/Point.h"
 #include "Geometry/Rectangle.h"
@@ -24,44 +25,33 @@ char* normalize(char* str, uint8_t size, uint8_t start);
 int main() {
 	cout << "Testing Started." << endl; // prints !!!Hello World!!!
 
-	char* str = "This str! ";
-	int size = sizeof(str);
+	char* str = "Stay tuned for Caturday – a project from tech fashion designer Anouk Wipprecht. Debuting Saturday";
+	//char* str2 = "Arduino";
 
-	cout << "The size of str: ";
-	cout << str;
-	cout << " is ";
-	cout << size <<endl;
+	//char* rrr = CharUtil::strFilling(str2, 7, 8, 0, '-');
 
-	CharUtil::strFilling(str, 20, 0, '-');
+	//cout << rrr << endl;
 
-	/*int i = 5;
-	test(i);
-
-	string t = "Test";
-	string tt = t.substr(2);
-	string* ss = new string("Arduino");
-	resizeText(t);
-	resizeText(tt);
-	resizeText(*ss);*/
+	//for(int i=-20; i<20; i++){
+		//CharUtil::strFilling(str, 100, 100, i, '.');
+	//}
 
 
-	char* c = "Arduino UV Lamp";
-	size = 16;
-	//normalize(c, size, 0);
-	//normalize(c, size, 5);
-	//normalize(c, size, 10);
-	//normalize(c, size, 15);
 
 
 	//==========================================
 	LCD* lcd = new LCD();
 
 	CDComponent* comp1 = new CDComponent(0, 0, 15, 0);
-	CDComponent* comp2 = new CDComponent(0, 1, 10, 1);
-	CDComponent* comp3 = new CDComponent(11, 1, 5, 1);
+	CDComponent* comp2 = new CDComponent(0, 1, 10, 1, 2);
+	CDComponent* comp3 = new CDComponent(11, 1, 5, 1, 0);
 	CDComponent* comp4 = new CDComponent(-1, 2, 20, 5, 2);
 	CDElement* elem1 = new CDElement(0, 0, 7, 3);
 	CDElement* elem2 = new CDElement(8, 0, 8, 3);
+	char lstr1[] = "Label_1";
+	char lstr2[] = "ArduinoArduino";
+	CDLabel* l1 = new CDLabel(0, 0, 8, lstr1);
+	CDLabel* l2 = new CDLabel(8, 0, 8, lstr2);
 	CDComponent* comp = new CDComponent(0, 0, 16, 40, 4);
 
 	cout << "comp1: " << comp1 << endl;
@@ -75,6 +65,9 @@ int main() {
 	comp4->addElement(elem1);
 	comp4->addElement(elem2);
 
+	comp2->addElement(l1);
+	comp2->addElement(l2);
+
 	comp->addElement(comp1);
 	comp->addElement(comp2);
 	comp->addElement(comp3);
@@ -84,7 +77,7 @@ int main() {
 	sc.setPointBy(-comp->getBounds()->getX(), -comp->getBounds()->getY());
 	//Rectangle isc = comp->getBounds()->intersection(&sc);
 	lcd->setCursor(0, 0);
-	//comp->printArea(lcd, &sc);
+	comp->printArea(lcd, &sc);
 
 	//=============================================
 /*

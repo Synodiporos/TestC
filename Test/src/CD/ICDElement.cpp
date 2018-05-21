@@ -16,3 +16,16 @@ ICDElement::~ICDElement() {
 	// TODO Auto-generated destructor stub
 }
 
+void ICDElement::setParent(ICDElement* parent){
+	this->parent = parent;
+}
+
+ICDElement* ICDElement::getParent(){
+	return this->parent;
+}
+
+bool ICDElement::hasParent(){
+	if(getParent())
+		return false;
+	return true;
+}

@@ -8,9 +8,10 @@
 #ifndef CD_CDLABEL_H_
 #define CD_CDLABEL_H_
 #include "ICDElement.h"
+#include "CDConstants.h"
 //#include "../Geometry/Rectangle.h"
 
-class CDLabel {
+class CDLabel : public ICDElement{
 public:
 	CDLabel();
 	CDLabel(uint8_t width, char* label);
@@ -18,6 +19,10 @@ public:
 	virtual ~CDLabel();
 	void setLabel(char* label);
 	char* getLabel();
+	void setRolling();
+	void stopRolling();
+	bool isRolling();
+
 	void setWidth(uint8_t width);
 	uint8_t getWidth();
 	void setLocation(int8_t x, int8_t y);
@@ -31,7 +36,14 @@ private:
 	int8_t x = 0;
 	int8_t y = 0;
 	uint8_t width = 0;
-	char* label = nullptr;
+	uint8_t lenght = 0;
+	int8_t start = 0;
+	int8_t strIndex = 0;
+	char* label = '\0';
+	uint8_t rollState = CDLabelStopRolling;
+	//char* norm = '\0';
+
+	void recreateStr();
 };
 
 #endif /* CD_CDLABEL_H_ */

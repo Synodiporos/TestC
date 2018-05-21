@@ -23,6 +23,8 @@ public:
 	uint8_t getCursorY();
 	Point* getCursor();
 
+	void print(char* str);
+
 private:
 	Point* cursor = new Point();
 	uint8_t width = 0;

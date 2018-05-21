@@ -133,12 +133,10 @@ void CDComponent::printChildsArea(LCD* lcd, Rectangle* area){
 			if(area->intersects(elem->getBounds())){
 				Rectangle r = area->intersection(elem->getBounds());
 
-
 				int cx =  ccx + r.getX() + 0;
 				int cy =  ccy + r.getY() + 0;
 
 				lcd->setCursor(cx, cy);
-				cout << "Set Cursor[" << cx << ", " << cy << "] " << endl;
 
 				r.setPointBy(-elem->getBounds()->getX(),
 						-elem->getBounds()->getY());
