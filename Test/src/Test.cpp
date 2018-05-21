@@ -52,7 +52,7 @@ int main() {
 	CDComponent* comp4 = new CDComponent(-1, 2, 20, 5, 2);
 	CDElement* elem1 = new CDElement(0, 0, 7, 3);
 	CDElement* elem2 = new CDElement(8, 0, 8, 3);
-	char lstr1[] = "Label_1";
+	char lstr1[] = "Label 101";
 	char lstr2[] = "ArduinoArduino";
 	CDLabel* l1 = new CDLabel(0, 0, 8, lstr1);
 	CDLabel* l2 = new CDLabel(8, 0, 8, lstr2);
@@ -131,19 +131,16 @@ int main() {
 */
 
 
+	l1->startRolling();
 
 	clock_t start = clock();
-	for(int i=0; i<5000; i++)
-		cout << "dasdasd asd asd asa " << endl;
-
-	long m = clock() - start;
-	cout << m << endl;
 
 
-	while(true){
+	while(clock()-start<10000){
 		comp->validate();
 	}
 
+	cout<< "Finished!" << endl;
 	return 0;
 }
 

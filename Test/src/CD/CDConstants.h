@@ -10,6 +10,6 @@
 
 #define CDLabelStartRolling 1;
 #define CDLabelStopRolling 0;
-#define CDLabelRollInterval 1000;
+#define CDLabelRollInterval 500;
 
 #endif /* CD_CDCONSTANTS_H_ */

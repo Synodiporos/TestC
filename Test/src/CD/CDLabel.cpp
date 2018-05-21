@@ -160,6 +160,19 @@ bool CDLabel::isRolling(){
 	return false;
 }
 
+void CDLabel::setLabelIndex(uint8_t index){
+	if(this->strIndex!=index){
+		this->strIndex = index;
+		//cout << "Label: " << label << " index: " << (int)strIndex << endl;
+		//
+		reprint();
+	}
+}
+
+uint8_t CDLabel::getLabelIndex(){
+	return this->strIndex;
+}
+
 void CDLabel::setWidth(uint8_t width){
 	this->width = width;
 }
@@ -181,8 +194,16 @@ Rectangle* CDLabel::getBounds(){
 	return new Rectangle(this->x, this->y, this->width, 0);
 }
 
-void CDLabel::print(LCD* lcd){
+/*void CDLabel::print(LCD* lcd){
 
+}
+*/
+void CDLabel::reprint(){
+	//ICDElement::reprint();
+	uint8_t x = strIndex;
+	char* p = CharUtil::strFilling(
+				label, lenght, width, x, ' ');
+	cout << "Reprint: " << p << endl;
 }
 
 void CDLabel::printArea(LCD* lcd, Rectangle* area){
@@ -195,12 +216,19 @@ void CDLabel::printArea(LCD* lcd, Rectangle* area){
 }
 
 void CDLabel::validate(){
+	if(isRolling()){
+		unsigned int m = clock() - millis;
+		unsigned int interval = CDLabelRollInterval;
+		if(m >= interval){
 
-	long m = clock() - millis;
-	long interval = CDLabelRollInterval;
-	if(m >= interval){
-		cout << "Interval: " << millis << endl;
-		millis = clock();
+			int8_t mvs = lenght - width - strIndex;
+			cout << "mvs: " << (int)mvs << endl;
+			if(mvs>0){
+				setLabelIndex( strIndex + 1);
+			}
+
+			millis = clock();
+		}
 	}
 >>>>>>> 8a34775 Clock
 }

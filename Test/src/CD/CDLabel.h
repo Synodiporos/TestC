@@ -64,13 +64,16 @@ public:
 	void startRolling();
 	void stopRolling();
 	bool isRolling();
+	void setLabelIndex(uint8_t index);
+	uint8_t getLabelIndex();
 
 	void setWidth(uint8_t width);
 	uint8_t getWidth();
 	void setLocation(int8_t x, int8_t y);
 	Point* getLocation();
 	Rectangle* getBounds();
-	void print(LCD* lcd);
+	//void print(LCD* lcd);
+	void reprint();
 	void printArea(LCD* lcd, Rectangle* area);
 	void validate();
 

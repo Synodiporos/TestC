@@ -32,7 +32,8 @@ public:
 	virtual Rectangle* getBounds();
 	virtual void setBounds(Rectangle bounds);
 	virtual void setBounds(uint8_t x, uint8_t y, int8_t w, int8_t h);
-	virtual void print(LCD* lcd);
+	//virtual void print(LCD* lcd);
+	//virtual void reprint();
 	virtual void printArea(LCD* lcd, Rectangle* area);
 	virtual void validate();
 	virtual void revalidate();

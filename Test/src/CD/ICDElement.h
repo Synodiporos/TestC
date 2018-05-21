@@ -28,8 +28,10 @@ public:
 	virtual ICDElement* getParent();
 	virtual bool hasParent();
 	virtual Rectangle* getBounds() = 0;
-	virtual void print(LCD* lcd) = 0;
+	virtual void print(LCD* lcd);
+	virtual void reprint();
 	virtual void printArea(LCD* lcd, Rectangle* area) = 0;
+	virtual void printArea(Rectangle* area);
 	virtual void validate() = 0;
 
 private:

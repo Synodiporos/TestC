@@ -1,7 +1,7 @@
 /*
  * ICDElement.cpp
  *
- *  Created on: 12 Μαΐ 2018
+ *  Created on: 12 Ξ�Ξ±Ξ� 2018
  *      Author: Synodiporos
  */
 
@@ -28,4 +28,29 @@ bool ICDElement::hasParent(){
 	if(getParent())
 		return false;
 	return true;
+}
+
+void ICDElement::print(LCD* lcd){
+	Rectangle* area = new Rectangle(0, 0,
+				area->getWidth(),
+				area->getHeight());
+	printArea(lcd, area);
+}
+
+void ICDElement::reprint(){
+	Rectangle* area = new Rectangle(0, 0,
+			area->getWidth(),
+			area->getHeight());
+	printArea(area);
+}
+
+void ICDElement::printArea(Rectangle* area){
+	if(hasParent()){
+		Rectangle* r = new Rectangle(
+				area->getX() + getBounds()->getX(),
+				area->getY() + getBounds()->getY(),
+				area->getWidth(),
+				area->getHeight());
+		getParent()->printArea(r);
+	}
 }
