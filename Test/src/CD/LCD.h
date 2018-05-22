@@ -27,10 +27,10 @@ public:
 	Point* getCursor();
 
 	void print(char* str);
+	void fillArea(Rectangle* area, char c);
 
 private:
-	//Rectangle* bounds = new Rectangle();
-	Point* cursor = new Point(0, 0);
+	Point cursor = Point(0, 0);
 };
 
 #endif /* CD_LCD_H_ */

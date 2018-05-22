@@ -103,10 +103,13 @@ void CDFrame::reprint(){
 	print();
 }
 
+//To Global Coordinates
 void CDFrame::printArea(LCD* lcd, Rectangle* area){
-	cout << "!!  PrintArea Of Root Parent  area:" ;
+	cout << "!!  PrintArea Of Root Parent  area:" << endl;
+	//lcd->setCursor(0, 0);
 
 	cout << "PrintArea: [";
+
 	cout << (int)area->getX();
 	cout << ", ";
 	cout << (int)area->getY();
@@ -114,18 +117,18 @@ void CDFrame::printArea(LCD* lcd, Rectangle* area){
 	cout << (int)area->getWidth();
 	cout << ", ";
 	cout << (int)area->getHeight();
-	cout << "] of" ;
+	cout << "] of " ;
 	cout << this << endl;
+
 
 	if(lcd){
 		ICDElement* cp = getCurrentPage();
 		if(cp){
-			//sc.setPointBy(-comp->getBounds()->getX(), -comp->getBounds()->getY());
-			//Rectangle isc = cp->getBounds()->intersection(bounds);
-			//lcd->setCursor(cp->getBounds()->getX(),
-			//		cp->getBounds()->getY());
-			if(cp->getBounds()->intersects(area)){
-				Rectangle inter = cp->getBounds()->intersection(area);
+			Rectangle inter = cp->getBounds()->intersection(area);
+			if(!inter.isNull()){
+				lcd->setCursor(
+						cp->getBounds()->getX() - getBounds()->getX(),
+						cp->getBounds()->getY() - getBounds()->getY());
 				inter.setPointBy(-cp->getBounds()->getX(),
 						-cp->getBounds()->getY());
 				cp->printArea(lcd, &inter);
@@ -135,11 +138,9 @@ void CDFrame::printArea(LCD* lcd, Rectangle* area){
 }
 
 void CDFrame::printArea(Rectangle* area){
-	if(getBounds()->intersects(area)){
-		//area->setPointBy(getBounds()->getX(), getBounds()->getY());
-		Rectangle inter = getBounds()->intersection(area);
+	Rectangle inter = getBounds()->intersection(area);
+	if(!inter.isNull())
 		printArea(&lcd, &inter);
-	}
 }
 
 void CDFrame::validate(){

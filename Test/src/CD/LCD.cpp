@@ -19,17 +19,17 @@ LCD::LCD(int8_t x, int8_t y, uint8_t width, uint8_t height)
 }
 
 LCD::~LCD() {
-	delete cursor;
+
 }
 
 void LCD::setCursor(uint8_t x, uint8_t y){
-	short int rx = x - getX();
-	short int ry = y - getY();
-	this->cursor->setPoint(x, y);
+	if(!cursor.equals(x, y)){
+		this->cursor.setPoint(x, y);
 
-	cout << "\t>>>   LCD: Set Cursor[" <<
-			(int)rx << ", "
-			<< (int)ry << "] " << endl;
+		cout << "\t>>>   LCD: Set Cursor[" <<
+				(int)x << ", "
+				<< (int)y << "] " << endl;
+	}
 }
 
 void LCD::setCursor(Point* cords){
@@ -44,18 +44,31 @@ void LCD::setCursorBy(Point* cords){
 }
 
 uint8_t LCD::getCursorX(){
-	return this->cursor->getX();
+	return this->cursor.getX();
 }
 
 uint8_t LCD::getCursorY(){
-	return this->cursor->getY();
+	return this->cursor.getY();
 }
 
 Point* LCD::getCursor(){
-	return this->cursor;
+	return &this->cursor;
 }
 
 void LCD::print(char* str){
 	if(str)
 	cout << "\t>>>   LCD Print -> " << str << endl;
+}
+
+void LCD::fillArea(Rectangle* area, char c){
+
+	char str[area->getWidth()+1];
+	for(short int i=0; i<area->getWidth(); i++)
+		str[i] = c;
+	str[area->getWidth()] = '\0';
+
+	for(short int y = 0; y<area->getHeight(); y++){
+		print(str);
+	}
+
 }

@@ -1,7 +1,7 @@
 /*
  * Rectangle.cpp
  *
- *  Created on: 13 Μαΐ 2018
+ *  Created on: 13 Ξ�Ξ±Ξ� 2018
  *      Author: Synodiporos
  */
 
@@ -55,6 +55,10 @@ uint8_t Rectangle::getHeight(){
 
 Dimension Rectangle::getDimensions(){
 	return this->dims;
+}
+
+bool Rectangle::isNull(){
+	return getWidth()==0 || getHeight()==0;
 }
 
 Rectangle Rectangle::intersection(Rectangle* rec){

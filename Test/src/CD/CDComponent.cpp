@@ -133,12 +133,9 @@ void CDComponent::printChildsArea(LCD* lcd, Rectangle* area){
 	for(int i=0; i<capacity; i++){
 		ICDElement* elem = elements[i];
 		if(elem){
-			if(area->intersects(elem->getBounds())){
-				Rectangle r = area->intersection(
-						elem->getBounds());
-
-				//int cx =  ccx + r.getX() + 0;
-				//int cy =  ccy + r.getY() + 0;
+			Rectangle r = area->intersection(
+									elem->getBounds());
+			if(!r.isNull()){
 				int cx =  ccx + elem->getBounds()->getX();
 				int cy =  ccy + elem->getBounds()->getY();
 
@@ -147,9 +144,11 @@ void CDComponent::printChildsArea(LCD* lcd, Rectangle* area){
 				r.setPointBy(-elem->getBounds()->getX(),
 						-elem->getBounds()->getY());
 				elem->printArea(lcd, &r);
+
 			}
 		}
 	}
+	lcd->setCursor(ccx, ccy);
 	cout << "]" << endl;
 }
 
