@@ -81,7 +81,7 @@ void CDElement::printArea(LCD* lcd, Rectangle* area){
 	//if(area->intersects(getBounds())){
 		//Rectangle r = area->intersection(getBounds());
 
-		//lcd->setCursor(area);
+		//lcd->setCursorBy(area);
 		cout << "PrintArea: [";
 		cout << (int)area->getX();
 		cout << ", ";
@@ -90,7 +90,7 @@ void CDElement::printArea(LCD* lcd, Rectangle* area){
 		cout << (int)area->getWidth();
 		cout << ", ";
 		cout << (int)area->getHeight();
-		cout << "] of" ;
+		cout << "] of " ;
 		cout << this << endl;
 	//}
 }

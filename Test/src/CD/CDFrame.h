@@ -7,13 +7,15 @@
 
 #ifndef CD_CDFRAME_H_
 #define CD_CDFRAME_H_
+//class ICDElement;
 #include "ICDElement.h"
 
 class CDFrame : public ICDElement{
 public:
 
-	CDFrame(uint8_t width, uint8_t height);
 	CDFrame(uint8_t width, uint8_t height, uint8_t capacity);
+	CDFrame(short int x, short int y,
+			uint8_t width, uint8_t height, uint8_t capacity);
 	virtual ~CDFrame();
 
 	void setPage(ICDElement* elem, uint8_t index);
@@ -22,9 +24,10 @@ public:
 	void setCurrentPageIndex(uint8_t index);
 	ICDElement* getCurrentPage();
 
-	Rectangle* getBounds();
 	void setParent(ICDElement* parent);
 	ICDElement* getParent();
+	Rectangle* getBounds();
+	void setPosition(short int x, short int y);
 
 	void print();
 	void print(LCD* lcd);
@@ -34,8 +37,8 @@ public:
 	void validate();
 
 private:
-	LCD lcd = LCD();
-	Rectangle* bounds  = new Rectangle();
+	ICDElement* parent = nullptr;
+	LCD lcd ;
 	ICDElement** elements = nullptr;
 	uint8_t currentIndex = -1;
 	uint8_t capacity = 0;

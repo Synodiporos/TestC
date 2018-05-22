@@ -11,15 +11,17 @@
 #include "../Geometry/Point.h"
 #include "../Geometry/Rectangle.h"
 
-class LCD {
+class LCD : public Rectangle{
 public:
-	LCD();
+	LCD(int8_t x, int8_t y);
+	LCD(int8_t x, int8_t y, uint8_t width, uint8_t height);
 	virtual ~LCD();
 
-	void init(uint8_t width, uint8_t height);
+	//void init(uint8_t width, uint8_t height);
 
 	void setCursor(uint8_t x, uint8_t y);
 	void setCursor(Point* cords);
+	void setCursorBy(Point* cords);
 	uint8_t getCursorX();
 	uint8_t getCursorY();
 	Point* getCursor();
@@ -27,9 +29,6 @@ public:
 	void print(char* str);
 
 private:
-	Rectangle* bounds = new Rectangle();
-	uint8_t width = 0;
-	uint8_t height = 0;
 	Point* cursor = new Point(0, 0);
 };
 
