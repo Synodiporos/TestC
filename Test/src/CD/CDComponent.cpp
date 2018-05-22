@@ -117,7 +117,7 @@ void CDComponent::printChilds(LCD* lcd){
 
 void CDComponent::printArea(LCD* lcd, Rectangle* area){
 
-	printComponentsArea(lcd, area);
+	//printComponentsArea(lcd, area);
 	printChildsArea(lcd, area);
 }
 

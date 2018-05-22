@@ -29,7 +29,6 @@ public:
 	void print(char* str);
 
 private:
-	//Rectangle* bounds = new Rectangle();
 	Point* cursor = new Point(0, 0);
 };
 

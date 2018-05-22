@@ -93,6 +93,7 @@ int main() {
 	//l2->setLabelIndex(2);
 	/*l2->startRolling();
 
+
 	clock_t start = clock();
 
 
@@ -100,6 +101,17 @@ int main() {
 		comp->validate();
 	}
 */
+
+	l1->setLabelIndex(1);
+	//l1->startRolling();
+
+	clock_t start = clock();
+
+
+	//while(clock()-start<10000){
+	//	comp->validate();
+	//}
+
 	cout<< "Finished!" << endl;
 	return 0;
 }
