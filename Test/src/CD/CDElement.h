@@ -43,7 +43,7 @@ public:
 
 private:
 	//Dimensions in pixels
-	Rectangle* bounds = new Rectangle();
+	Rectangle bounds;
 	ICDElement* parent = nullptr;
 };
 

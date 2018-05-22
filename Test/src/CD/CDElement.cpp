@@ -9,46 +9,47 @@ using namespace std;
 #include "CDElement.h"
 //#include "Arduino.h"
 
-CDElement::CDElement() {
-
+CDElement::CDElement() : bounds{Rectangle()}{
+	setBounds(0,0,0,0);
 }
 
-CDElement::CDElement(uint8_t x, uint8_t y, int8_t w, int8_t h){
+CDElement::CDElement(uint8_t x, uint8_t y, int8_t w, int8_t h)
+	: bounds{Rectangle(x,y,w,h)}{
 	setBounds(x, y, w, h);
 }
 
 CDElement::~CDElement() {
-	delete bounds;
+
 }
 
 void CDElement::setDimensions(uint8_t width, uint8_t height){
-	if(this->bounds->setDimensions(width, height)){
+	if(this->bounds.setDimensions(width, height)){
 		revalidate();
 	}
 }
 
 Dimension CDElement::getDimensions(){
-	return this->bounds->getDimensions();
+	return this->bounds.getDimensions();
 }
 
 void CDElement::setPosition(uint8_t x, uint8_t y){
-	if(this->bounds->setPoint(x, y)){
+	if(this->bounds.setPoint(x, y)){
 		revalidate();
 	}
 }
 
 Point* CDElement::getPosition(){
-	return this->bounds;
+	return &this->bounds;
 }
 
 void CDElement::moveBy(uint8_t x, uint8_t y){
-	if(this->bounds->setPointBy(x, y)){
+	if(this->bounds.setPointBy(x, y)){
 		revalidate();
 	}
 }
 
 Rectangle* CDElement::getBounds(){
-	return this->bounds;
+	return &this->bounds;
 }
 
 void CDElement::setBounds(Rectangle bounds){
@@ -57,7 +58,7 @@ void CDElement::setBounds(Rectangle bounds){
 }
 
 void CDElement::setBounds(uint8_t x, uint8_t y, int8_t w, int8_t h){
-	this->bounds->setRectangle(x, y, w, h);
+	this->bounds.setRectangle(x, y, w, h);
 }
 
 void CDElement::setParent(ICDElement* parent){
@@ -80,8 +81,12 @@ void CDElement::reprint(){
 void CDElement::printArea(LCD* lcd, Rectangle* area){
 	//if(area->intersects(getBounds())){
 		//Rectangle r = area->intersection(getBounds());
+		//int ccx = lcd->getCursorX();
+		//int ccy = lcd->getCursorY();
 
-		//lcd->setCursorBy(area);
+		//lcd->setCursor(ccx+area->getX(), ccy+area->getY());
+
+
 		cout << "PrintArea: [";
 		cout << (int)area->getX();
 		cout << ", ";
@@ -92,6 +97,9 @@ void CDElement::printArea(LCD* lcd, Rectangle* area){
 		cout << (int)area->getHeight();
 		cout << "] of " ;
 		cout << this << endl;
+
+		//lcd->fillArea(area, '.');
+		//lcd->setCursor(ccx, ccy);
 	//}
 }
 
