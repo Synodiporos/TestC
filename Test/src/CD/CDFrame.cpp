@@ -108,6 +108,7 @@ void CDFrame::printArea(LCD* lcd, Rectangle* area){
 	lcd->setCursor(0, 0);
 
 	/*cout << "PrintArea: [";
+
 	cout << (int)area->getX();
 	cout << ", ";
 	cout << (int)area->getY();
@@ -115,8 +116,9 @@ void CDFrame::printArea(LCD* lcd, Rectangle* area){
 	cout << (int)area->getWidth();
 	cout << ", ";
 	cout << (int)area->getHeight();
-	cout << "] of" ;
+	cout << "] of " ;
 	cout << this << endl;*/
+
 
 	if(lcd){
 		ICDElement* cp = getCurrentPage();
@@ -130,6 +132,7 @@ void CDFrame::printArea(LCD* lcd, Rectangle* area){
 				//lcd->setCursor(inter.getX(), inter.getY());
 				//inter.setPointBy(-cp->getBounds()->getX(),
 				//		-cp->getBounds()->getY());
+
 				cp->printArea(lcd, &inter);
 			}
 		}

@@ -25,6 +25,7 @@ LCD::~LCD() {
 void LCD::setCursor(uint8_t x, uint8_t y){
 	short int rx = x ;//- getX();
 	short int ry = y ;//- getY();
+
 	this->cursor->setPoint(x, y);
 
 	cout << "\t>>>   LCD: Set Cursor[" <<

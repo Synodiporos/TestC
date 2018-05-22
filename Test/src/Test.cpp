@@ -85,9 +85,9 @@ int main() {
 
 	CDFrame frame = CDFrame(16, 2, 1);
 	frame.setPosition(0, 1);
+
 	frame.setPage(comp, 0);
 	frame.print();
-
 
 	CDComponent cc = CDComponent();
 	cout << "Size of comp: " << sizeof(*comp) << endl;
@@ -96,6 +96,7 @@ int main() {
 
 	//l2->setLabelIndex(2);
 	/*l2->startRolling();
+
 
 
 	clock_t start = clock();
