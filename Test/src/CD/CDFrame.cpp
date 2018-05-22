@@ -9,23 +9,27 @@
 using namespace std;
 #include "CDFrame.h"
 
-CDFrame::CDFrame(uint8_t width, uint8_t height){
-	elements = new ICDElement*[0];
+CDFrame::CDFrame(uint8_t width, uint8_t height,
+		uint8_t capacity) : lcd{LCD(0, 0, width, height)}{
+	//lcd = LCD(width, height);
+	this->capacity = capacity;
 	init();
 }
 
-CDFrame::CDFrame(uint8_t width, uint8_t height, uint8_t capacity){
-	this->bounds->setDimensions(width, height);
+CDFrame::CDFrame(short int x, short int y,
+		uint8_t width, uint8_t height, uint8_t capacity)
+		:lcd{LCD(x, y, width, height)}{
+	//lcd = LCD(x, y, width, height);
 	this->capacity = capacity;
-	elements = new ICDElement*[capacity];
-	for(int i=0; i<capacity; i++)
-		elements[i] = nullptr;
 	init();
 }
 
 void CDFrame::init(){
-	lcd.init(bounds->getWidth(), bounds->getHeight());
-	lcd.setCursor(0, 0);
+	//lcd.init(getBounds()->getWidth(), getBounds()->getHeight());
+	//lcd.setCursor(0, 0);
+	elements = new ICDElement*[capacity];
+	for(int i=0; i<capacity; i++)
+		elements[i] = nullptr;
 }
 
 CDFrame::~CDFrame() {
@@ -70,16 +74,20 @@ ICDElement* CDFrame::getCurrentPage(){
 	return nullptr;
 }
 
-Rectangle* CDFrame::getBounds(){
-	return this->bounds;
-}
-
 void CDFrame::setParent(ICDElement* parent){
-
+	this->parent = parent;
 }
 
 ICDElement* CDFrame::getParent(){
-	return nullptr;
+	return this->parent;
+}
+
+Rectangle* CDFrame::getBounds(){
+	return &lcd;
+}
+
+void CDFrame::setPosition(short int x, short int y){
+	lcd.setPoint(x, y);
 }
 
 void CDFrame::print(){
@@ -88,7 +96,7 @@ void CDFrame::print(){
 
 void CDFrame::print(LCD* lcd){
 	if(lcd)
-		printArea(lcd, bounds);
+		printArea(lcd, getBounds());
 }
 
 void CDFrame::reprint(){
@@ -96,16 +104,42 @@ void CDFrame::reprint(){
 }
 
 void CDFrame::printArea(LCD* lcd, Rectangle* area){
-	cout << "!!  PrintArea Of Root Parent  !!" << endl;
+	cout << "!!  PrintArea Of Root Parent  area:" ;
+
+	cout << "PrintArea: [";
+	cout << (int)area->getX();
+	cout << ", ";
+	cout << (int)area->getY();
+	cout << ", ";
+	cout << (int)area->getWidth();
+	cout << ", ";
+	cout << (int)area->getHeight();
+	cout << "] of" ;
+	cout << this << endl;
+
 	if(lcd){
 		ICDElement* cp = getCurrentPage();
-		if(cp)
-			cp->printArea(lcd, area);
+		if(cp){
+			//sc.setPointBy(-comp->getBounds()->getX(), -comp->getBounds()->getY());
+			//Rectangle isc = cp->getBounds()->intersection(bounds);
+			//lcd->setCursor(cp->getBounds()->getX(),
+			//		cp->getBounds()->getY());
+			if(cp->getBounds()->intersects(area)){
+				Rectangle inter = cp->getBounds()->intersection(area);
+				inter.setPointBy(-cp->getBounds()->getX(),
+						-cp->getBounds()->getY());
+				cp->printArea(lcd, &inter);
+			}
+		}
 	}
 }
 
 void CDFrame::printArea(Rectangle* area){
-	printArea(&lcd, area);
+	if(getBounds()->intersects(area)){
+		//area->setPointBy(getBounds()->getX(), getBounds()->getY());
+		Rectangle inter = getBounds()->intersection(area);
+		printArea(&lcd, &inter);
+	}
 }
 
 void CDFrame::validate(){

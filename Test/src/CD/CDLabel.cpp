@@ -131,7 +131,8 @@ void CDLabel::printArea(LCD* lcd, Rectangle* area){
 void CDLabel::validate(){
 	if(isRolling()){
 		unsigned int m = clock() - millis;
-		unsigned int interval = CDLabelRollInterval;
+		unsigned int interval = CDLabelRollPI;
+
 		if(m >= interval){
 			int8_t mvs = lenght - width - strIndex;
 			//cout << "mvs: " << (int)mvs << endl;
