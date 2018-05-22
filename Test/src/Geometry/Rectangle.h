@@ -1,7 +1,7 @@
 /*
  * Rectangle.h
  *
- *  Created on: 13 Μαΐ 2018
+ *  Created on: 13 Ξ�Ξ±Ξ� 2018
  *      Author: Synodiporos
  */
 
@@ -26,6 +26,7 @@ public:
 	uint8_t getWidth();
 	uint8_t getHeight();
 	Dimension getDimensions();
+	bool isNull();
 
 	Rectangle intersection(Rectangle* rec);
 	bool intersects(Rectangle* rec);

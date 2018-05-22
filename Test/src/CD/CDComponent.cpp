@@ -117,22 +117,12 @@ void CDComponent::printChilds(LCD* lcd){
 
 void CDComponent::printArea(LCD* lcd, Rectangle* area){
 
-	//printComponentsArea(lcd, area);
+	printComponentsArea(lcd, area);
 	printChildsArea(lcd, area);
 }
 
 void CDComponent::printComponentsArea(LCD* lcd, Rectangle* area){
-	//lcd->setCursor(area);
-	cout << "PrintArea: [";
-	cout << (int)area->getX();
-	cout << ", ";
-	cout << (int)area->getY();
-	cout << ", ";
-	cout << (int)area->getWidth();
-	cout << ", ";
-	cout << (int)area->getHeight();
-	cout << "] of" ;
-	cout << this << endl;
+	CDElement::printArea(lcd, area);
 }
 
 void CDComponent::printChildsArea(LCD* lcd, Rectangle* area){
@@ -143,20 +133,26 @@ void CDComponent::printChildsArea(LCD* lcd, Rectangle* area){
 	for(int i=0; i<capacity; i++){
 		ICDElement* elem = elements[i];
 		if(elem){
-			if(area->intersects(elem->getBounds())){
-				Rectangle r = area->intersection(elem->getBounds());
+			Rectangle r = area->intersection(
+									elem->getBounds());
+			if(!r.isNull()){
+				//int cx =  ccx + r.getX() + 0;
+				//int cy =  ccy + r.getY() + 0;
 
-				int cx =  ccx + r.getX() + 0;
-				int cy =  ccy + r.getY() + 0;
+				int cx =  ccx + r.getX() - getBounds()->getX();
+				int cy =  ccy + r.getY() - getBounds()->getX();
+				cout << r.getY() << endl;
 
 				lcd->setCursor(cx, cy);
 
 				r.setPointBy(-elem->getBounds()->getX(),
 						-elem->getBounds()->getY());
 				elem->printArea(lcd, &r);
+
 			}
 		}
 	}
+	lcd->setCursor(ccx, ccy);
 	cout << "]" << endl;
 }
 

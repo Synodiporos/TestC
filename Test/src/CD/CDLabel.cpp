@@ -94,7 +94,7 @@ Point* CDLabel::getLocation(){
 }
 
 Rectangle* CDLabel::getBounds(){
-	return new Rectangle(this->x, this->y, this->width, 0);
+	return new Rectangle(this->x, this->y, this->width, 1);
 }
 
 void CDLabel::setParent(ICDElement* parent){
@@ -131,7 +131,8 @@ void CDLabel::printArea(LCD* lcd, Rectangle* area){
 void CDLabel::validate(){
 	if(isRolling()){
 		unsigned int m = clock() - millis;
-		unsigned int interval = CDLabelRollInterval;
+		unsigned int interval = CDLabelRollPI;
+
 		if(m >= interval){
 			int8_t mvs = lenght - width - strIndex;
 			//cout << "mvs: " << (int)mvs << endl;
