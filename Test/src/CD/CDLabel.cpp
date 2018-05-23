@@ -11,11 +11,6 @@ using namespace std;
 #include "CDConstants.h"
 #include <ctime>
 
-CDLabel::CDLabel() {
-	// TODO Auto-generated constructor stub
-
-}
-
 CDLabel::CDLabel(uint8_t width, char* label){
 	setWidth(width);
 	setLabel(label);
@@ -132,6 +127,9 @@ void CDLabel::reprint(){
 void CDLabel::printArea(LCD* lcd, Rectangle* area){
 	if(area->getY()!=0)
 		return;
+
+	//Cursor
+
 	int8_t x = area->getX() + strIndex;
 	char* p = CharUtil::strFilling(
 			label, lenght, area->getWidth(), x, ' ');

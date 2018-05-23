@@ -1,7 +1,7 @@
 /*
  * CDComponent.cpp
  *
- *  Created on: 12 Ξ�Ξ±Ξ� 2018
+ *  Created on: 12 Ξ�οΏ½Ξ�Β±Ξ�οΏ½ 2018
  *      Author: Synodiporos
  */
 
@@ -116,9 +116,13 @@ void CDComponent::printChilds(LCD* lcd){
 }
 
 void CDComponent::printArea(LCD* lcd, Rectangle* area){
+	int ccx = lcd->getCursorX();
+	int ccy = lcd->getCursorY();
 
 	printComponentsArea(lcd, area);
 	printChildsArea(lcd, area);
+
+	lcd->setCursor(ccx, ccy);
 }
 
 void CDComponent::printComponentsArea(LCD* lcd, Rectangle* area){
@@ -127,28 +131,11 @@ void CDComponent::printComponentsArea(LCD* lcd, Rectangle* area){
 
 void CDComponent::printChildsArea(LCD* lcd, Rectangle* area){
 	cout << " childs[ " << endl;
-	int ccx = lcd->getCursorX();
-	int ccy = lcd->getCursorY();
 
 	for(int i=0; i<capacity; i++){
 		ICDElement* elem = elements[i];
-		if(elem){
-			Rectangle r = area->intersection(
-									elem->getBounds());
-			if(!r.isNull()){
-				int cx =  ccx + elem->getBounds()->getX();
-				int cy =  ccy + elem->getBounds()->getY();
-
-				lcd->setCursor(cx, cy);
-
-				r.setPointBy(-elem->getBounds()->getX(),
-						-elem->getBounds()->getY());
-				elem->printArea(lcd, &r);
-
-			}
-		}
+		printChild(elem, lcd, area);
 	}
-	lcd->setCursor(ccx, ccy);
 	cout << "]" << endl;
 }
 
@@ -163,6 +150,23 @@ void CDComponent::validateChilds(){
 		ICDElement* elem = elements[i];
 		if(elem){
 			elem->validate();
+		}
+	}
+}
+
+void CDComponent::printChild(ICDElement* child, LCD* lcd, Rectangle* area){
+	if(child){
+		Rectangle r = area->intersection(
+				child->getBounds());
+		if(!r.isNull()){
+			int cx =  0 + child->getBounds()->getX();
+			int cy =  0 + child->getBounds()->getY();
+
+			lcd->setCursorBy(cx, cy);
+
+			r.setPointBy(-child->getBounds()->getX(),
+					-child->getBounds()->getY());
+			child->printArea(lcd, &r);
 		}
 	}
 }

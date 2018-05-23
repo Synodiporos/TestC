@@ -1,7 +1,7 @@
 /*
  * LCD.cpp
  *
- *  Created on: 12 Ξ�Ξ±Ξ� 2018
+ *  Created on: 12 Ξ�οΏ½Ξ�Β±Ξ�οΏ½ 2018
  *      Author: Synodiporos
  */
 
@@ -30,6 +30,10 @@ void LCD::setCursor(uint8_t x, uint8_t y){
 				(int)x << ", "
 				<< (int)y << "] " << endl;
 	}
+}
+
+void LCD::setCursorBy(uint8_t x, uint8_t y){
+	setCursorBy(new Point(x, y));
 }
 
 void LCD::setCursor(Point* cords){

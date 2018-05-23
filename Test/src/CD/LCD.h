@@ -1,7 +1,7 @@
 /*
  * LCD.h
  *
- *  Created on: 12 Ξ�Ξ±Ξ� 2018
+ *  Created on: 12 Ξ�οΏ½Ξ�Β±Ξ�οΏ½ 2018
  *      Author: Synodiporos
  */
 
@@ -20,6 +20,7 @@ public:
 	//void init(uint8_t width, uint8_t height);
 
 	void setCursor(uint8_t x, uint8_t y);
+	void setCursorBy(uint8_t x, uint8_t y);
 	void setCursor(Point* cords);
 	void setCursorBy(Point* cords);
 	uint8_t getCursorX();

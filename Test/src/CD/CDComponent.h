@@ -1,7 +1,7 @@
 /*
  * CDComponent.h
  *
- *  Created on: 12 Ξ�Ξ±Ξ� 2018
+ *  Created on: 12 Ξ�οΏ½Ξ�Β±Ξ�οΏ½ 2018
  *      Author: Synodiporos
  */
 
@@ -42,6 +42,7 @@ protected:
 	virtual void printComponentsArea(LCD* lcd, Rectangle* area);
 	virtual void printChildsArea(LCD* lcd, Rectangle* area);
 	virtual void printChilds(LCD* lcd);
+	virtual void printChild(ICDElement* child, LCD* lcd, Rectangle* area);
 	virtual void validateChilds();
 };
 

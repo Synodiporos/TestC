@@ -96,14 +96,14 @@ int main() {
 
 	//l1->setLabelIndex(2);
 
-	l1->startRollingImmediately();
+	//l1->startRollingImmediately();
 
 	clock_t start = clock();
 
 
-	while(clock()-start<30000){
-		comp->validate();
-	}
+	//while(clock()-start<10000){
+	//	comp->validate();
+	//}
 
 	cout<< "Finished!" << endl;
 	return 0;

@@ -7,30 +7,45 @@
 
 #ifndef CD_CDOPTION_H_
 #define CD_CDOPTION_H_
+#include "CDOptionIndicator.h"
 #include "CDLabel.h"
 #include "../Commons/IStateListener.h"
 #include <stdint.h>
 
-class CDOption : public CDLabel{
+class CDOption : public ICDElement{
 public:
-	static const uint8_t UNHOVERED = 0;
-	static const uint8_t HOVERED = 1;
-	static const uint8_t CLICKED = 2;
-
-	CDOption();
+	CDOption(uint8_t width, char* label);
+	CDOption(int8_t x, int8_t y, uint8_t width, char* label);
 	virtual ~CDOption();
+
+	virtual void setParent(ICDElement* parent);
+	virtual ICDElement* getParent();
+	virtual Rectangle* getBounds();
+
+	void setWidth(uint8_t width);
+	uint8_t getWidth();
+	void setLocation(int8_t x, int8_t y);
+	Point* getLocation();
+
 	void setOptionState(uint8_t state);
 	uint8_t getOptionState();
-	//void setStateListener(IStateListener* l);
-	//void removeStateListener(IStateListener* l);
-	//IStateListener* getStateListener();
+	void setStateListener(IStateListener* l);
+	void removeStateListener(IStateListener* l);
+	IStateListener* getStateListener();
 
-
+	virtual void printIndicator();
+	virtual void printArea(LCD* lcd, Rectangle* area);
+	virtual void validate();
 
 private:
-	uint8_t state = UNHOVERED;
+	ICDElement* parent = nullptr;
+	int8_t x = 0;
+	int8_t y = 0;
+	uint8_t width = 0;
 	IStateListener* stateListener = nullptr;
-
+	CDOptionIndicator indicator = CDOptionIndicator();
+	CDLabel label;
+	void init();
 	void notifyStateChanged();
 
 };
