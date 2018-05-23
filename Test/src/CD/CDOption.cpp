@@ -40,7 +40,13 @@ Rectangle* CDOption::getBounds(){
 	return new Rectangle(x, y, 1, 1);
 }
 
+CDLabel* CDOption::getLabel(){
+	return this->label;
+}
 
+CDOptionIndicator* CDOption::getIndicator(){
+	return this->indicator;
+}
 
 void CDOption::setWidth(uint8_t width){
 	this->width = width;
@@ -89,8 +95,30 @@ void CDOption::printIndicator(){
 }
 
 void CDOption::printArea(LCD* lcd, Rectangle* area){
+	int ccx = lcd->getCursorX();
+	int ccy = lcd->getCursorY();
 
+	printChild(&indicator, lcd, area);
+	printChild(&label, lcd, area);
 
+	lcd->setCursor(ccx, ccy);
+}
+
+void CDOption::printChild(ICDElement* child, LCD* lcd, Rectangle* area){
+	if(child){
+		Rectangle r = area->intersection(
+				child->getBounds());
+		if(!r.isNull()){
+			int cx =  0 + child->getBounds()->getX();
+			int cy =  0 + child->getBounds()->getY();
+
+			lcd->setCursorBy(cx, cy);
+
+			r.setPointBy(-child->getBounds()->getX(),
+					-child->getBounds()->getY());
+			child->printArea(lcd, &r);
+		}
+	}
 }
 
 void CDOption::validate(){

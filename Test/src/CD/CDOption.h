@@ -21,7 +21,8 @@ public:
 	virtual void setParent(ICDElement* parent);
 	virtual ICDElement* getParent();
 	virtual Rectangle* getBounds();
-
+	CDLabel* getLabel();
+	CDOptionIndicator* getIndicator();
 	void setWidth(uint8_t width);
 	uint8_t getWidth();
 	void setLocation(int8_t x, int8_t y);
@@ -37,7 +38,7 @@ public:
 	virtual void printArea(LCD* lcd, Rectangle* area);
 	virtual void validate();
 
-private:
+protected:
 	ICDElement* parent = nullptr;
 	int8_t x = 0;
 	int8_t y = 0;
@@ -47,6 +48,7 @@ private:
 	CDLabel label;
 	void init();
 	void notifyStateChanged();
+	virtual void printChild(ICDElement* child, LCD* lcd, Rectangle* area);
 
 };
 

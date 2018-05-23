@@ -56,7 +56,7 @@ void CDOptionIndicator::printArea(LCD* lcd, Rectangle* area){
 			break;
 		}
 	}
-	//lcd->print(&ind);
+	lcd->print(&ind);
 }
 
 void CDOptionIndicator::validate(){
