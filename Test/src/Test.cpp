@@ -94,28 +94,16 @@ int main() {
 	cout << "Size of frame: " << sizeof(frame) << endl;
 
 
-	l1->setLabelIndex(2);
-	/*l2->startRolling();
+	//l1->setLabelIndex(2);
 
-
+	l1->startRollingImmediately();
 
 	clock_t start = clock();
 
 
-	while(clock()-start<10000){
+	while(clock()-start<30000){
 		comp->validate();
 	}
-*/
-
-	//l1->setLabelIndex(1);
-	//l1->startRolling();
-
-	clock_t start = clock();
-
-
-	//while(clock()-start<10000){
-	//	comp->validate();
-	//}
 
 	cout<< "Finished!" << endl;
 	return 0;

@@ -1,7 +1,7 @@
 /*
  * CDLabel.h
  *
- *  Created on: 18 Ξ�οΏ½Ξ�Β±Ξ�οΏ½ 2018
+ *  Created on: 18 Ξ�οΏ½ΞΏΞ�Β½Ξ�οΏ½Ξ’Β±Ξ�οΏ½ΞΏΞ�Β½ 2018
  *      Author: Synodiporos
  */
 
@@ -9,6 +9,7 @@
 #define CD_CDLABEL_H_
 #include "ICDElement.h"
 #include "CDConstants.h"
+#include <stdint.h>
 //#include "../Geometry/Rectangle.h"
 
 class CDLabel : public ICDElement{
@@ -20,7 +21,10 @@ public:
 	void setLabel(char* label);
 	char* getLabel();
 	void startRolling();
+	void startRollingImmediately();
 	void stopRolling();
+	void setRollingState(uint8_t state);
+	uint8_t getRollingState();
 	bool isRolling();
 	void setLabelIndex(uint8_t index);
 	uint8_t getLabelIndex();
@@ -34,10 +38,16 @@ public:
 	void setParent(ICDElement* parent);
 	ICDElement* getParent();
 
+
 	//void print(LCD* lcd);
 	void reprint();
 	void printArea(LCD* lcd, Rectangle* area);
 	void validate();
+
+	static const uint8_t ROLLING_BEGIN = 1;
+	static const uint8_t ROLLING_ROLL = 2;
+	static const uint8_t ROLLING_END = 3;
+	static const uint8_t ROLLING_STOP = 0;
 
 private:
 	ICDElement* parent = nullptr;
@@ -48,7 +58,7 @@ private:
 	//int8_t start = 0;
 	int8_t strIndex = 0;
 	char* label = '\0';
-	uint8_t rollState = CDLabelStopRolling;
+	uint8_t rollState = ROLLING_STOP;
 	long millis = 0;
 	//char* norm = '\0';
 

@@ -1,7 +1,7 @@
 /*
  * CDLabel.cpp
  *
- *  Created on: 18 Ξ�οΏ½Ξ�Β±Ξ�οΏ½ 2018
+ *  Created on: 18 Ξ�οΏ½ΞΏΞ�Β½Ξ�οΏ½Ξ’Β±Ξ�οΏ½ΞΏΞ�Β½ 2018
  *      Author: Synodiporos
  */
 #include <iostream>
@@ -47,18 +47,28 @@ char* CDLabel::getLabel(){
 }
 
 void CDLabel::startRolling(){
-	this->millis = clock();
-	this->rollState = CDLabelStartRolling;
+	setRollingState(CDLabel::ROLLING_BEGIN);
+}
+
+void CDLabel::startRollingImmediately(){
+	setRollingState(CDLabel::ROLLING_ROLL);
 }
 
 void CDLabel::stopRolling(){
+	setRollingState(CDLabel::ROLLING_STOP);
+}
+
+void CDLabel::setRollingState(uint8_t state){
+	this->rollState = state;
 	this->millis = clock();
-	this->rollState = CDLabelStopRolling;
+}
+
+uint8_t CDLabel::getRollingState(){
+	return this->rollState;
 }
 
 bool CDLabel::isRolling(){
-	uint8_t r = CDLabelStartRolling;
-	if(this->rollState == r)
+	if(this->rollState > 0)
 		return true;
 	return false;
 }
@@ -131,17 +141,31 @@ void CDLabel::printArea(LCD* lcd, Rectangle* area){
 void CDLabel::validate(){
 	if(isRolling()){
 		unsigned int m = clock() - millis;
-		unsigned int interval = CDLabelRollPI;
 
-		if(m >= interval){
-			int8_t mvs = lenght - width - strIndex;
-			//cout << "mvs: " << (int)mvs << endl;
-			if(mvs>0){
-				setLabelIndex( strIndex + 1);
-				if(mvs==1)
-					stopRolling();
+		if(getRollingState()==CDLabel::ROLLING_BEGIN){
+			unsigned short int srd = CDLabelStartRollDelay;
+			if(m>=srd)
+				setRollingState(CDLabel::ROLLING_ROLL);
+		}
+		else if(getRollingState()==CDLabel::ROLLING_ROLL){
+			unsigned short int pi = CDLabelRollPI;
+			int8_t mvs = lenght - width - strIndex
+										+ CDLabelRollingOffeset;
+			if(m >= pi){
+				if(mvs>0)
+					setLabelIndex( strIndex + 1);
+				else
+					setRollingState(CDLabel::ROLLING_END);
+				millis = clock();
 			}
-			millis = clock();
+		}
+		else{
+			unsigned short int gbd = CDLabelRollBackDelay;
+			if(m >= gbd){
+				setRollingState(CDLabel::ROLLING_BEGIN);
+				setLabelIndex(0);
+				millis = clock();
+			}
 		}
 	}
 }
