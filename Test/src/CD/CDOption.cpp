@@ -4,8 +4,10 @@
  *  Created on: May 23, 2018
  *      Author: sgeorgiadis
  */
-
+#include <iostream>
+using namespace std;
 #include "CDOption.h"
+#include "../Commons/State.h"
 
 CDOption::CDOption(uint8_t width, char* label)
 	: label(width-1, label){
@@ -26,6 +28,8 @@ CDOption::~CDOption() {
 
 void CDOption::init(){
 	this->label.setLocation(1,0);
+	this->label.setParent(this);
+	this->indicator.setParent(this);
 }
 
 void CDOption::setParent(ICDElement* parent){
@@ -37,15 +41,15 @@ ICDElement* CDOption::getParent(){
 }
 
 Rectangle* CDOption::getBounds(){
-	return new Rectangle(x, y, 1, 1);
+	return new Rectangle(x, y, width, 1);
 }
 
 CDLabel* CDOption::getLabel(){
-	return this->label;
+	return &this->label;
 }
 
 CDOptionIndicator* CDOption::getIndicator(){
-	return this->indicator;
+	return &this->indicator;
 }
 
 void CDOption::setWidth(uint8_t width){
@@ -67,11 +71,31 @@ Point* CDOption::getLocation(){
 
 
 void CDOption::setOptionState(uint8_t state){
-	this->indicator.setState(state);
+	if(getOptionState()!=state){
+		this->indicator.setState(state);
+		notifyStateChanged();
+
+		if(state==CDOptionIndicator::HOVERED)
+			this->label.startRolling();
+		else
+			this->label.stopRolling();
+	}
 }
 
 uint8_t CDOption::getOptionState(){
 	return this->indicator.getState();
+}
+
+void CDOption::hover(){
+	setOptionState(CDOptionIndicator::HOVERED);
+}
+
+void CDOption::unhover(){
+	setOptionState(CDOptionIndicator::UNHOVERED);
+}
+
+void CDOption::click(){
+	setOptionState(CDOptionIndicator::CLICKED);
 }
 
 void CDOption::setStateListener(IStateListener* l){
@@ -87,7 +111,10 @@ IStateListener* CDOption::getStateListener(){
 }
 
 void CDOption::notifyStateChanged(){
-
+	if(this->stateListener!=nullptr){
+		State* s = new State(this,'\0', nullptr);
+		this->stateListener->stateChanged(s);
+	}
 }
 
 void CDOption::printIndicator(){
@@ -95,6 +122,18 @@ void CDOption::printIndicator(){
 }
 
 void CDOption::printArea(LCD* lcd, Rectangle* area){
+	/*cout << "Option PrintArea: [";
+	cout << (int)area->getX();
+	cout << ", ";
+	cout << (int)area->getY();
+	cout << ", ";
+	cout << (int)area->getWidth();
+	cout << ", ";
+	cout << (int)area->getHeight();
+	cout << "] of " ;
+	cout << this << endl;*/
+
+
 	int ccx = lcd->getCursorX();
 	int ccy = lcd->getCursorY();
 
@@ -122,6 +161,7 @@ void CDOption::printChild(ICDElement* child, LCD* lcd, Rectangle* area){
 }
 
 void CDOption::validate(){
-
+	this->indicator.validate();
+	this->label.validate();
 }
 

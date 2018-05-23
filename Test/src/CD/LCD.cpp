@@ -26,9 +26,9 @@ void LCD::setCursor(uint8_t x, uint8_t y){
 	if(!cursor.equals(x, y)){
 		this->cursor.setPoint(x, y);
 
-		cout << "\t>>>   LCD: Set Cursor[" <<
+		/*cout << "\t>>>   LCD: Set Cursor[" <<
 				(int)x << ", "
-				<< (int)y << "] " << endl;
+				<< (int)y << "] " << endl;*/
 	}
 }
 
@@ -60,8 +60,16 @@ Point* LCD::getCursor(){
 }
 
 void LCD::print(char* str){
-	if(str)
-	cout << "\t>>>   LCD Print -> " << str << endl;
+	if(str){
+		sentCursorCoords();
+		cout << "\t>>>   LCD Print -> " << str << endl;
+	}
+}
+
+void LCD::sentCursorCoords(){
+	cout << "\t>>>   LCD: Set Cursor[" <<
+					(int)cursor.getX() << ", "
+					<< (int)cursor.getY() << "] " << endl;
 }
 
 void LCD::fillArea(Rectangle* area, char c){
@@ -74,5 +82,12 @@ void LCD::fillArea(Rectangle* area, char c){
 	for(short int y = 0; y<area->getHeight(); y++){
 		print(str);
 	}
+}
+
+void LCD::clear(){
+
+}
+
+void LCD::refresh(){
 
 }

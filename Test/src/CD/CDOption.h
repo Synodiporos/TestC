@@ -30,6 +30,9 @@ public:
 
 	void setOptionState(uint8_t state);
 	uint8_t getOptionState();
+	void hover();
+	void unhover();
+	void click();
 	void setStateListener(IStateListener* l);
 	void removeStateListener(IStateListener* l);
 	IStateListener* getStateListener();

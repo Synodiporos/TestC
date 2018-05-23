@@ -125,17 +125,17 @@ void CDComponent::printComponentsArea(LCD* lcd, Rectangle* area){
 }
 
 void CDComponent::printChildsArea(LCD* lcd, Rectangle* area){
-	cout << " childs[ " << endl;
+	//cout << " childs[ " << endl;
+
 	int ccx = lcd->getCursorX();
 	int ccy = lcd->getCursorY();
 
 	for(int i=0; i<capacity; i++){
 		ICDElement* elem = elements[i];
 		printChild(elem, lcd, area);
+		lcd->setCursor(ccx, ccy);
 	}
-
-	lcd->setCursor(ccx, ccy);
-	cout << "]" << endl;
+	//cout << "]" << endl;
 }
 
 void CDComponent::validate(){

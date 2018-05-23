@@ -86,7 +86,7 @@ void CDElement::printArea(LCD* lcd, Rectangle* area){
 
 		//lcd->setCursor(ccx+area->getX(), ccy+area->getY());
 
-/*		cout << "PrintArea: [";
+		/*cout << "PrintArea: [";
 		cout << (int)area->getX();
 		cout << ", ";
 		cout << (int)area->getY();

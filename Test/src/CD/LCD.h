@@ -29,9 +29,12 @@ public:
 
 	void print(char* str);
 	void fillArea(Rectangle* area, char c);
+	void clear();
+	void refresh();
 
 private:
 	Point cursor = Point(0, 0);
+	void sentCursorCoords();
 };
 
 #endif /* CD_LCD_H_ */

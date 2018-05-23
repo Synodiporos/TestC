@@ -44,7 +44,7 @@ void CDOptionIndicator::printArea(LCD* lcd, Rectangle* area){
 	char ind = '\0';
 	switch(this->state){
 		case CDOptionIndicator::UNHOVERED:{
-			ind = ' ';
+			ind = '+';
 			break;
 		}
 		case CDOptionIndicator::HOVERED:{

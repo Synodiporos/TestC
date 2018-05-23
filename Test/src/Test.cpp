@@ -11,6 +11,7 @@ using namespace std;
 #include "CD/CDElement.h"
 #include "CD/CDComponent.h"
 #include "CD/CDLabel.h"
+#include "CD/CDOption.h"
 #include "CD/LCD.h"
 #include "CD/CDFrame.h"
 #include "Geometry/Point.h"
@@ -53,11 +54,11 @@ int main() {
 	CDComponent* comp1 = new CDComponent(0, 0, 4, 1);
 	CDComponent* comp2 = new CDComponent(0, 1, 12, 2, 2);
 	CDComponent* comp3 = new CDComponent(13, 1, 5, 2, 0);
-	CDComponent* comp4 = new CDComponent(-1, 2, 20, 5, 2);
-	CDElement* elem1 = new CDElement(0, 0, 7, 3);
-	CDElement* elem2 = new CDElement(8, 0, 8, 3);
+	CDComponent* comp4 = new CDComponent(0, 3, 20, 5, 2);
 	char lstr1[] = "Label 101 TEsting";
 	char lstr2[] = "ArduinoArduino";
+	CDOption* elem1 = new CDOption(0, 0, 7, lstr1);
+	CDOption* elem2 = new CDOption(8, 0, 8, lstr2);
 	CDLabel* l1 = new CDLabel(0, 0, 7, lstr1);
 	CDLabel* l2 = new CDLabel(8, 0, 8, lstr2);
 	CDComponent* comp = new CDComponent(0, 0, 16, 40, 4);
@@ -65,7 +66,7 @@ int main() {
 	cout << "comp1: " << comp1 << endl;
 	cout << "comp2: " << comp2 << endl;
 	cout << "comp3: " << comp3 << endl;
-	cout << "comp4: " << comp3 << endl;
+	cout << "comp4: " << comp4 << endl;
 	cout << "elem1: " << elem1 << endl;
 	cout << "elem2: " << elem2 << endl;
 	cout << "l1: " << l1 << endl;
@@ -84,26 +85,24 @@ int main() {
 	//Rectangle sc = Rectangle(0, 0, 12, 1);
 
 	CDFrame frame = CDFrame(16, 2, 1);
-	frame.setPosition(0, 0);
+	frame.setPosition(0, 3);
 
 	frame.setPage(comp, 0);
 	//frame.print();
 
 	CDComponent cc = CDComponent();
 	cout << "Size of comp: " << sizeof(*comp) << endl;
-	cout << "Size of frame: " << sizeof(frame) << endl;
 
-
+	elem2->hover();
 	//l1->setLabelIndex(2);
-
 	//l1->startRollingImmediately();
 
 	clock_t start = clock();
 
 
-	//while(clock()-start<10000){
-	//	comp->validate();
-	//}
+	while(clock()-start<10000){
+		comp->validate();
+	}
 
 	cout<< "Finished!" << endl;
 	return 0;

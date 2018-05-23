@@ -51,11 +51,14 @@ void CDLabel::startRollingImmediately(){
 
 void CDLabel::stopRolling(){
 	setRollingState(CDLabel::ROLLING_STOP);
+	setLabelIndex(0);
 }
 
 void CDLabel::setRollingState(uint8_t state){
-	this->rollState = state;
-	this->millis = clock();
+	if(this->rollState!=state){
+		this->rollState = state;
+		this->millis = clock();
+	}
 }
 
 uint8_t CDLabel::getRollingState(){
