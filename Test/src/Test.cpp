@@ -60,7 +60,7 @@ int main() {
 	char lstr2[] = "ArduinoArduino";
 	CDLabel* l1 = new CDLabel(0, 0, 7, lstr1);
 	CDLabel* l2 = new CDLabel(8, 0, 8, lstr2);
-	CDComponent* comp = new CDComponent(0, 2, 16, 40, 4);
+	CDComponent* comp = new CDComponent(0, 0, 16, 40, 4);
 
 	cout << "comp1: " << comp1 << endl;
 	cout << "comp2: " << comp2 << endl;
@@ -84,7 +84,7 @@ int main() {
 	//Rectangle sc = Rectangle(0, 0, 12, 1);
 
 	CDFrame frame = CDFrame(16, 2, 1);
-	frame.setPosition(0, 2);
+	frame.setPosition(0, 0);
 
 	frame.setPage(comp, 0);
 	//frame.print();

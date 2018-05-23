@@ -25,7 +25,6 @@ public:
 	virtual Rectangle* getBounds();
 	virtual void printArea(LCD* lcd, Rectangle* area);
 	virtual void validate();
-	virtual void revalidate();
 
 private:
 	uint8_t state = UNHOVERED;
