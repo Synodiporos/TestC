@@ -31,22 +31,14 @@ bool Dimension::setDimensions(unsigned short int w, unsigned short h){
 }
 
 bool Dimension::setWidth(unsigned short int width){
-	if(this->width!=width){
-		this->width = width;
-		return true;
-	}
-	return false;
+	return setDimensions(width, height);
 }
 unsigned short int Dimension::getWidth(){
 	return this->width;
 }
 
 bool Dimension::setHeight(unsigned short int height){
-	if(this->height!=height){
-		this->height = height;
-		return true;
-	}
-	return false;
+	return setDimensions(width, height);
 }
 
 unsigned short int Dimension::getHeight(){

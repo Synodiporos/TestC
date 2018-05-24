@@ -12,14 +12,19 @@
 #include "../Commons/IStateListener.h"
 #include <stdint.h>
 
-class CDOption : public ICDElement{
+class CDOption : public AbstractCDElement{
 public:
+	static const uint8_t AutoRolling_Never = 10;
+	static const uint8_t AutoRolling_OnHover = 11;
+	static const uint8_t AutoRolling_OnClick = 12;
+	static const uint8_t AutoRolling_state = AutoRolling_OnClick;
+
 	CDOption(uint8_t width, char* label);
 	CDOption(int8_t x, int8_t y, uint8_t width, char* label);
 	virtual ~CDOption();
 
-	virtual void setParent(ICDElement* parent);
-	virtual ICDElement* getParent();
+	virtual void setParent(AbstractCDElement* parent);
+	virtual AbstractCDElement* getParent();
 	virtual Rectangle* getBounds();
 	CDLabel* getLabel();
 	CDOptionIndicator* getIndicator();
@@ -42,7 +47,7 @@ public:
 	virtual void validate();
 
 protected:
-	ICDElement* parent = nullptr;
+	AbstractCDElement* parent = nullptr;
 	int8_t x = 0;
 	int8_t y = 0;
 	uint8_t width = 0;
@@ -51,7 +56,7 @@ protected:
 	CDLabel label;
 	void init();
 	void notifyStateChanged();
-	virtual void printChild(ICDElement* child, LCD* lcd, Rectangle* area);
+	virtual void printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area);
 
 };
 

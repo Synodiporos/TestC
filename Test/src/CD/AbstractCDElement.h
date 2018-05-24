@@ -1,25 +1,25 @@
 /*
- * ICDElement.h
+ * AbstractCDElement.h
  *
  *  Created on: 12 Ξ�οΏ½Ξ�Β±Ξ�οΏ½ 2018
  *      Author: Synodiporos
  */
 
-#ifndef CD_ICDELEMENT_H_
-#define CD_ICDELEMENT_H_
+#ifndef CD_ABSTRACTCDELEMENT_H_
+#define CD_ABSTRACTCDELEMENT_H_
 #include "../Geometry/Dimension.h"
 //class LCD;
-//class ICDElement;
+//class AbstractCDElement;
 #include "LCD.h"
 #include <stdint.h>
 #include "../Geometry/Point.h"
 
-class ICDElement {
+class AbstractCDElement {
 public:
-	ICDElement();
-	virtual ~ICDElement();
-	virtual void setParent(ICDElement* parent) = 0;
-	virtual ICDElement* getParent() = 0;
+	AbstractCDElement();
+	virtual ~AbstractCDElement();
+	virtual void setParent(AbstractCDElement* parent) = 0;
+	virtual AbstractCDElement* getParent() = 0;
 	virtual bool hasParent();
 	virtual Rectangle* getBounds() = 0;
 	virtual void print(LCD* lcd);
@@ -29,4 +29,4 @@ public:
 	virtual void validate() = 0;
 };
 
-#endif /* CD_ICDELEMENT_H_ */
+#endif /* CD_ABSTRACTCDELEMENT_H_ */

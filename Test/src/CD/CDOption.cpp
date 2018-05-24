@@ -8,6 +8,7 @@
 using namespace std;
 #include "CDOption.h"
 #include "../Commons/State.h"
+#include "CDConstants.h"
 
 CDOption::CDOption(uint8_t width, char* label)
 	: label(width-1, label){
@@ -32,11 +33,11 @@ void CDOption::init(){
 	this->indicator.setParent(this);
 }
 
-void CDOption::setParent(ICDElement* parent){
+void CDOption::setParent(AbstractCDElement* parent){
 	this->parent = parent;
 }
 
-ICDElement* CDOption::getParent(){
+AbstractCDElement* CDOption::getParent(){
 	return this->parent;
 }
 
@@ -75,10 +76,19 @@ void CDOption::setOptionState(uint8_t state){
 		this->indicator.setState(state);
 		notifyStateChanged();
 
-		if(state==CDOptionIndicator::HOVERED)
-			this->label.startRolling();
-		else
-			this->label.stopRolling();
+		if(AutoRolling_state==AutoRolling_Never){}
+		else if(state==CDOptionIndicator::HOVERED){
+			if(AutoRolling_state==AutoRolling_OnHover)
+				this->label.startRolling();
+			else
+				this->label.stopRolling();
+		}
+		else if(state==CDOptionIndicator::CLICKED){
+			if(AutoRolling_state==AutoRolling_OnClick)
+				this->label.startRolling();
+			else
+				this->label.stopRolling();
+		}
 	}
 }
 
@@ -143,7 +153,7 @@ void CDOption::printArea(LCD* lcd, Rectangle* area){
 	lcd->setCursor(ccx, ccy);
 }
 
-void CDOption::printChild(ICDElement* child, LCD* lcd, Rectangle* area){
+void CDOption::printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area){
 	if(child){
 		Rectangle r = area->intersection(
 				child->getBounds());

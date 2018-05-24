@@ -39,18 +39,17 @@ int main() {
 		//CharUtil::strFilling(str, 100, 100, i, '.');
 	//}
 
+	//uint8_t c
+
 
 	//=============================================
 	Rectangle r1 = Rectangle(0, 0, 16, 2);
 	Rectangle r2 = Rectangle(0, 1, 16, 5);
-
 	Rectangle res = r1.intersection(&r2);
 	//printRect(&res);
 
 
 	//==========================================
-	//LCD* lcd = new LCD();
-
 	CDComponent* comp1 = new CDComponent(0, 0, 4, 1);
 	CDComponent* comp2 = new CDComponent(0, 1, 12, 2, 2);
 	CDComponent* comp3 = new CDComponent(13, 1, 5, 2, 0);
@@ -61,7 +60,7 @@ int main() {
 	CDOption* elem2 = new CDOption(8, 0, 8, lstr2);
 	CDLabel* l1 = new CDLabel(0, 0, 7, lstr1);
 	CDLabel* l2 = new CDLabel(8, 0, 8, lstr2);
-	CDComponent* comp = new CDComponent(0, 0, 16, 40, 4);
+	CDComponent* comp = new CDComponent(0, 0, 16, 10, 4);
 
 	cout << "comp1: " << comp1 << endl;
 	cout << "comp2: " << comp2 << endl;
@@ -82,28 +81,36 @@ int main() {
 	comp->addElement(comp3);
 	comp->addElement(comp4);
 
-	//Rectangle sc = Rectangle(0, 0, 12, 1);
-
 	CDFrame frame = CDFrame(16, 2, 1);
-	frame.setPosition(0, 3);
-
 	frame.setPage(comp, 0);
+	frame.setPosition(0, -8);
+	frame.setPosition(0, 0);
+	frame.setPosition(0, 1);
+	frame.setPosition(0, 4);
+	frame.setPosition(0, 5);
+	frame.setPosition(0, 10);
+	frame.setPosition(0, 13);
 	//frame.print();
 
-	CDComponent cc = CDComponent();
-	cout << "Size of comp: " << sizeof(*comp) << endl;
 
-	elem2->hover();
+	//elem2->click();
 	//l1->setLabelIndex(2);
 	//l1->startRollingImmediately();
 
 	clock_t start = clock();
 
+/*
 
 	while(clock()-start<10000){
 		comp->validate();
+		if(clock()-start>=2000){
+			//elem2->hover();
+		}
 	}
+*/
 
+
+	cout << "Size of comp: " << sizeof(*comp) << endl;
 	cout<< "Finished!" << endl;
 	return 0;
 }

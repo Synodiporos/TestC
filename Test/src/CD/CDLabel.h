@@ -7,12 +7,13 @@
 
 #ifndef CD_CDLABEL_H_
 #define CD_CDLABEL_H_
-#include "ICDElement.h"
 #include "CDConstants.h"
 #include <stdint.h>
+
+#include "AbstractCDElement.h"
 //#include "../Geometry/Rectangle.h"
 
-class CDLabel : public ICDElement{
+class CDLabel : public AbstractCDElement{
 public:
 	static const uint8_t ROLLING_BEGIN = 1;
 	static const uint8_t ROLLING_ROLL = 2;
@@ -37,15 +38,15 @@ public:
 	void setLocation(int8_t x, int8_t y);
 	Point* getLocation();
 	Rectangle* getBounds();
-	void setParent(ICDElement* parent);
-	ICDElement* getParent();
+	void setParent(AbstractCDElement* parent);
+	AbstractCDElement* getParent();
 
 	virtual void reprint();
 	virtual void printArea(LCD* lcd, Rectangle* area);
 	virtual void validate();
 
 private:
-	ICDElement* parent = nullptr;
+	AbstractCDElement* parent = nullptr;
 	int8_t x = 0;
 	int8_t y = 0;
 	uint8_t width = 0;

@@ -22,11 +22,7 @@ Point::~Point() {
 }
 
 bool Point::setX(short int x){
-	if(this->x!=x){
-		this->x = x;
-		return true;
-	}
-	return false;
+	return setPoint(x, y);
 }
 
 short int Point::getX(){
@@ -34,11 +30,7 @@ short int Point::getX(){
 }
 
 bool Point::setY(short int y){
-	if(this->y!=y){
-		this->y = y;
-		return true;
-	}
-	return false;
+	return setPoint(x, y);
 }
 
 short int Point::getY(){
@@ -55,12 +47,7 @@ bool Point::setPoint(short int x, short int y){
 }
 
 bool Point::setPointBy(short int x, short int y){
-	if(x!=0 || y!=0){
-		this->x = this->x + x;
-		this->y = this->y + y;
-		return true;
-	}
-	return false;
+	return setPoint(this->x + x, this->y + y);
 }
 
 Point Point::copy(){

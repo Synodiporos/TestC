@@ -1,9 +1,10 @@
 eclipse.preferences.version=1
+encoding//src/CD/AbstractCDElement.cpp=UTF-8
+encoding//src/CD/AbstractCDElement.h=UTF-8
 encoding//src/CD/CDComponent.cpp=UTF-8
 encoding//src/CD/CDComponent.h=UTF-8
 encoding//src/CD/CDConstants.h=UTF-8
 encoding//src/CD/CDLabel.cpp=UTF-8
 encoding//src/CD/CDLabel.h=UTF-8
-encoding//src/CD/ICDElement.h=UTF-8
 encoding//src/CD/LCD.cpp=UTF-8
 encoding//src/CD/LCD.h=UTF-8

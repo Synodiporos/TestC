@@ -7,9 +7,9 @@
 
 #ifndef CD_CDOPTIONINDICATOR_H_
 #define CD_CDOPTIONINDICATOR_H_
-#include "ICDElement.h"
+#include "AbstractCDElement.h"
 
-class CDOptionIndicator : public ICDElement{
+class CDOptionIndicator : public AbstractCDElement{
 public:
 	static const uint8_t UNHOVERED = 0;
 	static const uint8_t HOVERED = 1;
@@ -20,15 +20,15 @@ public:
 	void setState(uint8_t state);
 	uint8_t getState();
 
-	virtual void setParent(ICDElement* parent);
-	virtual ICDElement* getParent();
+	virtual void setParent(AbstractCDElement* parent);
+	virtual AbstractCDElement* getParent();
 	virtual Rectangle* getBounds();
 	virtual void printArea(LCD* lcd, Rectangle* area);
 	virtual void validate();
 
 private:
 	uint8_t state = UNHOVERED;
-	ICDElement* parent = nullptr;
+	AbstractCDElement* parent = nullptr;
 
 };
 

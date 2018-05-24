@@ -105,11 +105,11 @@ Rectangle* CDLabel::getBounds(){
 	return new Rectangle(this->x, this->y, this->width, 1);
 }
 
-void CDLabel::setParent(ICDElement* parent){
+void CDLabel::setParent(AbstractCDElement* parent){
 	this->parent = parent;
 }
 
-ICDElement* CDLabel::getParent(){
+AbstractCDElement* CDLabel::getParent(){
 	return this->parent;
 }
 
@@ -119,7 +119,7 @@ ICDElement* CDLabel::getParent(){
 */
 void CDLabel::reprint(){
 
-	ICDElement::reprint();
+	AbstractCDElement::reprint();
 	/*
 	uint8_t x = strIndex;
 	char* p = CharUtil::strFilling(

@@ -8,6 +8,7 @@
 #include <iostream>
 using namespace std;
 #include "LCD.h"
+#include "CDCharacters.h"
 
 LCD::LCD(int8_t x, int8_t y) : Rectangle(x, y){
 
@@ -15,11 +16,21 @@ LCD::LCD(int8_t x, int8_t y) : Rectangle(x, y){
 
 LCD::LCD(int8_t x, int8_t y, uint8_t width, uint8_t height)
 	: Rectangle(x, y, width, height){
-
 }
 
 LCD::~LCD() {
 
+}
+
+void LCD::createCustomCharacters(){
+	createChar(0, CDCharacters::ch_hover);
+	createChar(1, CDCharacters::ch_click);
+	createChar(2, CDCharacters::sb_arrow_top_0);
+	createChar(3, CDCharacters::sb_arrow_bottom_0);
+	//createChar(4, CDCharacters::ch_hover);
+	//createChar(5, CDCharacters::ch_hover);
+	//createChar(6, CDCharacters::ch_hover);
+	//createChar(7, CDCharacters::ch_hover);
 }
 
 void LCD::setCursor(uint8_t x, uint8_t y){
@@ -57,6 +68,14 @@ uint8_t LCD::getCursorY(){
 
 Point* LCD::getCursor(){
 	return &this->cursor;
+}
+
+void LCD::createChar(uint8_t id, const uint8_t[8]){
+	//LCD Create Char.
+}
+
+void LCD::writeChar(uint8_t id){
+
 }
 
 void LCD::print(char* str){
