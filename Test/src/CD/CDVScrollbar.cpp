@@ -16,12 +16,18 @@ CDVScrollbar::~CDVScrollbar() {
 	// TODO Auto-generated destructor stub
 }
 
-virtual AbstractCDElement* getParent(){
+virtual AbstractCDElement* CDVScrollbar::getParent(){
+	return this->parent;
+}
+
+virtual Rectangle* CDVScrollbar::getBounds(){
+	return new Rectangle(x, 0, 1, height);
+}
+
+virtual void CDVScrollbar::printArea(LCD* lcd, Rectangle* area){
 
 }
 
-virtual Rectangle* getBounds();
-virtual void printArea(LCD* lcd, Rectangle* area);
-virtual void validate(){
+virtual void CDVScrollbar::validate(){
 
 }
