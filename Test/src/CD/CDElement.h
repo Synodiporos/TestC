@@ -9,13 +9,13 @@
 #define CD_CDELEMENT_H_
 //#include <string>
 #include "../Geometry/Dimension.h"
-#include "ICDElement.h"
 #include "LCD.h"
 #include <string>
 #include "../Geometry/Point.h"
 #include "../Geometry/Rectangle.h"
+#include "AbstractCDElement.h"
 
-class CDElement : public ICDElement{
+class CDElement : public AbstractCDElement{
 public:
 	CDElement();
 	CDElement(uint8_t x, uint8_t y, int8_t w, int8_t h);
@@ -32,8 +32,8 @@ public:
 	virtual void setBounds(Rectangle bounds);
 	virtual void setBounds(uint8_t x, uint8_t y, int8_t w, int8_t h);
 
-	virtual void setParent(ICDElement* parent);
-	virtual ICDElement* getParent();
+	virtual void setParent(AbstractCDElement* parent);
+	virtual AbstractCDElement* getParent();
 
 	//virtual void print(LCD* lcd);
 	//virtual void reprint();
@@ -44,7 +44,7 @@ public:
 private:
 	//Dimensions in pixels
 	Rectangle bounds;
-	ICDElement* parent = nullptr;
+	AbstractCDElement* parent = nullptr;
 };
 
 #endif /* CD_CDELEMENT_H_ */

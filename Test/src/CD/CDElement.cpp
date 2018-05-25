@@ -61,21 +61,21 @@ void CDElement::setBounds(uint8_t x, uint8_t y, int8_t w, int8_t h){
 	this->bounds.setRectangle(x, y, w, h);
 }
 
-void CDElement::setParent(ICDElement* parent){
+void CDElement::setParent(AbstractCDElement* parent){
 	this->parent = parent;
 }
 
 
-ICDElement* CDElement::getParent(){
+AbstractCDElement* CDElement::getParent(){
 	return this->parent;
 }
 
 /*void CDElement::print(LCD* lcd){
-	ICDElement::reprint();
+	AbstractCDElement::reprint();
 }
 
 void CDElement::reprint(){
-	ICDElement::reprint();
+	AbstractCDElement::reprint();
 }*/
 
 void CDElement::printArea(LCD* lcd, Rectangle* area){

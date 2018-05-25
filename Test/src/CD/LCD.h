@@ -10,15 +10,14 @@
 
 #include "../Geometry/Point.h"
 #include "../Geometry/Rectangle.h"
+#include <stdint.h>
 
 class LCD : public Rectangle{
 public:
 	LCD(int8_t x, int8_t y);
 	LCD(int8_t x, int8_t y, uint8_t width, uint8_t height);
 	virtual ~LCD();
-
-	//void init(uint8_t width, uint8_t height);
-
+	void createCustomCharacters();
 	void setCursor(uint8_t x, uint8_t y);
 	void setCursorBy(uint8_t x, uint8_t y);
 	void setCursor(Point* cords);
@@ -27,6 +26,8 @@ public:
 	uint8_t getCursorY();
 	Point* getCursor();
 
+	void createChar(uint8_t id, const uint8_t[8]);
+	void writeChar(uint8_t id);
 	void print(char* str);
 	void fillArea(Rectangle* area, char c);
 	void clear();

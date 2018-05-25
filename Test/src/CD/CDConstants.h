@@ -16,6 +16,7 @@
 //Roll back to 0 after xx millis
 #define CDLabelRollBackDelay 2000;
 
+#define CDOptionAutoRolling_state 10;
 #define CDOptionAutoRolling_Never  10;
 #define CDOptionAutoRolling_OnHover  11;
 #define CDOptionAutoRolling_OnPressed  12;

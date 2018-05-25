@@ -27,11 +27,11 @@ uint8_t CDOptionIndicator::getState(){
 	return this->state;
 }
 
-void CDOptionIndicator::setParent(ICDElement* parent){
+void CDOptionIndicator::setParent(AbstractCDElement* parent){
 	this->parent = parent;
 }
 
-ICDElement* CDOptionIndicator::getParent(){
+AbstractCDElement* CDOptionIndicator::getParent(){
 	return this->parent;
 }
 
