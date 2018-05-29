@@ -18,6 +18,18 @@ AbstractCDElement::~AbstractCDElement() {
 	// TODO Auto-generated destructor stub
 }
 
+bool AbstractCDElement::isVisible(){
+	return this->visible;
+}
+
+bool AbstractCDElement::setVisible(bool visible){
+	if(this->visible!=visible){
+		this->visible = visible;
+		return true;
+	}
+	return false;
+}
+
 bool AbstractCDElement::hasParent(){
 	if(getParent())
 		return true;
@@ -25,10 +37,12 @@ bool AbstractCDElement::hasParent(){
 }
 
 void AbstractCDElement::print(LCD* lcd){
-	Rectangle* r = new Rectangle(0, 0,
-				getBounds()->getWidth(),
-				getBounds()->getHeight());
-	printArea(lcd, r);
+	if(isVisible()){
+		Rectangle* r = new Rectangle(0, 0,
+					getBounds()->getWidth(),
+					getBounds()->getHeight());
+		printArea(lcd, r);
+	}
 }
 
 void AbstractCDElement::reprint(){
@@ -39,8 +53,7 @@ void AbstractCDElement::reprint(){
 }
 
 void AbstractCDElement::printArea(Rectangle* area){
-	//cout << this << " has parent: "<< hasParent() << endl;
-	if(hasParent()){
+	if(hasParent() && isVisible()){
 		Rectangle* r = new Rectangle(
 				area->getX() + getBounds()->getX(),
 				area->getY() + getBounds()->getY(),

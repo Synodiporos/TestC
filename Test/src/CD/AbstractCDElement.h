@@ -18,6 +18,8 @@ class AbstractCDElement {
 public:
 	AbstractCDElement();
 	virtual ~AbstractCDElement();
+	virtual bool isVisible();
+	virtual bool setVisible(bool visible);
 	virtual void setParent(AbstractCDElement* parent) = 0;
 	virtual AbstractCDElement* getParent() = 0;
 	virtual bool hasParent();
@@ -27,6 +29,9 @@ public:
 	virtual void printArea(LCD* lcd, Rectangle* area) = 0;
 	virtual void printArea(Rectangle* area);
 	virtual void validate() = 0;
+
+protected:
+	bool visible = true;
 };
 
 #endif /* CD_ABSTRACTCDELEMENT_H_ */

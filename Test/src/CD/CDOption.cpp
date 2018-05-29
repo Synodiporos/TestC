@@ -33,6 +33,14 @@ void CDOption::init(){
 	this->indicator.setParent(this);
 }
 
+void CDOption::setActionId(unsigned int actionId){
+	this->actionId = actionId;
+}
+
+unsigned int CDOption::getActionId(){
+	return this->actionId;
+}
+
 void CDOption::setParent(AbstractCDElement* parent){
 	this->parent = parent;
 }
@@ -69,7 +77,6 @@ void CDOption::setLocation(int8_t x, int8_t y){
 Point* CDOption::getLocation(){
 	return new Point(this->x, this->y);
 }
-
 
 void CDOption::setOptionState(uint8_t state){
 	if(getOptionState()!=state){
