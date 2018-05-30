@@ -176,7 +176,7 @@ int main() {
 		cout << "  " << cont.getTaskAt(i) << endl;
 	cout << "]" << endl;
 
-	Task* t = cont.getTaskAt(3);
+	Task* t = cont.getTaskAt(4);
 	cout << "Retrieve: " << t << endl;
 
 
