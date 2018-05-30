@@ -24,6 +24,8 @@ public:
 	virtual ~CDOption();
 
 	virtual void setParent(AbstractCDElement* parent);
+	void setActionId(unsigned int actionId);
+	unsigned int getActionId();
 	virtual AbstractCDElement* getParent();
 	virtual Rectangle* getBounds();
 	CDLabel* getLabel();
@@ -54,6 +56,7 @@ protected:
 	IStateListener* stateListener = nullptr;
 	CDOptionIndicator indicator = CDOptionIndicator();
 	CDLabel label;
+	unsigned int actionId = 0;
 	void init();
 	void notifyStateChanged();
 	virtual void printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area);

@@ -29,7 +29,6 @@ public:
 	void removeElement(AbstractCDElement* element);
 	void removeElementAt(uint8_t index);
 
-	virtual void print(LCD* lcd);
 	virtual void printArea(LCD* lcd, Rectangle* area);
 	virtual void validate();
 
@@ -41,7 +40,6 @@ private:
 protected:
 	virtual void printComponentsArea(LCD* lcd, Rectangle* area);
 	virtual void printChildsArea(LCD* lcd, Rectangle* area);
-	virtual void printChilds(LCD* lcd);
 	virtual void printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area);
 	virtual void validateChilds();
 };

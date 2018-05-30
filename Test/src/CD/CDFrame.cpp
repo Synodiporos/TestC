@@ -9,6 +9,7 @@
 #include <cmath>
 using namespace std;
 #include "CDFrame.h"
+#include "CDCharacters.h"
 
 CDFrame::CDFrame(uint8_t width, uint8_t height,
 		uint8_t capacity) : lcd{LCD(0, 0, width, height)}{
@@ -92,6 +93,29 @@ void CDFrame::setPosition(short int x, short int y){
 		revalidate();
 }
 
+void CDFrame::setScrollbarState(uint8_t state){
+	this->scrollbarState = state;
+}
+
+uint8_t CDFrame::getScrollbarState(){
+	return this->scrollbarState;
+}
+
+bool CDFrame::isScrollbarVisible(){
+	if(getScrollbarState()==CDFrame::SRCOLLBAR_STATE_NEVER)
+		return false;
+	else if(getScrollbarState()==CDFrame::SRCOLLBAR_STATE_ALWAYS)
+		return true;
+	else{
+		AbstractCDElement* ce = getCurrentPage();
+		if(ce)
+			return ce->getBounds()->getHeight()>
+				getBounds()->getHeight();
+		return false;
+	}
+
+}
+
 void CDFrame::print(){
 	print(&this->lcd);
 }
@@ -151,28 +175,82 @@ void CDFrame::validate(){
 
 
 void CDFrame::revalidate(){
-	cout << "Revalidate Frame: ";
+	//cout << "Revalidate Frame: ";
 
 	updateScrollBarValue();
 }
 
 void CDFrame::updateScrollBarValue(){
-	AbstractCDElement* ce = getCurrentPage();
-	if(ce){
-		uint8_t w = ce->getBounds()->getHeight() -
-				getBounds()->getHeight();
+
+	if(isScrollbarVisible()){
+		AbstractCDElement* ce = getCurrentPage();
+		uint8_t sh = getBounds()->getHeight();
+		uint8_t w = ce->getBounds()->getHeight() - sh;
 		int8_t y = getBounds()->getY() -
 				ce->getBounds()->getY();
+		uint8_t steps = 9 + (sh-2)*8;
 		double  p = (double)y/w;
 		if(p<0) p=0;
 		else if(p>1) p = 1;
 
+		short int ip = std::ceil((double)p*steps);
+		if(p==1)
+			ip = steps + 1;
 
-		//==========================
-
-
-		short int ip = std::round(p);
-
-		cout<< "Scroll bar: " << p << " rount: " << ip << endl;
+		if(this->scrollbarValue!=ip){
+			this->scrollbarValue = ip;
+			reprintScrollbar(ip, steps);
+		}
 	}
 }
+
+void CDFrame::reprintScrollbar(uint8_t value, uint8_t pixels){
+	int ccx = lcd.getCursorX();
+	int ccy = lcd.getCursorY();
+	uint8_t sw = getBounds()->getWidth()-1;
+	uint8_t sh = getBounds()->getHeight()-1;
+	cout<< "Scroll bar: Y=" << (int)getBounds()->getY()  ;
+
+	cout << " - Pixel char: " ;
+	if(value<=5){
+		lcd.setCursor(sw, 0);
+		lcd.writeChar(CDCharacters::createScrollbarTopChar(value));
+		for(short int i=1; i<sh ;i++){
+			lcd.setCursor(sw, i);
+			char c[2] = {' ','\0'};
+			lcd.print(c);
+		}
+		lcd.setCursor(sw, sh);
+		lcd.printChar(3);
+		cout << 0 << " pixel: " << (int)value;
+	}
+	else if(value>pixels-4){
+		int px = value-(pixels-4);
+		lcd.setCursor(sw, 0);
+		lcd.printChar(2);
+		for(short int i=1; i<sh ;i++){
+			lcd.setCursor(sw, i);
+			char c[2] = {' ','\0'};
+			lcd.print(c);
+		}
+		lcd.setCursor(sw, sh);
+		lcd.writeChar(CDCharacters::createScrollbarBottomChar(px));
+		cout<< (int)sh << " ,pixel: " << px;
+	}
+	else{
+		int npx = 1+((value-6)/8);
+		int px = (value-6)%8 + 1;
+		lcd.setCursor(sw, 0);
+		lcd.printChar(2);
+		for(short int i=1; i<sh ;i++){
+			lcd.setCursor(sw, i);
+			lcd.writeChar(CDCharacters::createScrollbarMiddleChar(px));
+		}
+		lcd.setCursor(sw, sh);
+		lcd.printChar(3);
+		cout << npx << " .pixel: " << px;
+	}
+	cout<<endl;
+	lcd.setCursor(ccx, ccy);
+}
+

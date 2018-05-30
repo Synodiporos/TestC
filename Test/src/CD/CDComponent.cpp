@@ -8,6 +8,8 @@
 #include <iostream>
 using namespace std;
 #include "CDComponent.h"
+#include "CDOption.h"
+
 
 CDComponent::CDComponent() : CDElement(){
 	this->elements = new AbstractCDElement*[0];
@@ -83,6 +85,7 @@ AbstractCDElement** CDComponent::getElements(){
 	return this->elements;
 }
 
+
 void CDComponent::removeElement(AbstractCDElement* element){
 	if(element)
 	for(unsigned int i=0; i<capacity; i++){
@@ -98,20 +101,6 @@ void CDComponent::removeElementAt(uint8_t index){
 		if(old)
 			old->setParent(nullptr);
 		elements[index] = nullptr;
-	}
-}
-
-void CDComponent::print(LCD* lcd){
-	CDElement::print(lcd);
-	printChilds(lcd);
-}
-
-void CDComponent::printChilds(LCD* lcd){
-	for(int i=0; i<capacity; i++){
-		AbstractCDElement* elem = elements[i];
-		if(elem){
-			lcd->setCursor(elem->getBounds());
-		}
 	}
 }
 
@@ -138,23 +127,8 @@ void CDComponent::printChildsArea(LCD* lcd, Rectangle* area){
 	//cout << "]" << endl;
 }
 
-void CDComponent::validate(){
-	//
-	this->CDElement::validate();
-	validateChilds();
-}
-
-void CDComponent::validateChilds(){
-	for(int i=0; i<capacity; i++){
-		AbstractCDElement* elem = elements[i];
-		if(elem){
-			elem->validate();
-		}
-	}
-}
-
 void CDComponent::printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area){
-	if(child){
+	if(child && child->isVisible()){
 		Rectangle r = area->intersection(
 				child->getBounds());
 		if(!r.isNull()){
@@ -170,3 +144,17 @@ void CDComponent::printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area
 	}
 }
 
+
+void CDComponent::validate(){
+	this->CDElement::validate();
+	validateChilds();
+}
+
+void CDComponent::validateChilds(){
+	for(int i=0; i<capacity; i++){
+		AbstractCDElement* elem = elements[i];
+		if(elem && elem->isVisible()){
+			elem->validate();
+		}
+	}
+}
