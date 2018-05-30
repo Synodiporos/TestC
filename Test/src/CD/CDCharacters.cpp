@@ -8,156 +8,54 @@
 #include "CDCharacters.h"
 
 //CDOption Hover char
-	const uint8_t CDCharacters::ch_hover[] = {
-		0x00,
-		0x10,
-		0x18,
-		0x14,
-		0x12,
-		0x14,
-		0x18,
-		0x10
-	};
+	const uint8_t CDCharacters::ch_hover[8] =
+		{0x00, 0x10, 0x18, 0x14, 0x12, 0x14, 0x18, 0x10};
 
-	const uint8_t CDCharacters::ch_click[8] = {
-		0x00,
-		0x08,
-		0x0C,
-		0x0E,
-		0x0F,
-		0x0E,
-		0x0C,
-		0x08
-	};
+	const uint8_t CDCharacters::ch_click[8] =
+		{0x00, 0x08, 0x0C, 0x0E, 0x0F, 0x0E, 0x0C, 0x08};
 
-	const uint8_t CDCharacters::sb_arrow_top_0[] = {
-	  0x04,
-	  0x0E,
-	  0x1F,
-	  0x00,
-	  0x00,
-	  0x00,
-	  0x00,
-	  0x00
-	};
+	const uint8_t CDCharacters::emptyChar[8] = {
+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-	const uint8_t CDCharacters::sb_arrow_top_1[] = {
-	  0x04,
-	  0x0E,
-	  0x1F,
-	  0x1F,
-	  0x00,
-	  0x00,
-	  0x00,
-	  0x00
-	};
+	uint8_t* CDCharacters::copyOfChar(const uint8_t c[8]){
+		static uint8_t res[8];
+		for(int i=0; i<8; i++)
+			res[i] = c[i];
+		return res;
+	}
 
-	const uint8_t CDCharacters::sb_arrow_top_2[] = {
-	  0x04,
-	  0x0E,
-	  0x1F,
-	  0x00,
-	  0x1F,
-	  0x00,
-	  0x00,
-	  0x00
-	};
+	uint8_t* CDCharacters::createScrollbarTopChar(uint8_t i){
+		if(i==0 || i>5)
+			return CDCharacters::copyOfChar(
+					CDCharacters::emptyChar);
+		else{
+			static uint8_t* c = CDCharacters::copyOfChar(
+					CDCharacters::emptyChar);
+			c[i+3] = 0x1F;
+			return c;
+		}
+	}
 
-	const uint8_t CDCharacters::sb_arrow_top_3[] = {
-	  0x04,
-	  0x0E,
-	  0x1F,
-	  0x00,
-	  0x00,
-	  0x1F,
-	  0x00,
-	  0x00
-	};
+	uint8_t* CDCharacters::createScrollbarBottomChar(uint8_t i){
+		if(i==0 || i>5)
+			return CDCharacters::copyOfChar(
+					CDCharacters::emptyChar);
+		else{
+			static uint8_t* c = CDCharacters::copyOfChar(
+					CDCharacters::emptyChar);
+			c[i] = 0x1F;
+			return c;
+		}
+	}
 
-	const uint8_t CDCharacters::sb_arrow_top_4[] = {
-	  0x04,
-	  0x0E,
-	  0x1F,
-	  0x00,
-	  0x00,
-	  0x00,
-	  0x1F,
-	  0x00
-	};
-
-	const uint8_t CDCharacters::sb_arrow_top_5[] = {
-	  0x04,
-	  0x0E,
-	  0x1F,
-	  0x00,
-	  0x00,
-	  0x00,
-	  0x00,
-	  0x1F
-	};
-
-	const uint8_t CDCharacters::sb_arrow_bottom_0[] = {
-	  0x00,
-	  0x00,
-	  0x00,
-	  0x00,
-	  0x00,
-	  0x11,
-	  0x0E,
-	  0x04
-	};
-
-	const uint8_t CDCharacters::sb_arrow_bottom_1[] = {
-	  0x00,
-	  0x00,
-	  0x00,
-	  0x00,
-	  0x1F,
-	  0x11,
-	  0x0E,
-	  0x04
-	};
-
-	const uint8_t CDCharacters::sb_arrow_bottom_2[] = {
-	  0x00,
-	  0x00,
-	  0x00,
-	  0x1F,
-	  0x00,
-	  0x11,
-	  0x0E,
-	  0x04
-	};
-
-	const uint8_t CDCharacters::sb_arrow_bottom_3[] = {
-	  0x00,
-	  0x00,
-	  0x1F,
-	  0x00,
-	  0x00,
-	  0x11,
-	  0x0E,
-	  0x04
-	};
-
-	const uint8_t CDCharacters::sb_arrow_bottom_4[] = {
-	  0x00,
-	  0x1F,
-	  0x00,
-	  0x00,
-	  0x00,
-	  0x11,
-	  0x0E,
-	  0x04
-	};
-
-	const uint8_t CDCharacters::sb_arrow_bottom_5[] = {
-	  0x1F,
-	  0x00,
-	  0x00,
-	  0x00,
-	  0x00,
-	  0x11,
-	  0x0E,
-	  0x04
-	};
+	uint8_t* CDCharacters::createScrollbarMiddleChar(uint8_t i){
+		if(i==0 || i>8)
+			return CDCharacters::copyOfChar(
+					CDCharacters::emptyChar);
+		else{
+			static uint8_t* c = CDCharacters::copyOfChar(
+					CDCharacters::emptyChar);
+			c[i] = 0x1F;
+			return c;
+		}
+	}

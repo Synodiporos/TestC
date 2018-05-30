@@ -12,9 +12,12 @@
 
 class CDVScrollbar: public AbstractCDElement {
 public:
-	CDVScrollbar();
+	CDVScrollbar(uint8_t x, uint8_t height);
 	virtual ~CDVScrollbar();
 
+	void setValue(uint8_t value);
+	uint8_t getValue();
+	virtual void setParent(AbstractCDElement* parent);
 	virtual AbstractCDElement* getParent();
 	virtual Rectangle* getBounds();
 	virtual void printArea(LCD* lcd, Rectangle* area);
@@ -24,7 +27,9 @@ private:
 	AbstractCDElement* parent = nullptr;
 	uint8_t x = 0;
 	uint8_t height = 2;
-	double scrollPos = 0.0;
+	uint8_t value = 0;
+
+	void recalculateValue();
 };
 
 #endif /* CD_CDVSCROLLBAR_H_ */

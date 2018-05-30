@@ -27,7 +27,8 @@ public:
 	Point* getCursor();
 
 	void createChar(uint8_t id, const uint8_t[8]);
-	void writeChar(uint8_t id);
+	void printChar(uint8_t id);
+	void writeChar(uint8_t ch[8]);
 	void print(char* str);
 	void fillArea(Rectangle* area, char c);
 	void clear();

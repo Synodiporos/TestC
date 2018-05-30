@@ -25,8 +25,8 @@ LCD::~LCD() {
 void LCD::createCustomCharacters(){
 	createChar(0, CDCharacters::ch_hover);
 	createChar(1, CDCharacters::ch_click);
-	createChar(2, CDCharacters::sb_arrow_top_0);
-	createChar(3, CDCharacters::sb_arrow_bottom_0);
+	createChar(2, CDCharacters::createScrollbarTopChar(0));
+	createChar(3, CDCharacters::createScrollbarBottomChar(0));
 	//createChar(4, CDCharacters::ch_hover);
 	//createChar(5, CDCharacters::ch_hover);
 	//createChar(6, CDCharacters::ch_hover);
@@ -74,7 +74,11 @@ void LCD::createChar(uint8_t id, const uint8_t[8]){
 	//LCD Create Char.
 }
 
-void LCD::writeChar(uint8_t id){
+void LCD::printChar(uint8_t id){
+
+}
+
+void LCD::writeChar(uint8_t ch[8]){
 
 }
 
