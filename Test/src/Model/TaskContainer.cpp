@@ -110,6 +110,7 @@ void TaskContainer::notifyActionPerformed(
 		IActionListener* cl = *(actionListeners.begin() + i);
 		Action action = Action(this, actionId, nullptr, &index);
 		cl->actionPerformed(action);
+
 	}
 }
 

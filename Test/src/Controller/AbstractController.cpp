@@ -48,4 +48,5 @@ bool AbstractController::setParent(AbstractController* parent){
 
 AbstractController* AbstractController::getParent(){
 	return this->parent;
+
 }

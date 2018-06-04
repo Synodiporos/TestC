@@ -37,11 +37,13 @@ public:
 	std::vector<IActionListener*>* getActionListeners();
 
 
+
 private:
 	typedef std::vector<Task*> container;
 	container tasks;
 	Task* selectedTask = nullptr;
 	std::vector<IActionListener*> actionListeners;
+
 	void notifyActionPerformed(unsigned int action, uint8_t index);
 };
 

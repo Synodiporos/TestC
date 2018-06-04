@@ -9,6 +9,7 @@
 using namespace std;
 #include "CDOptionPane.h"
 
+
 CDOptionPane::CDOptionPane(int8_t w, int8_t h)
 	: CDElement(0, 0, w, h){
 
@@ -16,6 +17,7 @@ CDOptionPane::CDOptionPane(int8_t w, int8_t h)
 
 CDOptionPane::CDOptionPane(uint8_t x, uint8_t y, int8_t w, int8_t h)
 	: CDElement(x, y, w, h){
+
 
 }
 

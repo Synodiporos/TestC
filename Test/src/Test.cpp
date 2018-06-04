@@ -193,7 +193,6 @@ int main() {
 	}
 */
 
-
 	cout << "Size of comp: " << sizeof(*comp) << endl;
 	cout<< "Finished!" << endl;
 	return 0;

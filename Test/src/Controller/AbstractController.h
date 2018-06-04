@@ -10,6 +10,7 @@
 #include "KeyboardListener.h"
 
 class AbstractController : public KeyboardListener{
+
 public:
 	AbstractController();
 	virtual ~AbstractController();
@@ -28,6 +29,10 @@ protected:
 private:
 	bool activated = false;
 	AbstractController* parent = nullptr;
+
+
+private:
+	bool activate = false;
 };
 
 #endif /* CONTROLLER_ABSTRACTCONTROLLER_H_ */
