@@ -31,14 +31,17 @@ public:
 	bool setSelectedTask(Task* task);
 	bool setSelectedTaskIndex(uint8_t index);
 	Task* getSelectedTask();
-	void setActionListener(IActionListener* listener);
+	void addActionListener(IActionListener* listener);
+	void removeActionListener(IActionListener* listener);
+	void removeActionListenerAt(uint8_t index);
+	std::vector<IActionListener*>* getActionListeners();
 
 
 private:
 	typedef std::vector<Task*> container;
 	container tasks;
 	Task* selectedTask = nullptr;
-	IActionListener* actionListener = nullptr;
+	std::vector<IActionListener*> actionListeners;
 	void notifyActionPerformed(unsigned int action, uint8_t index);
 };
 

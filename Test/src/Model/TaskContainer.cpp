@@ -81,15 +81,35 @@ Task* TaskContainer::getSelectedTask(){
 	return this->selectedTask;
 }
 
-void TaskContainer::setActionListener(IActionListener* listener){
-	this->actionListener = listener;
+void TaskContainer::addActionListener(IActionListener* listener){
+	if(listener!=nullptr)
+		this->actionListeners.push_back(listener);
+}
+
+void TaskContainer::removeActionListener(IActionListener* listener){
+	if(listener!=nullptr)
+		for(int i=0; i<actionListeners.size(); i++){
+			IActionListener* cl = *(actionListeners.begin() + i);
+			if(cl==listener)
+				actionListeners.erase(actionListeners.begin() + i);
+		}
+}
+
+void TaskContainer::removeActionListenerAt(uint8_t index){
+	if(index<actionListeners.size())
+		actionListeners.erase(actionListeners.begin() + index);
+}
+
+std::vector<IActionListener*>* TaskContainer::getActionListeners(){
+	return &this->actionListeners;
 }
 
 void TaskContainer::notifyActionPerformed(
 		unsigned int actionId, uint8_t index){
-	if(actionListener){
+	for(int i=0; i<actionListeners.size(); i++){
+		IActionListener* cl = *(actionListeners.begin() + i);
 		Action action = Action(this, actionId, nullptr, &index);
-		actionListener->actionPerformed(action);
+		cl->actionPerformed(action);
 	}
 }
 
