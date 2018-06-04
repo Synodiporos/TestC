@@ -1,7 +1,7 @@
 /*
  * Controller.h
  *
- *  Created on: 27 Μαΐ 2018
+ *  Created on: 27 Ξ�Ξ±Ξ� 2018
  *      Author: Synodiporos
  */
 
@@ -30,9 +30,6 @@ private:
 	bool activated = false;
 	AbstractController* parent = nullptr;
 
-
-private:
-	bool activate = false;
 };
 
 #endif /* CONTROLLER_ABSTRACTCONTROLLER_H_ */

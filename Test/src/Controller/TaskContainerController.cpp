@@ -16,19 +16,14 @@ TaskContainerController::~TaskContainerController() {
 	// TODO Auto-generated destructor stub
 }
 
-bool TaskContainerController::setActivated(bool activate){
-	if(AbstractController::setActivated(activate)){
-		if(activate){
-			if(model)
-				model->addActionListener(this);
-		}
-		else{
-			if(model)
-				model->removeActionListener(this);
-	}
-		return true;
-	}
-	return false;
+void TaskContainerController::onActivate(){
+	if(model)
+		model->addActionListener(this);
+}
+
+void TaskContainerController::onDeactivate(){
+	if(model)
+		model->removeActionListener(this);
 }
 
 void TaskContainerController::onForwardPressed(){
@@ -95,3 +90,6 @@ void TaskContainerController::onBackClicked(){
 
 }
 
+void TaskContainerController::actionPerformed(Action action){
+
+}

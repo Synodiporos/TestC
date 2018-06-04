@@ -7,10 +7,10 @@
 
 #ifndef CONTROLLER_MAINCONTROLLER_H_
 #define CONTROLLER_MAINCONTROLLER_H_
-#include "AbstractController.h"
-#include "../CDOptionPane.h"
+#include "AbstractCompController.h"
+#include "../CD/CDOptionPane.h"
 
-class MainController : public AbstractController{
+class MainController : public AbstractCompController{
 public:
 	MainController();
 	~MainController();
