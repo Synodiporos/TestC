@@ -18,6 +18,7 @@
 class CDElement : public AbstractCDElement{
 public:
 	CDElement();
+	CDElement(int8_t w, int8_t h);
 	CDElement(uint8_t x, uint8_t y, int8_t w, int8_t h);
 	virtual ~CDElement();
 

@@ -10,7 +10,12 @@ using namespace std;
 //#include "Arduino.h"
 
 CDElement::CDElement() : bounds{Rectangle()}{
-	setBounds(0,0,0,0);
+	//setBounds(0,0,0,0);
+}
+
+CDElement::CDElement(int8_t w, int8_t h)
+	: bounds{Rectangle(0,0,w,h)}{
+	//setBounds(0, 0, w, h);
 }
 
 CDElement::CDElement(uint8_t x, uint8_t y, int8_t w, int8_t h)

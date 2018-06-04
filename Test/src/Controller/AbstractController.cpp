@@ -16,10 +16,37 @@ AbstractController::~AbstractController() {
 	// TODO Auto-generated destructor stub
 }
 
-void AbstractController::setActivated(bool activated){
-	this->activate = activated;
+void AbstractController::activate(){
+	if(setActivated(true))
+		onActivate();
+}
+
+void AbstractController::deactivate(){
+	if(setActivated(false))
+		onDeactivate();
+}
+
+bool AbstractController::setActivated(bool activated){
+	if(this->activated!=activated){
+		this->activated = activated;
+		return true;
+	}
+	return false;
 }
 
 bool AbstractController::isActivated(){
-	return this->activate;
+	return this->activated;
+}
+
+bool AbstractController::setParent(AbstractController* parent){
+	if(this->parent!=parent){
+		this->parent = parent;
+		return true;
+	}
+	return false;
+}
+
+AbstractController* AbstractController::getParent(){
+	return this->parent;
+
 }

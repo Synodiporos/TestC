@@ -176,8 +176,9 @@ int main() {
 		cout << "  " << cont.getTaskAt(i) << endl;
 	cout << "]" << endl;
 
-	Task* t = cont.getTaskAt(4);
+	Task* t = cont.getTaskAt(2);
 	cout << "Retrieve: " << t << endl;
+
 
 
 	clock_t start = clock();
