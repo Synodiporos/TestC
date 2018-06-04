@@ -1,7 +1,7 @@
 /*
  * CDLabel.cpp
  *
- *  Created on: 18 Ξ�οΏ½Ξ�Β±Ξ�οΏ½ 2018
+ *  Created on: 18 Ξ�οΏ½ΞΏΞ�Β½Ξ�οΏ½Ξ’Β±Ξ�οΏ½ΞΏΞ�Β½ 2018
  *      Author: Synodiporos
  */
 #include <iostream>
@@ -10,11 +10,6 @@ using namespace std;
 #include "../Utils/CharUtil.h"
 #include "CDConstants.h"
 #include <ctime>
-
-CDLabel::CDLabel() {
-	// TODO Auto-generated constructor stub
-
-}
 
 CDLabel::CDLabel(uint8_t width, char* label){
 	setWidth(width);
@@ -47,18 +42,31 @@ char* CDLabel::getLabel(){
 }
 
 void CDLabel::startRolling(){
-	this->millis = clock();
-	this->rollState = CDLabelStartRolling;
+	setRollingState(CDLabel::ROLLING_BEGIN);
+}
+
+void CDLabel::startRollingImmediately(){
+	setRollingState(CDLabel::ROLLING_ROLL);
 }
 
 void CDLabel::stopRolling(){
-	this->millis = clock();
-	this->rollState = CDLabelStopRolling;
+	setRollingState(CDLabel::ROLLING_STOP);
+	setLabelIndex(0);
+}
+
+void CDLabel::setRollingState(uint8_t state){
+	if(this->rollState!=state){
+		this->rollState = state;
+		this->millis = clock();
+	}
+}
+
+uint8_t CDLabel::getRollingState(){
+	return this->rollState;
 }
 
 bool CDLabel::isRolling(){
-	uint8_t r = CDLabelStartRolling;
-	if(this->rollState == r)
+	if(this->rollState > 0)
 		return true;
 	return false;
 }
@@ -97,11 +105,11 @@ Rectangle* CDLabel::getBounds(){
 	return new Rectangle(this->x, this->y, this->width, 1);
 }
 
-void CDLabel::setParent(ICDElement* parent){
+void CDLabel::setParent(AbstractCDElement* parent){
 	this->parent = parent;
 }
 
-ICDElement* CDLabel::getParent(){
+AbstractCDElement* CDLabel::getParent(){
 	return this->parent;
 }
 
@@ -111,7 +119,7 @@ ICDElement* CDLabel::getParent(){
 */
 void CDLabel::reprint(){
 
-	ICDElement::reprint();
+	AbstractCDElement::reprint();
 	/*
 	uint8_t x = strIndex;
 	char* p = CharUtil::strFilling(
@@ -122,6 +130,9 @@ void CDLabel::reprint(){
 void CDLabel::printArea(LCD* lcd, Rectangle* area){
 	if(area->getY()!=0)
 		return;
+
+	//Cursor
+
 	int8_t x = area->getX() + strIndex;
 	char* p = CharUtil::strFilling(
 			label, lenght, area->getWidth(), x, ' ');
@@ -131,17 +142,31 @@ void CDLabel::printArea(LCD* lcd, Rectangle* area){
 void CDLabel::validate(){
 	if(isRolling()){
 		unsigned int m = clock() - millis;
-		unsigned int interval = CDLabelRollPI;
 
-		if(m >= interval){
-			int8_t mvs = lenght - width - strIndex;
-			//cout << "mvs: " << (int)mvs << endl;
-			if(mvs>0){
-				setLabelIndex( strIndex + 1);
-				if(mvs==1)
-					stopRolling();
+		if(getRollingState()==CDLabel::ROLLING_BEGIN){
+			unsigned short int srd = CDLabelStartRollDelay;
+			if(m>=srd)
+				setRollingState(CDLabel::ROLLING_ROLL);
+		}
+		else if(getRollingState()==CDLabel::ROLLING_ROLL){
+			unsigned short int pi = CDLabelRollPI;
+			int8_t mvs = lenght - width - strIndex
+										+ CDLabelRollingOffeset;
+			if(m >= pi){
+				if(mvs>0)
+					setLabelIndex( strIndex + 1);
+				else
+					setRollingState(CDLabel::ROLLING_END);
+				millis = clock();
 			}
-			millis = clock();
+		}
+		else{
+			unsigned short int gbd = CDLabelRollBackDelay;
+			if(m >= gbd){
+				setRollingState(CDLabel::ROLLING_BEGIN);
+				setLabelIndex(0);
+				millis = clock();
+			}
 		}
 	}
 }

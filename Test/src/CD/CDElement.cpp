@@ -10,7 +10,12 @@ using namespace std;
 //#include "Arduino.h"
 
 CDElement::CDElement() : bounds{Rectangle()}{
-	setBounds(0,0,0,0);
+	//setBounds(0,0,0,0);
+}
+
+CDElement::CDElement(int8_t w, int8_t h)
+	: bounds{Rectangle(0,0,w,h)}{
+	//setBounds(0, 0, w, h);
 }
 
 CDElement::CDElement(uint8_t x, uint8_t y, int8_t w, int8_t h)
@@ -61,21 +66,21 @@ void CDElement::setBounds(uint8_t x, uint8_t y, int8_t w, int8_t h){
 	this->bounds.setRectangle(x, y, w, h);
 }
 
-void CDElement::setParent(ICDElement* parent){
+void CDElement::setParent(AbstractCDElement* parent){
 	this->parent = parent;
 }
 
 
-ICDElement* CDElement::getParent(){
+AbstractCDElement* CDElement::getParent(){
 	return this->parent;
 }
 
 /*void CDElement::print(LCD* lcd){
-	ICDElement::reprint();
+	AbstractCDElement::reprint();
 }
 
 void CDElement::reprint(){
-	ICDElement::reprint();
+	AbstractCDElement::reprint();
 }*/
 
 void CDElement::printArea(LCD* lcd, Rectangle* area){
@@ -86,8 +91,7 @@ void CDElement::printArea(LCD* lcd, Rectangle* area){
 
 		//lcd->setCursor(ccx+area->getX(), ccy+area->getY());
 
-
-		cout << "PrintArea: [";
+		/*cout << "PrintArea: [";
 		cout << (int)area->getX();
 		cout << ", ";
 		cout << (int)area->getY();
@@ -96,7 +100,7 @@ void CDElement::printArea(LCD* lcd, Rectangle* area){
 		cout << ", ";
 		cout << (int)area->getHeight();
 		cout << "] of " ;
-		cout << this << endl;
+		cout << this << endl;*/
 
 		//lcd->fillArea(area, '.');
 		//lcd->setCursor(ccx, ccy);

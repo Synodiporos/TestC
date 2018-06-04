@@ -1,34 +1,24 @@
 /*
  * CDConstants.h
  *
- *  Created on: 20 Μαΐ 2018
+ *  Created on: 20 Ξ�Ξ±Ξ� 2018
  *      Author: Synodiporos
  */
 
 #ifndef CD_CDCONSTANTS_H_
 #define CD_CDCONSTANTS_H_
 
-#define CDLabelStartRolling 1;
-#define CDLabelStopRolling 0;
-//Speed: pixels per second
-#define CDLabelRollPPS 4;
 //Speed: pixels interval in millis
-#define CDLabelRollPI 400;
-
-#define CDLabelRollingOffeset 0;
-#define CDLabelRollingStartFrom0 21;
-#define CDLabelRollingStopToEnd 22;
-#define CDLabelRollingEndState 0;
-
-
-
+#define CDLabelRollPI 500;
+#define CDLabelRollingOffeset 1;
 //Internal to start rolling;
-#define CDOptionStartRollDelay 500;
+#define CDLabelStartRollDelay 1000;
 //Roll back to 0 after xx millis
-#define CDOptionRollBackInterval 1000;
+#define CDLabelRollBackDelay 2000;
 
-#define CDLabelRolling_NEVER  10;
-#define CDLabelRolling_WHENSELECTED  11;
-#define CDLabelRolling_WHENPRESSED  12;
+#define CDOptionAutoRolling_state 10;
+#define CDOptionAutoRolling_Never  10;
+#define CDOptionAutoRolling_OnHover  11;
+#define CDOptionAutoRolling_OnPressed  12;
 
 #endif /* CD_CDCONSTANTS_H_ */

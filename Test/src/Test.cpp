@@ -8,14 +8,20 @@
 
 #include <iostream>
 using namespace std;
+#include "CD/AbstractCDElement.h"
 #include "CD/CDElement.h"
 #include "CD/CDComponent.h"
 #include "CD/CDLabel.h"
+#include "CD/CDOption.h"
+#include "CD/CDOptionPane.h"
 #include "CD/LCD.h"
 #include "CD/CDFrame.h"
+#include "CD/CDVScrollbar.h"
 #include "Geometry/Point.h"
 #include "Geometry/Rectangle.h"
 #include "Utils/CharUtil.h"
+#include "Model/Task.h"
+#include "Model/TaskContainer.h"
 #include <ctime>
 
 void test(int& i);
@@ -38,34 +44,38 @@ int main() {
 		//CharUtil::strFilling(str, 100, 100, i, '.');
 	//}
 
+	//uint8_t c
+
 
 	//=============================================
-	Rectangle r1 = Rectangle(0, -1, 16, 2);
-	Rectangle r2 = Rectangle(0, -1, 16, 10);
-
+	Rectangle r1 = Rectangle(0, 0, 16, 2);
+	Rectangle r2 = Rectangle(0, 1, 16, 5);
 	Rectangle res = r1.intersection(&r2);
 	//printRect(&res);
 
 
 	//==========================================
-	//LCD* lcd = new LCD();
-
-	CDComponent* comp1 = new CDComponent(0, 0, 4, 1);
-	CDComponent* comp2 = new CDComponent(0, 1, 12, 2, 2);
-	CDComponent* comp3 = new CDComponent(13, 1, 5, 2, 0);
-	CDComponent* comp4 = new CDComponent(-1, 2, 20, 5, 2);
-	CDElement* elem1 = new CDElement(0, 0, 7, 3);
-	CDElement* elem2 = new CDElement(8, 0, 8, 3);
+	CDComponent* comp1 =
+			new CDComponent(0, 0, 4, 1);
+	CDComponent* comp2 =
+			new CDComponent(0, 1, 12, 2, 2);
+	CDComponent* comp3 =
+			new CDComponent(13, 1, 5, 2, 0);
+	CDComponent* comp4 =
+			new CDComponent(0, 3, 20, 5, 2);
 	char lstr1[] = "Label 101 TEsting";
 	char lstr2[] = "ArduinoArduino";
+	CDOption* elem1 = new CDOption(0, 0, 7, lstr1);
+	CDOption* elem2 = new CDOption(8, 0, 8, lstr2);
 	CDLabel* l1 = new CDLabel(0, 0, 7, lstr1);
 	CDLabel* l2 = new CDLabel(8, 0, 8, lstr2);
-	CDComponent* comp = new CDComponent(0, 5, 16, 40, 4);
+	CDComponent* comp =
+			new CDComponent(0, 0, 16, 100, 4);
 
 	cout << "comp1: " << comp1 << endl;
 	cout << "comp2: " << comp2 << endl;
 	cout << "comp3: " << comp3 << endl;
-	cout << "comp4: " << comp3 << endl;
+	cout << "comp4: " << comp4 << endl;
 	cout << "elem1: " << elem1 << endl;
 	cout << "elem2: " << elem2 << endl;
 	cout << "l1: " << l1 << endl;
@@ -81,41 +91,104 @@ int main() {
 	comp->addElement(comp3);
 	comp->addElement(comp4);
 
-	//Rectangle sc = Rectangle(0, 0, 12, 1);
+
+
+
+	CDOption op1 = CDOption(0,0,4, (char*)"Op1");
+	CDOption op2 = CDOption(7,0,4, "Op2");
+	CDOption op3 = CDOption(0,1,12, "Op3");
+	CDOption op4 = CDOption(0,2,4, "Op4");
+	CDOption op5 = CDOption(7,2,4, "Op5");
+	CDOption op6 = CDOption(0,3,12, "Op6");
+	CDOptionPane op = CDOptionPane(0,0,12,5);
+	op.insertOption(&op1);
+	op.insertOption(&op2);
+	op.insertOption(&op3);
+	op.insertOption(&op4);
+	op.insertOption(&op5);
+	op.insertOptionAt(5, &op6);
+	op.setSelectedOption(&op6);
+	op.removeOptionAt(10);
+
+	/*cout << "CDOptionPane: " << &op << " size: " <<
+			(int)op.getSize()
+			<< "[" << endl;
+	if(op.getSelectedOption())
+	cout << "   selected: " <<
+			op.getSelectedOption()->getLabel()->getLabel()
+			<< endl;
+	while(op.hasPreviousOption()){
+		op.selectPreviousOption();
+		cout << "   selected: " <<
+				op.getSelectedOption()->getLabel()->getLabel()
+				<< endl;
+	}
+	cout << "]" << endl;
+	for(int i=0; i<op.getSize(); i++){
+		CDOption* o = op.getOptionAt(i);
+		cout << "   -selected at "<< i << ": " <<
+				o->getLabel()->getLabel()
+				<< endl;
+	}*/
+
+	cout << "." << endl;
+
 
 	CDFrame frame = CDFrame(16, 2, 1);
-	frame.setPosition(0, 5);
-	frame.setPage(comp, 0);
+	frame.setPage(&op, 0);
+	frame.setPosition(0,2);
+	//frame.print();
+	//for(int i=-1; i<=100; i++)
+	//	frame.setPosition(0, i);
 	//frame.print();
 
-	CDComponent cc = CDComponent();
-	cout << "Size of comp: " << sizeof(*comp) << endl;
-	cout << "Size of frame: " << sizeof(frame) << endl;
+
+	//elem2->click();
+	//l1->setLabelIndex(2);
+	//l1->startRollingImmediately();
 
 
-	l1->setLabelIndex(2);
-	/*l2->startRolling();
 
+	Task t1 = Task(*"Task1", 0);
+	Task t2 = Task(*"Task2", 0);
+	Task t3 = Task(*"Task3", 0);
+	Task t4 = Task(*"Task4", 0);
+	Task t5 = Task(*"Task5", 0);
+	TaskContainer cont = TaskContainer();
+	cout << "Task1: " << &t1 << endl;
+	cout << "Task2: " << &t2 << endl;
+	cout << "Task3: " << &t3 << endl;
+	cout << "Task4: " << &t4 << endl;
+	cout << "Task5: " << &t5 << endl;
+
+	cont.insertTask(&t1);
+	cont.insertTask(&t2);
+	cont.insertTask(&t3);
+	cont.insertTask(&t4);
+	cont.insertTask(&t5);
+	cont.removeTaskAt(2);
+
+	cout << "Container[" << endl;
+	for(int i=0; i<cont.getSize(); i++)
+		cout << "  " << cont.getTaskAt(i) << endl;
+	cout << "]" << endl;
+
+	Task* t = cont.getTaskAt(3);
+	cout << "Retrieve: " << t << endl;
 
 
 	clock_t start = clock();
 
-
+/*
 	while(clock()-start<10000){
 		comp->validate();
+		if(clock()-start>=2000){
+			//elem2->hover();
+		}
 	}
 */
 
-	//l1->setLabelIndex(1);
-	//l1->startRolling();
-
-	clock_t start = clock();
-
-
-	//while(clock()-start<10000){
-	//	comp->validate();
-	//}
-
+	cout << "Size of comp: " << sizeof(*comp) << endl;
 	cout<< "Finished!" << endl;
 	return 0;
 }
