@@ -16,11 +16,10 @@ public:
 	virtual ~MainView();
 	void init();
 
-	CDOption* optionAuto = nullptr;
-	CDOption* optionManual = nullptr;
-	CDOption* optionSettings = nullptr;
-	CDOption* optionStatistics = nullptr;
-
+	CDOption* getOptionAuto();
+	CDOption* getOptionManul();
+	CDOption* getOptionSettings();
+	CDOption* getOptionStatistics();
 
 private:
 
