@@ -22,6 +22,7 @@ public:
 	CDOption(uint8_t width, char* label);
 	CDOption(int8_t x, int8_t y, uint8_t width, char* label);
 	CDOption(int8_t x, int8_t y, uint8_t width, char* label, unsigned int actionId);
+
 	virtual ~CDOption();
 
 	virtual void setParent(AbstractCDElement* parent);

@@ -13,6 +13,7 @@
 class MainController : public AbstractCompController{
 public:
 	MainController(CDOptionPane* view);
+
 	~MainController();
 
 

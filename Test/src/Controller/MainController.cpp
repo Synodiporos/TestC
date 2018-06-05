@@ -12,6 +12,7 @@ using namespace std;
 MainController::MainController(CDOptionPane* view) :
 	view(view){
 	// TODO Auto-generated constructor stub
+
 }
 
 MainController::~MainController() {

@@ -24,6 +24,7 @@ using namespace std;
 #include "Model/TaskContainer.h"
 #include "View/MainView.h"
 #include "Controller/MainController.h"
+
 #include <ctime>
 
 void test(int& i);
@@ -57,7 +58,9 @@ int main() {
 
 
 	//==========================================
+
 	/*CDComponent* comp1 =
+
 			new CDComponent(0, 0, 4, 1);
 	CDComponent* comp2 =
 			new CDComponent(0, 1, 12, 2, 2);
@@ -175,6 +178,7 @@ int main() {
 		cout << "  " << cont.getTaskAt(i) << endl;
 	cout << "]" << endl;
 
+
 	Task* t = cont.getTaskAt(3);
 	cout << "Retrieve: " << t << endl;*/
 
@@ -188,6 +192,7 @@ int main() {
 	mainCtrl->onBackwardClicked();
 	mainCtrl->onEnterClicked();
 
+
 	clock_t start = clock();
 
 /*
@@ -200,6 +205,7 @@ int main() {
 */
 
 	cout << "Size of comp: " << sizeof(*mainView) << endl;
+
 	cout<< "Finished!" << endl;
 	return 0;
 }
