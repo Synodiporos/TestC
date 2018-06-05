@@ -35,7 +35,8 @@ void MainView::init(){
 	CDOption* optionStats = new CDOption(8, 1, 9, c4, VIEW_ACTION_STATISTICS);
 	this->insertOption(optionStats);
 
-	setSelectedOption(0);
+	//setSelectedOptionIndex(0);
+	setSelectedOption(optionAuto);
 }
 
 CDOption* MainView::getOptionAuto(){

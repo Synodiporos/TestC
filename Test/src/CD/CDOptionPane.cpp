@@ -1,7 +1,7 @@
 /*
  * CDOptionPane.cpp
  *
- *  Created on: 27 Μαΐ 2018
+ *  Created on: 27 Ξ�Ξ±Ξ� 2018
  *      Author: Synodiporos
  */
 
@@ -49,8 +49,6 @@ bool CDOptionPane::insertOptionAt(uint8_t index, CDOption* option){
 		return false;
 
 	Node* opt = new Node(option);
-	cout << "OptionPane insert: " << option << endl;
-
 	if(index>size)
 		return false;
 	else if(index==size){
@@ -72,7 +70,6 @@ bool CDOptionPane::insertOptionAt(uint8_t index, CDOption* option){
 		opt->setPrev(curn);
 		if(curn)
 			curn->setNext(opt);
-
 		size++;
 		return true;
 	}
@@ -157,8 +154,30 @@ bool CDOptionPane::setSelectedOption(CDOption* option){
 	return false;
 }
 
+bool CDOptionPane::setSelectedOptionIndex(uint8_t index){
+	if(size<=0)
+		return false;
+	if(index>=size)
+		return false;
+
+	Node* n = tail;
+	int c = size - index - 1;
+	while(n->hasPrev()){
+		if(c--==0)
+			return setSelectedOptionNode(n);
+		n = n->getPrev();
+	}
+	if(c==0)
+		return setSelectedOptionNode(n);
+	return false;
+}
+
 bool CDOptionPane::setSelectedOptionNode(Node* node){
 	if(selected!=node){
+		if(selected)
+			selected->getValue()->unhover();
+		if(node)
+			node->getValue()->hover();
 		this->selected = node;
 		return true;
 	}

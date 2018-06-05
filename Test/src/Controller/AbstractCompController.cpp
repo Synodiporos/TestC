@@ -28,6 +28,7 @@ bool AbstractCompController::setActiveController(AbstractController* active){
 		if(this->activeCtlr)
 			this->activeCtlr->setParent(nullptr);
 		this->activeCtlr = active;
+		onActiveControllerChanged();
 		return true;
 	}
 	return false;

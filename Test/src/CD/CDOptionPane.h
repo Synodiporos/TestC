@@ -1,7 +1,7 @@
 /*
  * CDOptionPane.h
  *
- *  Created on: 27 Μαΐ 2018
+ *  Created on: 27 Ξ�Ξ±Ξ� 2018
  *      Author: Synodiporos
  */
 
@@ -28,6 +28,7 @@ public:
 	bool removeOptionAt(uint8_t index);
 	CDOption* getOptionAt(uint8_t index);
 	bool setSelectedOption(CDOption* option);
+	bool setSelectedOptionIndex(uint8_t index);
 	CDOption* getSelectedOption();
 	bool hasNextOption();
 	bool hasPreviousOption();

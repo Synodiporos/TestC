@@ -1,7 +1,7 @@
 /*
  * Task.h
  *
- *  Created on: 27 Μαΐ 2018
+ *  Created on: 27 Ξ�Ξ±Ξ� 2018
  *      Author: Synodiporos
  */
 
@@ -24,7 +24,7 @@ private:
 	char name;
 	//Duration in seconds
 	unsigned int duration = 0;
-	bool editable = false;
+	bool editable = true;
 };
 
 #endif /* MODEL_TASK_H_ */

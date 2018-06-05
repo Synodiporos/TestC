@@ -25,6 +25,7 @@ public:
 protected:
 	virtual void onActivate() = 0;
 	virtual void onDeactivate() = 0;
+	virtual void onActiveControllerChanged() = 0;
 
 private:
 	bool activated = false;

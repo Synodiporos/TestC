@@ -97,8 +97,8 @@ int main() {
 	comp->addElement(comp4);*/
 
 
-
 /*
+
 	CDOption op1 = CDOption(0,0,4, (char*)"Op1");
 	CDOption op2 = CDOption(7,0,4, "Op2");
 	CDOption op3 = CDOption(0,1,12, "Op3");
@@ -113,9 +113,9 @@ int main() {
 	op.insertOption(&op5);
 	op.insertOptionAt(5, &op6);
 	op.setSelectedOption(&op6);
-	op.removeOptionAt(10);*/
+	op.removeOptionAt(10);
 
-	/*cout << "CDOptionPane: " << &op << " size: " <<
+	cout << "CDOptionPane: " << &op << " size: " <<
 			(int)op.getSize()
 			<< "[" << endl;
 	if(op.getSelectedOption())
@@ -131,12 +131,27 @@ int main() {
 	cout << "]" << endl;
 	for(int i=0; i<op.getSize(); i++){
 		CDOption* o = op.getOptionAt(i);
-		cout << "   -selected at "<< i << ": " <<
+		cout << "   -Option at "<< i << ": " <<
 				o->getLabel()->getLabel()
 				<< endl;
-	}*/
+	}
 
-	cout << "." << endl;
+
+	cout << "SetSelectedIndex(" << 0 << "): " <<
+			op.setSelectedOptionIndex(0);
+	cout << "   -- "<< 0 << ": " <<
+			op.getSelectedOption()->getLabel()->getLabel()
+			<< endl;
+
+	for(int i=100; i<op.getSize()+2; i++){
+		cout << "SetSelectedIndex(" << i << "): " <<
+				op.setSelectedOptionIndex(i);
+		cout << "   -- "<< i << ": " <<
+				op.getSelectedOption()->getLabel()->getLabel()
+				<< endl;
+	}
+
+	cout << "." << endl;*/
 
 
 	CDFrame frame = CDFrame(16, 2, 1);
@@ -152,8 +167,8 @@ int main() {
 	//l1->setLabelIndex(2);
 	//l1->startRollingImmediately();
 
-
 /*
+
 	Task t1 = Task(*"Task1", 0);
 	Task t2 = Task(*"Task2", 0);
 	Task t3 = Task(*"Task3", 0);
@@ -171,7 +186,7 @@ int main() {
 	cont.insertTask(&t3);
 	cont.insertTask(&t4);
 	cont.insertTask(&t5);
-	cont.removeTaskAt(2);
+	//cont.removeTaskAt(2);
 
 	cout << "Container[" << endl;
 	for(int i=0; i<cont.getSize(); i++)
@@ -180,17 +195,37 @@ int main() {
 
 
 	Task* t = cont.getTaskAt(3);
-	cout << "Retrieve: " << t << endl;*/
+	cout << "Retrieve: " << t << endl;
+
+	for(int i=0; i<5; i++){
+		cont.setSelectedTaskIndex(i);
+		cout << "Selected at "<< i << ": " << cont.getSelectedTask() << endl;
+	}
+*/
+
 
 
 	MainView* mainView = new MainView();
 	mainView->init();
 	MainController* mainCtrl = new MainController(mainView);
 
-	mainCtrl->onForwardClicked();
-	mainCtrl->onForwardClicked();
-	mainCtrl->onBackwardClicked();
+
 	mainCtrl->onEnterClicked();
+	mainCtrl->onForwardClicked();
+	mainCtrl->onEnterClicked();
+	mainCtrl->onForwardClicked();
+	mainCtrl->onEnterClicked();
+	mainCtrl->onForwardClicked();
+	mainCtrl->onEnterClicked();
+	mainCtrl->onForwardClicked();
+	mainCtrl->onEnterClicked();
+
+
+	//mainCtrl->onForwardClicked();
+	//mainCtrl->onBackwardClicked();
+	//mainCtrl->onForwardClicked();
+
+	//mainCtrl->onEnterClicked();
 
 
 	clock_t start = clock();
@@ -204,7 +239,7 @@ int main() {
 	}
 */
 
-	cout << "Size of comp: " << sizeof(*mainView) << endl;
+	//cout << "Size of comp: " << sizeof(*mainView) << endl;
 
 	cout<< "Finished!" << endl;
 	return 0;

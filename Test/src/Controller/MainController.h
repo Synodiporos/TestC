@@ -9,17 +9,17 @@
 #define CONTROLLER_MAINCONTROLLER_H_
 #include "AbstractCompController.h"
 #include "../CD/CDOptionPane.h"
+#include "TaskContainerController.h"
 
 class MainController : public AbstractCompController{
 public:
 	MainController(CDOptionPane* view);
-
 	~MainController();
-
 
 protected:
 	void onActivate();
 	void onDeactivate();
+	void onActiveControllerChanged();
 	void forwardPressed();
 	void forwardReleased();
 	void forwardHolded();
@@ -36,9 +36,12 @@ protected:
 	void backReleased();
 	void backHolded();
 	void backClicked();
+	void onOptionClicked(unsigned int id);
 
 private:
 	CDOptionPane* view = nullptr;
+
+	TaskContainerController* taskContCtrl = nullptr;
 
 
 };
