@@ -23,6 +23,14 @@ CDOption::CDOption(int8_t x, int8_t y, uint8_t width, char* label)
 	init();
 }
 
+CDOption::CDOption(int8_t x, int8_t y, uint8_t width, char* label, unsigned int actionId)
+	: label(width-1, label){
+	setWidth(width);
+	setLocation(x, y);
+	setActionId(actionId);
+	init();
+}
+
 CDOption::~CDOption() {
 	// TODO Auto-generated destructor stub
 }

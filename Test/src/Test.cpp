@@ -22,6 +22,9 @@ using namespace std;
 #include "Utils/CharUtil.h"
 #include "Model/Task.h"
 #include "Model/TaskContainer.h"
+#include "View/MainView.h"
+#include "Controller/MainController.h"
+
 #include <ctime>
 
 void test(int& i);
@@ -33,7 +36,7 @@ char* normalize(char* str, uint8_t size, uint8_t start);
 int main() {
 	cout << "Testing Started." << endl; // prints !!!Hello World!!!
 
-	char* str = "Stay tuned for Caturday – a project from tech fashion designer Anouk Wipprecht. Debuting Saturday";
+	//char* str = "Stay tuned for Caturday – a project from tech fashion designer Anouk Wipprecht. Debuting Saturday";
 	//char* str2 = "Arduino";
 
 	//char* rrr = CharUtil::strFilling(str2, 7, 8, 0, '-');
@@ -55,7 +58,9 @@ int main() {
 
 
 	//==========================================
-	CDComponent* comp1 =
+
+	/*CDComponent* comp1 =
+
 			new CDComponent(0, 0, 4, 1);
 	CDComponent* comp2 =
 			new CDComponent(0, 1, 12, 2, 2);
@@ -89,11 +94,11 @@ int main() {
 	comp->addElement(comp1);
 	comp->addElement(comp2);
 	comp->addElement(comp3);
-	comp->addElement(comp4);
+	comp->addElement(comp4);*/
 
 
 
-
+/*
 	CDOption op1 = CDOption(0,0,4, (char*)"Op1");
 	CDOption op2 = CDOption(7,0,4, "Op2");
 	CDOption op3 = CDOption(0,1,12, "Op3");
@@ -108,17 +113,15 @@ int main() {
 	op.insertOption(&op5);
 	op.insertOptionAt(5, &op6);
 	op.setSelectedOption(&op6);
-	op.removeOptionAt(10);
+	op.removeOptionAt(10);*/
 
 	/*cout << "CDOptionPane: " << &op << " size: " <<
 			(int)op.getSize()
 			<< "[" << endl;
-
 	if(op.getSelectedOption())
 	cout << "   selected: " <<
 			op.getSelectedOption()->getLabel()->getLabel()
 			<< endl;
-
 	while(op.hasPreviousOption()){
 		op.selectPreviousOption();
 		cout << "   selected: " <<
@@ -126,7 +129,6 @@ int main() {
 				<< endl;
 	}
 	cout << "]" << endl;
-
 	for(int i=0; i<op.getSize(); i++){
 		CDOption* o = op.getOptionAt(i);
 		cout << "   -selected at "<< i << ": " <<
@@ -138,8 +140,8 @@ int main() {
 
 
 	CDFrame frame = CDFrame(16, 2, 1);
-	frame.setPage(&op, 0);
-	frame.setPosition(0,2);
+	//frame.setPage(&op, 0);
+	//frame.setPosition(0,2);
 	//frame.print();
 	//for(int i=-1; i<=100; i++)
 	//	frame.setPosition(0, i);
@@ -151,7 +153,7 @@ int main() {
 	//l1->startRollingImmediately();
 
 
-
+/*
 	Task t1 = Task(*"Task1", 0);
 	Task t2 = Task(*"Task2", 0);
 	Task t3 = Task(*"Task3", 0);
@@ -176,14 +178,24 @@ int main() {
 		cout << "  " << cont.getTaskAt(i) << endl;
 	cout << "]" << endl;
 
+
 	Task* t = cont.getTaskAt(3);
-	cout << "Retrieve: " << t << endl;
+	cout << "Retrieve: " << t << endl;*/
+
+
+	MainView* mainView = new MainView();
+	mainView->init();
+	MainController* mainCtrl = new MainController(mainView);
+
+	mainCtrl->onForwardClicked();
+	mainCtrl->onForwardClicked();
+	mainCtrl->onBackwardClicked();
+	mainCtrl->onEnterClicked();
 
 
 	clock_t start = clock();
 
 /*
-
 	while(clock()-start<10000){
 		comp->validate();
 		if(clock()-start>=2000){
@@ -192,7 +204,8 @@ int main() {
 	}
 */
 
-	cout << "Size of comp: " << sizeof(*comp) << endl;
+	cout << "Size of comp: " << sizeof(*mainView) << endl;
+
 	cout<< "Finished!" << endl;
 	return 0;
 }
