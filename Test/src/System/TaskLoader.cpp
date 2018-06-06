@@ -8,6 +8,8 @@
 #include "TaskLoader.h"
 #include "PredefinedTasks.h"
 
+TaskLoader* TaskLoader::instance = 0;
+
 TaskLoader::TaskLoader() {
 	// TODO Auto-generated constructor stub
 
@@ -15,6 +17,12 @@ TaskLoader::TaskLoader() {
 
 TaskLoader::~TaskLoader() {
 	// TODO Auto-generated destructor stub
+}
+
+TaskLoader* TaskLoader::getInstance(){
+	if (instance == 0)
+		instance = new TaskLoader();
+	return instance;
 }
 
 vector<Task*> TaskLoader::getPredefinedTasks(){

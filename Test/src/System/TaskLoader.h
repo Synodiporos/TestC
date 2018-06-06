@@ -13,13 +13,17 @@ using namespace std;
 
 class TaskLoader {
 public:
-	TaskLoader();
 	virtual ~TaskLoader();
-
+	static TaskLoader* getInstance();
 	static vector<Task*> getPredefinedTasks();
 	static vector<Task*> loadStoredTasks();
 	static vector<Task*> getAvailableTasks();
 
+private:
+	static TaskLoader* instance;
+	TaskLoader();
+	TaskLoader(TaskLoader const&);     // Don't Implement
+	void operator=(TaskLoader const&); // Don't implement
 };
 
 #endif /* SYSTEM_TASKLOADER_H_ */
