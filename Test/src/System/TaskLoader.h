@@ -8,15 +8,17 @@
 #ifndef SYSTEM_TASKLOADER_H_
 #define SYSTEM_TASKLOADER_H_
 #include "../Model/Task.h"
+#include <vector>
+using namespace std;
 
 class TaskLoader {
 public:
 	TaskLoader();
 	virtual ~TaskLoader();
 
-	static Task* getPredefinedTasks();
-	static Task* loadStoredTasks();
-	static Task* getAvailableTasks();
+	static vector<Task*> getPredefinedTasks();
+	static vector<Task*> loadStoredTasks();
+	static vector<Task*> getAvailableTasks();
 
 };
 
