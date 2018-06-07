@@ -16,7 +16,7 @@ TaskContainer::~TaskContainer() {
 	// TODO Auto-generated destructor stub
 }
 
-uint8_t TaskContainer::getSize(){
+const uint8_t TaskContainer::getSize() const{
 	return tasks.size();
 }
 
@@ -53,6 +53,10 @@ bool TaskContainer::removeTaskAt(uint8_t index){
 		return true;
 	}
 	return false;
+}
+
+const vector<Task*> TaskContainer::getTasks() const{
+	return this->tasks;
 }
 
 Task* TaskContainer::getTaskAt(uint8_t index){

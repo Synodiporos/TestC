@@ -16,3 +16,9 @@ TaskContainerView::~TaskContainerView() {
 	// TODO Auto-generated destructor stub
 }
 
+bool TaskContainerView::insertTaskOption(uint8_t width, char* name,
+		unsigned short int seconds, bool editable){
+	uint8_t y = size;
+	CDOption* option = new CDOption(0, y, width, name, y);
+	return this->insertOption(option);
+}
