@@ -17,7 +17,13 @@ class TaskContainerController : public
 	AbstractController, IActionListener{
 public:
 	TaskContainerController();
+	TaskContainerController(TaskContainer* model, TaskContainerView* view);
 	virtual ~TaskContainerController();
+
+	void setModel(TaskContainer* model);
+	void setView(TaskContainerView* view);
+	TaskContainer* getModel();
+	TaskContainerView* getView();
 
 	virtual void onForwardPressed();
 	virtual void onForwardReleased();
@@ -41,6 +47,7 @@ public:
 protected:
 	virtual void onActivate();
 	virtual void onDeactivate();
+	virtual void onActiveControllerChanged();
 
 private:
 	TaskContainer* model = nullptr;

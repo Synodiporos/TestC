@@ -1,7 +1,7 @@
 /*
  * Task.cpp
  *
- *  Created on: 27 Μαΐ 2018
+ *  Created on: 27 Ξ�Ξ±Ξ� 2018
  *      Author: Synodiporos
  */
 
@@ -28,4 +28,20 @@ void Task::setName(char* name){
 
 char* Task::getName(){
 	return this->name;
+}
+
+void Task::setDuration(unsigned int duration){
+	this->duration = duration;
+}
+
+unsigned int Task::getDuration(){
+	return this->duration;
+}
+
+bool Task::isEditable(){
+	return this->editable;
+}
+
+void Task::setEditable(bool editable){
+	this->editable = editable;
 }

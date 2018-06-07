@@ -17,8 +17,8 @@ TaskContainerView::~TaskContainerView() {
 }
 
 bool TaskContainerView::insertTaskOption(uint8_t width, char* name,
-		unsigned short int seconds, bool editable){
-	uint8_t y = size;
+		unsigned int seconds, bool editable){
+	uint8_t y = getSize();
 	CDOption* option = new CDOption(0, y, width, name, y);
 	return this->insertOption(option);
 }

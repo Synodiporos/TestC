@@ -12,8 +12,29 @@ TaskContainerController::TaskContainerController() {
 
 }
 
+TaskContainerController::TaskContainerController(
+		TaskContainer* model, TaskContainerView* view) :
+			view(view), model(model){
+}
+
 TaskContainerController::~TaskContainerController() {
-	// TODO Auto-generated destructor stub
+	// TODO Auto-generated constructor stub
+}
+
+void TaskContainerController::setModel(TaskContainer* model){
+	this->model = model;
+}
+
+void TaskContainerController::setView(TaskContainerView* view){
+	this->view = view;
+}
+
+TaskContainer* TaskContainerController::getModel(){
+	return this->model;
+}
+
+TaskContainerView* TaskContainerController::getView(){
+	return this->view;
 }
 
 void TaskContainerController::onActivate(){
@@ -91,5 +112,9 @@ void TaskContainerController::onBackClicked(){
 }
 
 void TaskContainerController::actionPerformed(Action action){
+
+}
+
+void TaskContainerController::onActiveControllerChanged(){
 
 }

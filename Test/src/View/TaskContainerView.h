@@ -15,7 +15,7 @@ public:
 	virtual ~TaskContainerView();
 
 	bool insertTaskOption(uint8_t width, char* name,
-			unsigned short int seconds, bool editable);
+			unsigned int seconds, bool editable);
 };
 
 #endif /* VIEW_TASKCONTAINERVIEW_H_ */

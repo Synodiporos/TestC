@@ -16,7 +16,7 @@ public:
 	void setName(char* name);
 	char* getName();
 	void setDuration(unsigned int duration);
-	unsigned short getDuration();
+	unsigned int getDuration();
 	bool isEditable();
 	void setEditable(bool editable);
 
