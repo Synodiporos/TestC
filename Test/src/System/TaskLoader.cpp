@@ -50,7 +50,7 @@ vector<Task*> TaskLoader::loadStoredTasks(){
 vector<Task*> TaskLoader::getAvailableTasks(){
 	vector<Task*> prefList = getPredefinedTasks();
 	vector<Task*> loadList = loadStoredTasks();
-	prefList.insert(prefList.begin(),
+	prefList.insert(prefList.end(),
 			loadList.begin(), loadList.end());
 	return prefList;
 }

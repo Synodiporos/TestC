@@ -23,10 +23,11 @@ public:
 	TaskContainer();
 	virtual ~TaskContainer();
 
-	uint8_t getSize();
+	const uint8_t getSize() const;
 	bool insertTask(Task *task);
 	bool removeTask(Task* task);
 	bool removeTaskAt(uint8_t index);
+	const vector<Task*> getTasks() const;
 	Task* getTaskAt(uint8_t index);
 	bool setSelectedTask(Task* task);
 	bool setSelectedTaskIndex(uint8_t index);
@@ -35,7 +36,6 @@ public:
 	void removeActionListener(IActionListener* listener);
 	void removeActionListenerAt(uint8_t index);
 	std::vector<IActionListener*>* getActionListeners();
-
 
 
 private:

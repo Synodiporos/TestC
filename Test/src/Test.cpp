@@ -229,10 +229,6 @@ int main() {
 	//mainCtrl->onEnterClicked();
 
 
-	TaskLoader* tl = TaskLoader::getInstance();
-
-	cout << "TaskLoader: " << tl << endl;
-
 	clock_t start = clock();
 
 /*
