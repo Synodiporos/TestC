@@ -41,7 +41,7 @@ public:
 	virtual void onBackReleased();
 	virtual void onBackHolded();
 	virtual void onBackClicked();
-
+	void onOptionClicked(unsigned int id);
 	void actionPerformed(Action action);
 
 protected:

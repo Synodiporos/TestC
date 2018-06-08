@@ -13,8 +13,10 @@
 
 class TaskContainerFactory {
 
+public:
 	static TaskContainerView* createView(TaskContainer &model);
 	static TaskContainerController* createController(TaskContainer &model);
+
 };
 
 #endif /* FACTORIES_TASKCONTAINERFACTORY_H_ */

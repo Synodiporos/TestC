@@ -48,29 +48,30 @@ bool CDOptionPane::insertOptionAt(uint8_t index, CDOption* option){
 	if(option==nullptr)
 		return false;
 
-	Node* opt = new Node(option);
 	if(index>size)
 		return false;
-	else if(index==size){
-		if(tail!=nullptr){
-			tail->setNext(opt);
+	else {
+		Node* opt = new Node(option);
+		if(index==size){
+			if(tail!=nullptr){
+				tail->setNext(opt);
+			}
+			opt->setPrev(tail);
+			opt->setNext(nullptr);
+			tail = opt;
 		}
-		opt->setPrev(tail);
-		opt->setNext(nullptr);
-		tail = opt;
+		else{
+			Node* cur = getOptionNodeAt(index);
+			Node* curn = cur->getPrev();
+			opt->setNext(cur);
+			cur->setPrev(opt);
+			opt->setPrev(curn);
+			if(curn)
+				curn->setNext(opt);
+		}
 		size++;
-		return true;
-	}
-	else{
-		Node* cur = getOptionNodeAt(index);
-		Node* curn = cur->getPrev();
-
-		opt->setNext(cur);
-		cur->setPrev(opt);
-		opt->setPrev(curn);
-		if(curn)
-			curn->setNext(opt);
-		size++;
+		if(selected==nullptr)
+			selected=opt;
 		return true;
 	}
 }

@@ -12,6 +12,10 @@ TaskContainer::TaskContainer(){
 
 }
 
+TaskContainer::TaskContainer(std::vector<Task*> tasks){
+	this->tasks = tasks;
+}
+
 TaskContainer::~TaskContainer() {
 	// TODO Auto-generated destructor stub
 }

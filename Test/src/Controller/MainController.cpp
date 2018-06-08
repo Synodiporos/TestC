@@ -20,6 +20,11 @@ MainController::~MainController() {
 	// TODO Auto-generated destructor stub
 }
 
+void MainController::setTaskContainerController(
+		TaskContainerController* taskContCntrl){
+	this->taskContCtrl = taskContCntrl;
+}
+
 void MainController::onActivate(){
 
 }

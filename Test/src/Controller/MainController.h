@@ -16,6 +16,8 @@ public:
 	MainController(CDOptionPane* view);
 	~MainController();
 
+	void setTaskContainerController(TaskContainerController* taskContCntrl);
+
 protected:
 	void onActivate();
 	void onDeactivate();
@@ -40,9 +42,7 @@ protected:
 
 private:
 	CDOptionPane* view = nullptr;
-
 	TaskContainerController* taskContCtrl = nullptr;
-
 
 };
 
