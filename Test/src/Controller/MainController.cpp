@@ -34,7 +34,7 @@ void MainController::onDeactivate(){
 }
 
 void MainController::onActiveControllerChanged(){
-	cout << " ActiveControllerChanged to " << getActiveController() << endl;
+	//cout << " ActiveControllerChanged to " << getActiveController() << endl;
 }
 
 void MainController::forwardPressed(){
@@ -123,7 +123,7 @@ void MainController::backClicked(){
 }
 
 void MainController::onOptionClicked(unsigned int id){
-	cout << "Action: " << id << endl;
+	cout << "#Action: " << id << " : at MainController" <<endl;
 	switch(id){
 		case VIEW_ACTION_AUTO :{
 			cout << "  AUTO" << endl;

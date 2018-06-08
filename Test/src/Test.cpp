@@ -38,6 +38,7 @@ char* normalize(char* str, uint8_t size, uint8_t start);
 
 int main() {
 	cout << "Testing Started." << endl; // prints !!!Hello World!!!
+	cout << endl;
 
 	//char* str = "Stay tuned for Caturday – a project from tech fashion designer Anouk Wipprecht. Debuting Saturday";
 	//char* str2 = "Arduino";
@@ -213,11 +214,11 @@ int main() {
 			TaskContainerFactory::createController(container);
 	TaskContainerView* contView = contCntrl->getView();
 
-	cout << "View Options: " << endl;
+	/*cout << "View Options: " << endl;
 	for(int i=0; i<contView->getSize(); i++){
 		CDOption* o = contView->getOptionAt(i);
 		cout << o->getLabel()->getLabel() << endl;
-	}
+	}*/
 
 
 	MainView* mainView = new MainView();
@@ -235,9 +236,14 @@ int main() {
 
 	mainCtrl->onForwardClicked();
 	mainCtrl->onForwardClicked();
+	mainCtrl->onForwardClicked();
+	mainCtrl->onForwardClicked();
 	mainCtrl->onEnterClicked();
 
-
+	mainCtrl->onForwardClicked();
+	mainCtrl->onForwardClicked();
+	//mainCtrl->onBackwardClicked();
+	mainCtrl->onEnterClicked();
 
 	//mainCtrl->onForwardClicked();
 	//mainCtrl->onBackwardClicked();
@@ -261,7 +267,8 @@ int main() {
 
 	//cout << "Size of comp: " << sizeof(*mainView) << endl;
 
-	cout<< "Finished!" << endl;
+	cout << endl;
+	cout << "Finished!" << endl;
 	return 0;
 }
 

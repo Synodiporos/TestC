@@ -8,15 +8,18 @@
 #include <iostream>
 using namespace std;
 #include "TaskContainerController.h"
+#include "../Factories/TaskFactory.h"
 
-TaskContainerController::TaskContainerController() {
+TaskContainerController::TaskContainerController() :
+		AbstractCompController(){
 	// TODO Auto-generated constructor stub
 
 }
 
 TaskContainerController::TaskContainerController(
 		TaskContainer* model, TaskContainerView* view) :
-			view(view), model(model){
+			view(view), model(model),
+			AbstractCompController(){
 }
 
 TaskContainerController::~TaskContainerController() {
@@ -49,19 +52,19 @@ void TaskContainerController::onDeactivate(){
 		model->removeActionListener(this);
 }
 
-void TaskContainerController::onForwardPressed(){
+void TaskContainerController::forwardPressed(){
 
 }
 
-void TaskContainerController::onForwardReleased(){
+void TaskContainerController::forwardReleased(){
 
 }
 
-void TaskContainerController::onForwardHolded(){
+void TaskContainerController::forwardHolded(){
 
 }
 
-void TaskContainerController::onForwardClicked(){
+void TaskContainerController::forwardClicked(){
 	if(this->view->hasNextOption())
 		this->view->selectNextOption();
 	else{
@@ -69,19 +72,19 @@ void TaskContainerController::onForwardClicked(){
 	}
 }
 
-void TaskContainerController::onBackwardPressed(){
+void TaskContainerController::backwardPressed(){
 
 }
 
-void TaskContainerController::onBackwardReleased(){
+void TaskContainerController::backwardReleased(){
 
 }
 
-void TaskContainerController::onBackwardHolded(){
+void TaskContainerController::backwardHolded(){
 
 }
 
-void TaskContainerController::onBackwardClicked(){
+void TaskContainerController::backwardClicked(){
 	if(this->view->hasPreviousOption())
 		this->view->selectPreviousOption();
 	else{
@@ -89,25 +92,25 @@ void TaskContainerController::onBackwardClicked(){
 	}
 }
 
-void TaskContainerController::onEnterPressed(){
+void TaskContainerController::enterPressed(){
 	CDOption* selected = view->getSelectedOption();
 	if(selected){
 		selected->click();
 	}
 }
 
-void TaskContainerController::onEnterReleased(){
+void TaskContainerController::enterReleased(){
 	CDOption* selected = view->getSelectedOption();
 	if(selected){
 		selected->hover();
 	}
 }
 
-void TaskContainerController::onEnterHolded(){
+void TaskContainerController::enterHolded(){
 
 }
 
-void TaskContainerController::onEnterClicked(){
+void TaskContainerController::enterClicked(){
 	CDOption* selected = this->view->getSelectedOption();
 	//cout<<selected->getLabel()->getLabel()<<endl;
 	if(selected){
@@ -119,24 +122,32 @@ void TaskContainerController::onEnterClicked(){
 	}
 }
 
-void TaskContainerController::onBackPressed(){
+void TaskContainerController::backPressed(){
 
 }
 
-void TaskContainerController::onBackReleased(){
+void TaskContainerController::backReleased(){
 
 }
 
-void TaskContainerController::onBackHolded(){
+void TaskContainerController::backHolded(){
 
 }
 
-void TaskContainerController::onBackClicked(){
-
+void TaskContainerController::backClicked(){
+	AbstractCompController* parent = getParent();
+	if(parent)
+		parent->setActiveController(nullptr);
 }
 
 void TaskContainerController::onOptionClicked(unsigned int id){
-	cout << "TaskContainerController Action: " << id << endl;
+	cout << "#Action: " << id << " : at TaskContainerController" << endl;
+	cout << "  SELECT TASK " << id << endl;
+	Task* task = model->getTaskAt(id);
+	TaskMenuController* ctrl =
+			TaskFactory::createMenuController(task);
+
+	setActiveController(ctrl);
 }
 
 void TaskContainerController::actionPerformed(Action action){

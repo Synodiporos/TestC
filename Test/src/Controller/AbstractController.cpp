@@ -1,10 +1,11 @@
 /*
  * Controller.cpp
  *
- *  Created on: 27 Μαΐ 2018
+ *  Created on: 27 Ξ�Ξ±Ξ� 2018
  *      Author: Synodiporos
  */
 
+#include "AbstractCompController.h"
 #include "AbstractController.h"
 
 AbstractController::AbstractController() {
@@ -38,7 +39,7 @@ bool AbstractController::isActivated(){
 	return this->activated;
 }
 
-bool AbstractController::setParent(AbstractController* parent){
+bool AbstractController::setParent(AbstractCompController* parent){
 	if(this->parent!=parent){
 		this->parent = parent;
 		return true;
@@ -46,7 +47,12 @@ bool AbstractController::setParent(AbstractController* parent){
 	return false;
 }
 
-AbstractController* AbstractController::getParent(){
+AbstractCompController* AbstractController::getParent(){
 	return this->parent;
+}
 
+AbstractCompController* AbstractController::getRootParent(){
+	if(getParent())
+		return getParent()->getRootParent();
+	return nullptr;
 }

@@ -11,11 +11,15 @@
 
 class TaskMenuView : public CDOptionPane{
 public:
-	virtual ~TaskMenuView();
 	TaskMenuView();
-
+	TaskMenuView(uint8_t width, bool editable);
+	virtual ~TaskMenuView();
 	void init();
+	void setEditable(bool editable);
+	bool getEditable();
 
+private:
+	bool editable = true;
 };
 
 #endif /* VIEW_TASKMENUVIEW_H_ */

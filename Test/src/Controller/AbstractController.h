@@ -7,7 +7,11 @@
 
 #ifndef CONTROLLER_ABSTRACTCONTROLLER_H_
 #define CONTROLLER_ABSTRACTCONTROLLER_H_
+
+class AbstractCompController;
+
 #include "KeyboardListener.h"
+//#include "AbstractCompController.h"
 
 class AbstractController : public KeyboardListener{
 
@@ -18,9 +22,10 @@ public:
 	virtual void activate();
 	virtual void deactivate();
 	virtual bool setActivated(bool activated);
-	bool isActivated();
-	bool setParent(AbstractController* parent);
-	AbstractController* getParent();
+	virtual bool isActivated();
+	virtual bool setParent(AbstractCompController* parent);
+	virtual AbstractCompController* getParent();
+	virtual AbstractCompController* getRootParent();
 
 protected:
 	virtual void onActivate() = 0;
@@ -29,8 +34,9 @@ protected:
 
 private:
 	bool activated = false;
-	AbstractController* parent = nullptr;
+	AbstractCompController* parent = nullptr;
 
 };
 
 #endif /* CONTROLLER_ABSTRACTCONTROLLER_H_ */
+

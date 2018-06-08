@@ -7,12 +7,15 @@
 
 #ifndef CONTROLLER_ABSTRACTCOMPCONTROLLER_H_
 #define CONTROLLER_ABSTRACTCOMPCONTROLLER_H_
+
+//class AbstractController;
 #include "AbstractController.h"
 
-class AbstractCompController : AbstractController{
+class AbstractCompController : public AbstractController{
 public:
 	AbstractCompController();
 	virtual ~AbstractCompController();
+	AbstractCompController* getRootParent();
 	AbstractController* getActiveController();
 	virtual bool setActiveController(AbstractController* active);
 	virtual void onForwardPressed();

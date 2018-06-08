@@ -36,7 +36,7 @@ void MainView::init(){
 	this->insertOption(optionStats);
 
 	//setSelectedOptionIndex(0);
-	setSelectedOption(optionAuto);
+	//setSelectedOption(optionAuto);
 }
 
 CDOption* MainView::getOptionAuto(){

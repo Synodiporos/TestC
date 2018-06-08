@@ -9,12 +9,12 @@
 #define CONTROLLER_TASKCONTAINERCONTROLLER_H_
 #include "../Model/TaskContainer.h"
 #include "../View/TaskContainerView.h"
-#include "AbstractController.h"
+#include "AbstractCompController.h"
 #include "../Commons/IActionListener.h"
 #include "../Commons/Action.h"
 
 class TaskContainerController : public
-	AbstractController, IActionListener{
+	AbstractCompController, IActionListener{
 public:
 	TaskContainerController();
 	TaskContainerController(TaskContainer* model, TaskContainerView* view);
@@ -25,34 +25,35 @@ public:
 	TaskContainer* getModel();
 	TaskContainerView* getView();
 
-	virtual void onForwardPressed();
-	virtual void onForwardReleased();
-	virtual void onForwardHolded();
-	virtual void onForwardClicked();
-	virtual void onBackwardPressed();
-	virtual void onBackwardReleased();
-	virtual void onBackwardHolded();
-	virtual void onBackwardClicked();
-	virtual void onEnterPressed();
-	virtual void onEnterReleased();
-	virtual void onEnterHolded();
-	virtual void onEnterClicked();
-	virtual void onBackPressed();
-	virtual void onBackReleased();
-	virtual void onBackHolded();
-	virtual void onBackClicked();
-	void onOptionClicked(unsigned int id);
 	void actionPerformed(Action action);
 
 protected:
 	virtual void onActivate();
 	virtual void onDeactivate();
 	virtual void onActiveControllerChanged();
+	virtual void forwardPressed();
+	virtual void forwardReleased();
+	virtual void forwardHolded();
+	virtual void forwardClicked();
+	virtual void backwardPressed();
+	virtual void backwardReleased();
+	virtual void backwardHolded();
+	virtual void backwardClicked();
+	virtual void enterPressed();
+	virtual void enterReleased();
+	virtual void enterHolded();
+	virtual void enterClicked();
+	virtual void backPressed();
+	virtual void backReleased();
+	virtual void backHolded();
+	virtual void backClicked();
+	virtual void onOptionClicked(unsigned int id);
 
 private:
 	TaskContainer* model = nullptr;
 	TaskContainerView* view = nullptr;
 
+	//TaskMenuController* taskMenuCntr = nullptr;
 };
 
 #endif /* CONTROLLER_TASKCONTAINERCONTROLLER_H_ */

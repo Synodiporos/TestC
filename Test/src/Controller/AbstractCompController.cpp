@@ -16,6 +16,11 @@ AbstractCompController::~AbstractCompController() {
 	// TODO Auto-generated destructor stub
 }
 
+AbstractCompController* AbstractCompController::getRootParent(){
+	if(getParent())
+		return getParent()->getRootParent();
+	return this;
+}
 
 AbstractController* AbstractCompController::getActiveController(){
 	return this->activeCtlr;

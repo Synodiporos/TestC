@@ -7,6 +7,7 @@ encoding//src/CD/CDLabel.h=UTF-8
 encoding//src/CD/CDOptionPane.cpp=UTF-8
 encoding//src/CD/CDOptionPane.h=UTF-8
 encoding//src/CD/LCD.h=UTF-8
+encoding//src/Controller/AbstractController.cpp=UTF-8
 encoding//src/Controller/AbstractController.h=UTF-8
 encoding//src/Model/Task.cpp=UTF-8
 encoding//src/Model/Task.h=UTF-8
