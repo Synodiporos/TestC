@@ -14,7 +14,7 @@ TaskContainerView* TaskContainerFactory::createView(TaskContainer &model){
 	vector<Task*> tasks = model.getTasks();
 	for(unsigned int i=0; i<tasks.size(); i++){
 		Task* task = *(tasks.begin()+i);
-		view->insertTaskOption( 16, task->getName(),
+		view->insertTaskOption((uint8_t)16, task->getName(),
 				task->getDuration(), task->isEditable());
 	}
 	return view;

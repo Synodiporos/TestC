@@ -21,6 +21,7 @@ public:
 	static const uint8_t ACTION_TASK_REMOVED = 3;
 
 	TaskContainer();
+	TaskContainer(std::vector<Task*> tasks);
 	virtual ~TaskContainer();
 
 	const uint8_t getSize() const;

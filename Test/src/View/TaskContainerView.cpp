@@ -22,3 +22,4 @@ bool TaskContainerView::insertTaskOption(uint8_t width, char* name,
 	CDOption* option = new CDOption(0, y, width, name, y);
 	return this->insertOption(option);
 }
+

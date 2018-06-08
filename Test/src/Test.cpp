@@ -25,6 +25,8 @@ using namespace std;
 #include "View/MainView.h"
 #include "Controller/MainController.h"
 #include "System/TaskLoader.h"
+#include "Controller/TaskContainerController.h"
+#include "Factories/TaskContainerFactory.h"
 
 #include <ctime>
 
@@ -206,20 +208,35 @@ int main() {
 
 
 
+	TaskContainer container = TaskContainer(TaskLoader::getAvailableTasks());
+	TaskContainerController* contCntrl =
+			TaskContainerFactory::createController(container);
+	TaskContainerView* contView = contCntrl->getView();
+
+	cout << "View Options: " << endl;
+	for(int i=0; i<contView->getSize(); i++){
+		CDOption* o = contView->getOptionAt(i);
+		cout << o->getLabel()->getLabel() << endl;
+	}
+
+
 	MainView* mainView = new MainView();
 	mainView->init();
 	MainController* mainCtrl = new MainController(mainView);
+	mainCtrl->setTaskContainerController(contCntrl);
 
 
-	mainCtrl->onEnterClicked();
+	mainCtrl->onForwardClicked();
 	mainCtrl->onForwardClicked();
 	mainCtrl->onEnterClicked();
+	mainCtrl->onBackwardClicked();
+	mainCtrl->onBackwardClicked();
+	mainCtrl->onEnterClicked();
+
+	mainCtrl->onForwardClicked();
 	mainCtrl->onForwardClicked();
 	mainCtrl->onEnterClicked();
-	mainCtrl->onForwardClicked();
-	mainCtrl->onEnterClicked();
-	mainCtrl->onForwardClicked();
-	mainCtrl->onEnterClicked();
+
 
 
 	//mainCtrl->onForwardClicked();
@@ -227,6 +244,7 @@ int main() {
 	//mainCtrl->onForwardClicked();
 
 	//mainCtrl->onEnterClicked();
+
 
 
 
