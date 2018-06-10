@@ -89,6 +89,13 @@ void LCD::print(char* str){
 	}
 }
 
+void LCD::print(char ch){
+	if(ch){
+		sentCursorCoords();
+		cout << "\t>>>   LCD Print -> " << ch << endl;
+	}
+}
+
 void LCD::sentCursorCoords(){
 	cout << "\t>>>   LCD: Set Cursor[" <<
 					(int)cursor.getX() << ", "

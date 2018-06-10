@@ -10,18 +10,24 @@
 #include "AbstractCompController.h"
 #include "../CD/CDOptionPane.h"
 #include "TaskContainerController.h"
+#include "../System/Timer.h"
+#include "../Commons/IActionListener.h"
+#include "../Commons/Action.h"
+#include "../System/SystemConstants.h"
 
-class MainController : public AbstractCompController{
+class MainController : public AbstractCompController, IActionListener{
 public:
 	MainController(CDOptionPane* view);
 	~MainController();
 
 	void setTaskContainerController(TaskContainerController* taskContCntrl);
+	void actionPerformed(Action action);
+	void validate();
 
 protected:
 	void onActivate();
 	void onDeactivate();
-	void onActiveControllerChanged();
+	void onActiveControllerChanged(AbstractController* activeCntrl);
 	void forwardPressed();
 	void forwardReleased();
 	void forwardHolded();
@@ -43,7 +49,9 @@ protected:
 private:
 	CDOptionPane* view = nullptr;
 	TaskContainerController* taskContCtrl = nullptr;
+	Timer timer = Timer(KEYBOARD_HOLDED_SPEED, 0, 0);
 
+	void resetTimer();
 };
 
 #endif /* CONTROLLER_MAINCONTROLLER_H_ */

@@ -52,6 +52,13 @@ void TaskContainerController::onDeactivate(){
 		model->removeActionListener(this);
 }
 
+
+void TaskContainerController::onActiveControllerChanged(AbstractController* activeCntrl){
+	AbstractCompController* parent = getParent();
+	if(parent)
+		parent->onActiveControllerChanged(activeCntrl);
+}
+
 void TaskContainerController::forwardPressed(){
 
 }
@@ -68,7 +75,7 @@ void TaskContainerController::forwardClicked(){
 	if(this->view->hasNextOption())
 		this->view->selectNextOption();
 	else{
-
+		//this->view->setSelectedOptionIndex(0);
 	}
 }
 
@@ -88,19 +95,19 @@ void TaskContainerController::backwardClicked(){
 	if(this->view->hasPreviousOption())
 		this->view->selectPreviousOption();
 	else{
-
+		//this->view->setSelectedOptionIndex(view->getSize()-1);
 	}
 }
 
 void TaskContainerController::enterPressed(){
-	CDOption* selected = view->getSelectedOption();
+	AbstractCDOption* selected = view->getSelectedOption();
 	if(selected){
 		selected->click();
 	}
 }
 
 void TaskContainerController::enterReleased(){
-	CDOption* selected = view->getSelectedOption();
+	AbstractCDOption* selected = view->getSelectedOption();
 	if(selected){
 		selected->hover();
 	}
@@ -111,7 +118,7 @@ void TaskContainerController::enterHolded(){
 }
 
 void TaskContainerController::enterClicked(){
-	CDOption* selected = this->view->getSelectedOption();
+	AbstractCDOption* selected = this->view->getSelectedOption();
 	//cout<<selected->getLabel()->getLabel()<<endl;
 	if(selected){
 		unsigned short int action = selected->getActionId();
@@ -131,7 +138,9 @@ void TaskContainerController::backReleased(){
 }
 
 void TaskContainerController::backHolded(){
-
+	AbstractCompController* parent = getRootParent();
+	if(parent)
+			parent->setActiveController(nullptr);
 }
 
 void TaskContainerController::backClicked(){
@@ -154,6 +163,3 @@ void TaskContainerController::actionPerformed(Action action){
 
 }
 
-void TaskContainerController::onActiveControllerChanged(){
-
-}

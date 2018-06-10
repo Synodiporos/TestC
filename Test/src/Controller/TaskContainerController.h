@@ -30,7 +30,7 @@ public:
 protected:
 	virtual void onActivate();
 	virtual void onDeactivate();
-	virtual void onActiveControllerChanged();
+	virtual void onActiveControllerChanged(AbstractController* activeCntrl);
 	virtual void forwardPressed();
 	virtual void forwardReleased();
 	virtual void forwardHolded();

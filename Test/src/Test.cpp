@@ -27,6 +27,8 @@ using namespace std;
 #include "System/TaskLoader.h"
 #include "Controller/TaskContainerController.h"
 #include "Factories/TaskContainerFactory.h"
+#include "System/Timer.h"
+#include "CD/CDKeyboard.h"
 
 #include <ctime>
 
@@ -101,7 +103,7 @@ int main() {
 	comp->addElement(comp4);*/
 
 
-/*
+
 
 	CDOption op1 = CDOption(0,0,4, (char*)"Op1");
 	CDOption op2 = CDOption(7,0,4, "Op2");
@@ -116,10 +118,10 @@ int main() {
 	op.insertOption(&op4);
 	op.insertOption(&op5);
 	op.insertOptionAt(5, &op6);
-	op.setSelectedOption(&op6);
-	op.removeOptionAt(10);
+	//op.setSelectedOption(&op2);
+	//op.removeOptionAt(10);
 
-	cout << "CDOptionPane: " << &op << " size: " <<
+	/*cout << "CDOptionPane: " << &op << " size: " <<
 			(int)op.getSize()
 			<< "[" << endl;
 	if(op.getSelectedOption())
@@ -166,6 +168,10 @@ int main() {
 	//	frame.setPosition(0, i);
 	//frame.print();
 
+	//op.getOptionAt(2)->setOptionState(AbstractCDOption::HOVERED);
+	//op.getOptionAt(2)->setOptionState(AbstractCDOption::UNHOVERED);
+	//op.setSelectedOption(&op2);
+	//op.setSelectedOption(&op2);
 
 	//elem2->click();
 	//l1->setLabelIndex(2);
@@ -208,11 +214,13 @@ int main() {
 */
 
 
+/*
 
 	TaskContainer container = TaskContainer(TaskLoader::getAvailableTasks());
 	TaskContainerController* contCntrl =
 			TaskContainerFactory::createController(container);
 	TaskContainerView* contView = contCntrl->getView();
+*/
 
 	/*cout << "View Options: " << endl;
 	for(int i=0; i<contView->getSize(); i++){
@@ -220,50 +228,126 @@ int main() {
 		cout << o->getLabel()->getLabel() << endl;
 	}*/
 
+/*
 
 	MainView* mainView = new MainView();
 	mainView->init();
-	MainController* mainCtrl = new MainController(mainView);
-	mainCtrl->setTaskContainerController(contCntrl);
+	MainController* mainCntr = new MainController(mainView);
+	mainCntr->setTaskContainerController(contCntrl);
 
 
-	mainCtrl->onForwardClicked();
-	mainCtrl->onForwardClicked();
-	mainCtrl->onEnterClicked();
-	mainCtrl->onBackwardClicked();
-	mainCtrl->onBackwardClicked();
-	mainCtrl->onEnterClicked();
+	cout << "MainController: " << mainCntr << endl;
+	cout << "TaskContainerController: " << contCntrl << endl;
 
-	mainCtrl->onForwardClicked();
-	mainCtrl->onForwardClicked();
-	mainCtrl->onForwardClicked();
-	mainCtrl->onForwardClicked();
-	mainCtrl->onEnterClicked();
+	mainCntr->onForwardClicked();
+	mainCntr->onEnterClicked(); // MANUAL
+	mainCntr->onBackwardClicked();
+	mainCntr->onBackwardClicked();
+	mainCntr->onEnterClicked(); // AUTO
 
-	mainCtrl->onForwardClicked();
-	mainCtrl->onForwardClicked();
-	//mainCtrl->onBackwardClicked();
-	mainCtrl->onEnterClicked();
+	mainCntr->onForwardClicked();
+	mainCntr->onForwardClicked();
+	mainCntr->onForwardClicked();
+	mainCntr->onForwardClicked();
+	mainCntr->onEnterClicked(); // TASK 4
 
-	//mainCtrl->onForwardClicked();
-	//mainCtrl->onBackwardClicked();
-	//mainCtrl->onForwardClicked();
+	mainCntr->onForwardClicked();
+	mainCntr->onForwardClicked();
+	//mainCntr->onBackwardClicked();
+	mainCntr->onEnterClicked(); // MODIFY
 
-	//mainCtrl->onEnterClicked();
+	mainCntr->onBackClicked(); // BACK TO CONTAINER
+
+	mainCntr->onBackwardClicked();
+	mainCntr->onEnterClicked(); // TASK 3
+	mainCntr->onForwardClicked();
+	mainCntr->onEnterClicked(); // DETAILS
+
+	mainCntr->onBackHolded(); // MAIN
+
+	mainCntr->onForwardClicked();
+	mainCntr->onForwardClicked();
+	mainCntr->onEnterClicked(); // SETTINGS
+
+	//mainCntr->onBackwardHolded();
+
+*/
 
 
 
+
+	/*cout << endl;
+	Timer timer = Timer(1000, 3, 1220);
+	timer.start();
 
 	clock_t start = clock();
 
-/*
-	while(clock()-start<10000){
-		comp->validate();
-		if(clock()-start>=2000){
-			//elem2->hover();
+	int i = 1;
+	while(clock()-start<20000){
+		timer.validate();
+		unsigned long millis = clock()-start;
+
+		if(millis>=1000 && i==1){
+			//timer.pause();
+			cout << "Timer: millis passed: " <<
+					timer.getMillisPassed() << " iteratinosPerf: " <<
+					timer.getIterationsPerformed() << endl;
+			i++;
+		}
+		else if(millis>=2000 && i==2){
+			cout << "Timer: millis passed: " <<
+					timer.getMillisPassed() << " iteratinosPerf: " <<
+					timer.getIterationsPerformed() << endl;
+			i++;
+			timer.pause();
+		}
+		else if(millis>=3000 && i==3){
+			//timer.pause();
+			cout << "Timer: millis passed: " <<
+					timer.getMillisPassed() << " iteratinosPerf: " <<
+					timer.getIterationsPerformed() << endl;
+			i++;
+		}
+		else if(millis>=4000 && i==4){
+			cout << "Timer: millis passed: " <<
+					timer.getMillisPassed() << " iteratinosPerf: " <<
+					timer.getIterationsPerformed() << endl;
+			i++;
+			timer.start();
+		}
+		else if(millis>=10000 && i==5){
+			cout << "Timer: millis passed: " <<
+					timer.getMillisPassed() << " iteratinosPerf: " <<
+					timer.getIterationsPerformed() << endl;
+			i++;
+			timer.start();
+		}
+	}*/
+
+	cout << endl << endl;
+
+
+	CDKeyboard keyb = CDKeyboard(16);
+	keyb.init();
+	keyb.setSelectedOptionIndex(2);
+	//keyb.getOptionAt(6)->hover();
+	frame.setPage(&keyb, 0);
+	frame.print();
+
+
+	clock_t start = clock();
+	int i = 1;
+	while(clock()-start<1050){
+		unsigned long millis = clock()-start;
+		keyb.validate();
+		if(millis>=6020 && i==1){
+
+			i++;
 		}
 	}
-*/
+
+	cout << "------------------" << endl;
+	keyb.setSelectedOptionIndex(3);
 
 	//cout << "Size of comp: " << sizeof(*mainView) << endl;
 

@@ -27,6 +27,7 @@ public:
 	virtual void print(LCD* lcd);
 	virtual void reprint();
 	virtual void printArea(LCD* lcd, Rectangle* area) = 0;
+	//Traverses to parent and prints the area.
 	virtual void printArea(Rectangle* area);
 	virtual void validate() = 0;
 

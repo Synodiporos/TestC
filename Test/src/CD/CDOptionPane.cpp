@@ -40,11 +40,11 @@ uint8_t CDOptionPane::getSize(){
 	return this->size;
 }
 
-bool CDOptionPane::insertOption(CDOption* option){
+bool CDOptionPane::insertOption(AbstractCDOption* option){
 	return insertOptionAt(size, option);
 }
 
-bool CDOptionPane::insertOptionAt(uint8_t index, CDOption* option){
+bool CDOptionPane::insertOptionAt(uint8_t index, AbstractCDOption* option){
 	if(option==nullptr)
 		return false;
 
@@ -71,7 +71,8 @@ bool CDOptionPane::insertOptionAt(uint8_t index, CDOption* option){
 		}
 		size++;
 		if(selected==nullptr)
-			selected=opt;
+			setSelectedOptionNode(opt);
+		option->setParent(this);
 		return true;
 	}
 }
@@ -95,12 +96,13 @@ bool CDOptionPane::removeOptionNode(Node* node){
 			np->setNext(nn);
 		}
 		size--;
+		node->getValue()->setParent(nullptr);
 		return true;
 	}
 	return false;
 }
 
-bool CDOptionPane::removeOption(CDOption* option){
+bool CDOptionPane::removeOption(AbstractCDOption* option){
 	Node* n = getOptionNode(option);
 	return removeOptionNode(n);
 }
@@ -109,7 +111,7 @@ bool CDOptionPane::removeOptionAt(uint8_t index){
 	return removeOptionNode(getOptionNodeAt(index));
 }
 
-CDOption* CDOptionPane::getOptionAt(uint8_t index){
+AbstractCDOption* CDOptionPane::getOptionAt(uint8_t index){
 	return getOptionNodeAt(index)->getValue();
 }
 
@@ -122,7 +124,7 @@ CDOptionPane::Node* CDOptionPane::getOptionNodeAt(uint8_t index){
 	return cur;
 }
 
-CDOptionPane::Node* CDOptionPane::getOptionNode(CDOption* option){
+CDOptionPane::Node* CDOptionPane::getOptionNode(AbstractCDOption* option){
 	if(option==nullptr)
 		return nullptr;
 	Node* cur = tail;
@@ -136,8 +138,8 @@ CDOptionPane::Node* CDOptionPane::getOptionNode(CDOption* option){
 	return nullptr;
 }
 
-bool CDOptionPane::setSelectedOption(CDOption* option){
-	if(size<=0)
+bool CDOptionPane::setSelectedOption(AbstractCDOption* option){
+	if(size==0)
 		return false;
 	if(option==nullptr)
 		setSelectedOptionNode(nullptr);
@@ -185,7 +187,7 @@ bool CDOptionPane::setSelectedOptionNode(Node* node){
 	return false;
 }
 
-CDOption* CDOptionPane::getSelectedOption(){
+AbstractCDOption* CDOptionPane::getSelectedOption(){
 	if(this->selected==nullptr)
 		return nullptr;
 	return this->selected->getValue();
@@ -267,7 +269,7 @@ void CDOptionPane::validateChilds(){
 }
 
 //==================================================================
-CDOptionPane::Node::Node(CDOption* value) : value(value){
+CDOptionPane::Node::Node(AbstractCDOption* value) : value(value){
 
 }
 
@@ -275,7 +277,7 @@ CDOptionPane::Node::~Node(){
 	//delete value;
 }
 
-CDOption* CDOptionPane::Node::getValue(){
+AbstractCDOption* CDOptionPane::Node::getValue(){
 	return this->value;
 }
 

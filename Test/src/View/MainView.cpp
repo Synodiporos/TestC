@@ -39,18 +39,18 @@ void MainView::init(){
 	//setSelectedOption(optionAuto);
 }
 
-CDOption* MainView::getOptionAuto(){
+AbstractCDOption* MainView::getOptionAuto(){
 	return getOptionAt(0);
 }
 
-CDOption* MainView::getOptionManul(){
+AbstractCDOption* MainView::getOptionManul(){
 	return getOptionAt(1);
 }
 
-CDOption* MainView::getOptionSettings(){
+AbstractCDOption* MainView::getOptionSettings(){
 	return getOptionAt(2);
 }
 
-CDOption* MainView::getOptionStatistics(){
+AbstractCDOption* MainView::getOptionStatistics(){
 	return getOptionAt(3);
 }

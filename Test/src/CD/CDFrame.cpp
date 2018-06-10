@@ -77,11 +77,11 @@ AbstractCDElement* CDFrame::getCurrentPage(){
 }
 
 void CDFrame::setParent(AbstractCDElement* parent){
-	this->parent = parent;
+	//this->parent = parent;
 }
 
 AbstractCDElement* CDFrame::getParent(){
-	return this->parent;
+	return nullptr;//this->parent;
 }
 
 Rectangle* CDFrame::getBounds(){

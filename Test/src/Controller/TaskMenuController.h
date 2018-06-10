@@ -26,7 +26,7 @@ public:
 protected:
 	void onActivate();
 	void onDeactivate();
-	void onActiveControllerChanged();
+	void onActiveControllerChanged(AbstractController* activeCntrl);
 	void forwardPressed();
 	void forwardReleased();
 	void forwardHolded();

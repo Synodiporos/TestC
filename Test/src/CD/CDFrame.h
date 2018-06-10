@@ -43,7 +43,7 @@ public:
 	void revalidate();
 
 private:
-	AbstractCDElement* parent = nullptr;
+	//AbstractCDElement* parent = nullptr;
 	LCD lcd ;
 	AbstractCDElement** elements = nullptr;
 	uint8_t currentIndex = -1;
