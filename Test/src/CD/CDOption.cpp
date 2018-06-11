@@ -11,23 +11,17 @@ using namespace std;
 #include "CDConstants.h"
 
 CDOption::CDOption(uint8_t width, char* label)
-	: label(width-1, label){
-	setWidth(width);
+	: AbstractCDOption(width), label(width-1, label){
 	init();
 }
 
 CDOption::CDOption(int8_t x, int8_t y, uint8_t width, char* label)
-	: label(width-1, label){
-	setWidth(width);
-	setLocation(x, y);
+	: AbstractCDOption(x, y, width), label(width-1, label){
 	init();
 }
 
 CDOption::CDOption(int8_t x, int8_t y, uint8_t width, char* label, unsigned int actionId)
-	: label(width-1, label){
-	setWidth(width);
-	setLocation(x, y);
-	setActionId(actionId);
+	: AbstractCDOption(x, y, width, actionId), label(width-1, label){
 	init();
 }
 
@@ -38,113 +32,33 @@ CDOption::~CDOption() {
 void CDOption::init(){
 	this->label.setLocation(1,0);
 	this->label.setParent(this);
-	this->indicator.setParent(this);
-}
-
-void CDOption::setActionId(unsigned int actionId){
-	this->actionId = actionId;
-}
-
-unsigned int CDOption::getActionId(){
-	return this->actionId;
-}
-
-void CDOption::setParent(AbstractCDElement* parent){
-	this->parent = parent;
-}
-
-AbstractCDElement* CDOption::getParent(){
-	return this->parent;
-}
-
-Rectangle* CDOption::getBounds(){
-	return new Rectangle(x, y, width, 1);
+	//this->indicator.setParent(this);
 }
 
 CDLabel* CDOption::getLabel(){
 	return &this->label;
 }
 
-CDOptionIndicator* CDOption::getIndicator(){
-	return &this->indicator;
-}
+void CDOption::onOptionStateChanged(){
+	reprintIndicator();
 
-void CDOption::setWidth(uint8_t width){
-	this->width = width;
-}
+	if(AutoRolling_state==AutoRolling_Never){
 
-uint8_t CDOption::getWidth(){
-	return this->width;
-}
-
-void CDOption::setLocation(int8_t x, int8_t y){
-	this->x = x;
-	this->y = y;
-}
-
-Point* CDOption::getLocation(){
-	return new Point(this->x, this->y);
-}
-
-void CDOption::setOptionState(uint8_t state){
-	if(getOptionState()!=state){
-		this->indicator.setState(state);
-		notifyStateChanged();
-
-		if(AutoRolling_state==AutoRolling_Never){}
-		else if(state==CDOptionIndicator::HOVERED){
-			if(AutoRolling_state==AutoRolling_OnHover)
-				this->label.startRolling();
-			else
-				this->label.stopRolling();
-		}
-		else if(state==CDOptionIndicator::CLICKED){
-			if(AutoRolling_state==AutoRolling_OnClick)
-				this->label.startRolling();
-			else
-				this->label.stopRolling();
-		}
+	}
+	else if(getOptionState()==HOVERED){
+		if(AutoRolling_state==AutoRolling_OnHover)
+			this->label.startRolling();
+		else
+			this->label.stopRolling();
+	}
+	else if(getOptionState()==CLICKED){
+		if(AutoRolling_state==AutoRolling_OnClick)
+			this->label.startRolling();
+		else
+			this->label.stopRolling();
 	}
 }
 
-uint8_t CDOption::getOptionState(){
-	return this->indicator.getState();
-}
-
-void CDOption::hover(){
-	setOptionState(CDOptionIndicator::HOVERED);
-}
-
-void CDOption::unhover(){
-	setOptionState(CDOptionIndicator::UNHOVERED);
-}
-
-void CDOption::click(){
-	setOptionState(CDOptionIndicator::CLICKED);
-}
-
-void CDOption::setStateListener(IStateListener* l){
-	this->stateListener = l;
-}
-
-void CDOption::removeStateListener(IStateListener* l){
-	this->stateListener = nullptr;
-}
-
-IStateListener* CDOption::getStateListener(){
-	return this->stateListener;
-}
-
-void CDOption::notifyStateChanged(){
-	if(this->stateListener!=nullptr){
-		State* s = new State(this,'\0', nullptr);
-		this->stateListener->stateChanged(s);
-	}
-}
-
-void CDOption::printIndicator(){
-
-}
 
 void CDOption::printArea(LCD* lcd, Rectangle* area){
 	/*cout << "Option PrintArea: [";
@@ -162,7 +76,12 @@ void CDOption::printArea(LCD* lcd, Rectangle* area){
 	int ccx = lcd->getCursorX();
 	int ccy = lcd->getCursorY();
 
-	printChild(&indicator, lcd, area);
+	//Print Indicator
+	if(area->getX()==0 && area->getY()==0 &&
+			area->getWidth()>0 && area->getHeight()>0)
+		printIndicator(lcd);
+
+	//Print Label
 	printChild(&label, lcd, area);
 
 	lcd->setCursor(ccx, ccy);
@@ -185,8 +104,38 @@ void CDOption::printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area){
 	}
 }
 
+void CDOption::printIndicator(LCD* lcd){
+	char ind = '\0';
+	switch(this->getOptionState()){
+		case UNHOVERED:{
+			ind = CDOptionLabel_UNHOVERED;
+			break;
+		}
+		case HOVERED:{
+			ind = CDOptionLabel_HOVERED;
+			break;
+		}
+		case CLICKED:{
+			ind = CDOptionLabel_SELECTED;
+			break;
+		}
+	}
+	lcd->print(ind);
+}
+
+void CDOption::reprintIndicator(){
+	Rectangle* r = new Rectangle(0, 0, 1, 1);
+	AbstractCDElement::printArea(r);
+}
+
+void CDOption::reprintLabel(){
+	uint8_t width = getWidth();
+	Rectangle* r = new Rectangle(1, 0, width, 1);
+	AbstractCDElement::printArea(r);
+}
+
 void CDOption::validate(){
-	this->indicator.validate();
+	//this->indicator.validate();
 	this->label.validate();
 }
 

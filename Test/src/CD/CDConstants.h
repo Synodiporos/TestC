@@ -21,4 +21,12 @@
 #define CDOptionAutoRolling_OnHover  11;
 #define CDOptionAutoRolling_OnPressed  12;
 
+#define CDOptionLabel_UNHOVERED '-'
+#define CDOptionLabel_HOVERED '='
+#define CDOptionLabel_SELECTED '>'
+
+#define CDKeyboard_SELECTION_INTERVAL 400
+#define CDOptionChar_HOVER '_'
+#define CDOptionChar_SELECTED 255
+
 #endif /* CD_CDCONSTANTS_H_ */

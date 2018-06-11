@@ -13,7 +13,7 @@ using namespace std;
 MainController::MainController(CDOptionPane* view) :
 	view(view){
 	// TODO Auto-generated constructor stub
-
+	timer.setActionListener(this);
 }
 
 MainController::~MainController() {
@@ -33,8 +33,11 @@ void MainController::onDeactivate(){
 
 }
 
-void MainController::onActiveControllerChanged(){
-	//cout << " ActiveControllerChanged to " << getActiveController() << endl;
+void MainController::onActiveControllerChanged(AbstractController* activeCntrl){
+	AbstractController* active = activeCntrl;
+	if(!active)
+		active = this;
+	cout << "-ActiveControllerChanged to " << active << endl;
 }
 
 void MainController::forwardPressed(){
@@ -42,18 +45,20 @@ void MainController::forwardPressed(){
 }
 
 void MainController::forwardReleased(){
-
+	resetTimer();
 }
 
 void MainController::forwardHolded(){
-
+	timer.setActionId(41);
+	timer.start();
 }
 
 void MainController::forwardClicked(){
-	if(this->view->hasNextOption())
+	if(this->view->hasNextOption()){
 		this->view->selectNextOption();
+	}
 	else{
-
+		this->view->setSelectedOptionIndex(0);
 	}
 }
 
@@ -62,41 +67,44 @@ void MainController::backwardPressed(){
 }
 
 void MainController::backwardReleased(){
-
+	resetTimer();
 }
 
 void MainController::backwardHolded(){
-
+	timer.setActionId(42);
+	timer.start();
 }
 
 void MainController::backwardClicked(){
 	if(this->view->hasPreviousOption())
 		this->view->selectPreviousOption();
 	else{
-
+		this->view->setSelectedOptionIndex(view->getSize()-1);
 	}
 }
 
 void MainController::enterPressed(){
-	CDOption* selected = view->getSelectedOption();
+	AbstractCDOption* selected = view->getSelectedOption();
 	if(selected){
 		selected->click();
 	}
 }
 
 void MainController::enterReleased(){
-	CDOption* selected = view->getSelectedOption();
+	AbstractCDOption* selected = view->getSelectedOption();
 	if(selected){
 		selected->hover();
 	}
+	resetTimer();
 }
 
 void MainController::enterHolded(){
-
+	timer.setActionId(43);
+	timer.start();
 }
 
 void MainController::enterClicked(){
-	CDOption* selected = this->view->getSelectedOption();
+	AbstractCDOption* selected = this->view->getSelectedOption();
 	if(selected){
 		unsigned short int action = selected->getActionId();
 		onOptionClicked(action);
@@ -111,11 +119,12 @@ void MainController::backPressed(){
 }
 
 void MainController::backReleased(){
-
+	resetTimer();
 }
 
 void MainController::backHolded(){
-
+	timer.setActionId(44);
+	timer.start();
 }
 
 void MainController::backClicked(){
@@ -144,4 +153,39 @@ void MainController::onOptionClicked(unsigned int id){
 			break;
 		}
 	}
+}
+
+void MainController::actionPerformed(Action action){
+	unsigned int actionId = action.getActionId();
+	if(timer.getIterationsPerformed()==KEYBOARD_HOLDED_CCL)
+		timer.setInterval(KEYBOARD_HOLDED_ACC_SPEED);
+
+	//cout << "TIC " << actionId << endl;
+	switch(actionId){
+		case 41:{
+			onForwardClicked();
+			break;
+		}
+		case 42:{
+			onBackwardClicked();
+			break;
+		}
+		case 43:{
+			onBackClicked();
+			break;
+		}
+		case 44:{
+			onEnterClicked();
+			break;
+		}
+	}
+}
+
+void MainController::validate(){
+	timer.validate();
+}
+
+void MainController::resetTimer(){
+	timer.stop();
+	timer.setInterval(KEYBOARD_HOLDED_SPEED);
 }

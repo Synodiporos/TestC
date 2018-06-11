@@ -22,14 +22,14 @@ public:
 	void setLabel(CDLabel* label);
 	CDLabel* getLabel();
 	uint8_t getSize();
-	bool insertOption(CDOption* option);
-	bool insertOptionAt(uint8_t index, CDOption* option);
-	bool removeOption(CDOption* option);
+	bool insertOption(AbstractCDOption* option);
+	bool insertOptionAt(uint8_t index, AbstractCDOption* option);
+	bool removeOption(AbstractCDOption* option);
 	bool removeOptionAt(uint8_t index);
-	CDOption* getOptionAt(uint8_t index);
-	bool setSelectedOption(CDOption* option);
+	AbstractCDOption* getOptionAt(uint8_t index);
+	bool setSelectedOption(AbstractCDOption* option);
 	bool setSelectedOptionIndex(uint8_t index);
-	CDOption* getSelectedOption();
+	AbstractCDOption* getSelectedOption();
 	bool hasNextOption();
 	bool hasPreviousOption();
 	bool selectNextOption();
@@ -40,9 +40,9 @@ public:
 
 	class Node{
 	public :
-		Node(CDOption* value);
+		Node(AbstractCDOption* value);
 		virtual ~Node();
-		CDOption* getValue();
+		AbstractCDOption* getValue();
 		void setNext(Node* next);
 		void setPrev(Node* prev);
 		Node* getNext();
@@ -51,7 +51,7 @@ public:
 		bool hasPrev();
 		bool isEmpty();
 	private:
-		CDOption* value;
+		AbstractCDOption* value;
 		Node* next = nullptr;
 		Node* prev = nullptr;
 	};
@@ -63,7 +63,7 @@ private:
 	CDLabel* label = nullptr;
 
 	Node* getOptionNodeAt(uint8_t index);
-	Node* getOptionNode(CDOption* option);
+	Node* getOptionNode(AbstractCDOption* option);
 	bool removeOptionNode(Node* node);
 	bool setSelectedOptionNode(Node* node);
 

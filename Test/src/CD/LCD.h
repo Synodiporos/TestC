@@ -30,6 +30,7 @@ public:
 	void printChar(uint8_t id);
 	void writeChar(uint8_t ch[8]);
 	void print(char* str);
+	void print(char ch);
 	void fillArea(Rectangle* area, char c);
 	void clear();
 	void refresh();

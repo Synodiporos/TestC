@@ -49,8 +49,10 @@ void TaskMenuController::onDeactivate(){
 
 }
 
-void TaskMenuController::onActiveControllerChanged(){
-	cout << " ActiveControllerChanged to " << getActiveController() << endl;
+void TaskMenuController::onActiveControllerChanged(AbstractController* activeCntrl){
+	AbstractCompController* parent = getParent();
+	if(parent)
+		parent->onActiveControllerChanged(activeCntrl);
 }
 
 void TaskMenuController::forwardPressed(){
@@ -94,14 +96,14 @@ void TaskMenuController::backwardClicked(){
 }
 
 void TaskMenuController::enterPressed(){
-	CDOption* selected = view->getSelectedOption();
+	AbstractCDOption* selected = view->getSelectedOption();
 	if(selected){
 		selected->click();
 	}
 }
 
 void TaskMenuController::enterReleased(){
-	CDOption* selected = view->getSelectedOption();
+	AbstractCDOption* selected = view->getSelectedOption();
 	if(selected){
 		selected->hover();
 	}
@@ -112,7 +114,7 @@ void TaskMenuController::enterHolded(){
 }
 
 void TaskMenuController::enterClicked(){
-	CDOption* selected = this->view->getSelectedOption();
+	AbstractCDOption* selected = this->view->getSelectedOption();
 	if(selected){
 		unsigned short int action = selected->getActionId();
 		onOptionClicked(action);
@@ -131,7 +133,9 @@ void TaskMenuController::backReleased(){
 }
 
 void TaskMenuController::backHolded(){
-
+	AbstractCompController* parent = getRootParent();
+	if(parent)
+			parent->setActiveController(nullptr);
 }
 
 void TaskMenuController::backClicked(){
