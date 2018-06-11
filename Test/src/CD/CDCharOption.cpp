@@ -53,7 +53,7 @@ bool CDCharOption::toogleStateDiplay(){
 }
 
 void CDCharOption::onOptionStateChanged(){
-
+	reprint();
 }
 
 void CDCharOption::printArea(LCD* lcd, Rectangle* area){

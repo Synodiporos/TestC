@@ -337,17 +337,22 @@ int main() {
 
 	clock_t start = clock();
 	int i = 1;
-	while(clock()-start<1050){
+	while(clock()-start<4100){
 		unsigned long millis = clock()-start;
 		keyb.validate();
-		if(millis>=6020 && i==1){
-
+		if(millis>=1000 && i==1){
+			keyb.setSelectedOptionIndex(2);
+			i++;
+		}
+		if(millis>=2000 && i==2){
+			keyb.selectNextOption();
 			i++;
 		}
 	}
 
+	frame.print();
 	cout << "------------------" << endl;
-	keyb.setSelectedOptionIndex(3);
+	//keyb.setSelectedOptionIndex(3);
 
 	//cout << "Size of comp: " << sizeof(*mainView) << endl;
 

@@ -182,6 +182,8 @@ bool CDOptionPane::setSelectedOptionNode(Node* node){
 		if(node)
 			node->getValue()->hover();
 		this->selected = node;
+
+		notifyActionPerformed(SELECTION_CHANGED);
 		return true;
 	}
 	return false;
@@ -191,6 +193,14 @@ AbstractCDOption* CDOptionPane::getSelectedOption(){
 	if(this->selected==nullptr)
 		return nullptr;
 	return this->selected->getValue();
+}
+
+void CDOptionPane::setActionListener(IActionListener* listener){
+	this->actionListener = listener;
+}
+
+IActionListener* CDOptionPane::getActionListener(){
+	return this->actionListener;
 }
 
 bool CDOptionPane::hasNextOption(){
@@ -217,11 +227,18 @@ bool CDOptionPane::selectPreviousOption(){
 	return false;
 }
 
+void CDOptionPane::confirmSelection(){
+	notifyActionPerformed(SELECTION_CONFIRM);
+}
+
+void CDOptionPane::closePane(){
+	notifyActionPerformed(PANE_CLOSE);
+}
+
 void CDOptionPane::printArea(LCD* lcd, Rectangle* area){
 	printComponentsArea(lcd, area);
 	printChildsArea(lcd, area);
 }
-
 
 void CDOptionPane::printComponentsArea(LCD* lcd, Rectangle* area){
 	if(label && label->isVisible())
@@ -266,6 +283,13 @@ void CDOptionPane::validate(){
 
 void CDOptionPane::validateChilds(){
 
+}
+
+void CDOptionPane::notifyActionPerformed(unsigned short int action){
+	if(getActionListener()){
+		Action action = Action(this, action, 0, getSelectedOption());
+		getActionListener()->actionPerformed(action);
+	}
 }
 
 //==================================================================

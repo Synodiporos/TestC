@@ -122,9 +122,14 @@ void MainController::backReleased(){
 	resetTimer();
 }
 
+//Override
+void MainController::onBackReleased(){
+	setActiveController(nullptr);
+}
+
 void MainController::backHolded(){
-	timer.setActionId(44);
-	timer.start();
+	//timer.setActionId(44);
+	//timer.start();
 }
 
 void MainController::backClicked(){

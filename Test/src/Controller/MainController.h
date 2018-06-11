@@ -42,6 +42,7 @@ protected:
 	void enterClicked();
 	void backPressed();
 	void backReleased();
+	void onBackReleased(); // Override
 	void backHolded();
 	void backClicked();
 	void onOptionClicked(unsigned int id);

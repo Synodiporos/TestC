@@ -14,6 +14,11 @@ using namespace std;
 
 class CDOptionPane : public CDElement{
 public:
+
+	static const unsigned short SELECTION_CHANGE = 1;
+	static const unsigned short  SELECTION_CONFIRM = 2;
+	static const unsigned short  PANE_CLOSE = 3;
+
 	CDOptionPane();
 	CDOptionPane(int8_t w, int8_t h);
 	CDOptionPane(uint8_t x, uint8_t y, int8_t w, int8_t h);
@@ -30,10 +35,14 @@ public:
 	bool setSelectedOption(AbstractCDOption* option);
 	bool setSelectedOptionIndex(uint8_t index);
 	AbstractCDOption* getSelectedOption();
+	void setActionListener(IActionListener* listener);
+	IActionListener* getActionListener();
 	bool hasNextOption();
 	bool hasPreviousOption();
 	bool selectNextOption();
 	bool selectPreviousOption();
+	void confirmSelection();
+	void closePane();
 
 	virtual void printArea(LCD* lcd, Rectangle* area);
 	virtual void validate();
@@ -61,11 +70,13 @@ private:
 	Node* selected = nullptr;
 	Node* tail = nullptr;
 	CDLabel* label = nullptr;
+	IActionListener* actionListener = nullptr;
 
 	Node* getOptionNodeAt(uint8_t index);
 	Node* getOptionNode(AbstractCDOption* option);
 	bool removeOptionNode(Node* node);
 	bool setSelectedOptionNode(Node* node);
+	void notifyActionPerformed(unsigned short int action);
 
 protected:
 	virtual void printComponentsArea(LCD* lcd, Rectangle* area);
