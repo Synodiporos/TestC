@@ -7,6 +7,8 @@
 
 #ifndef CONTROLLER_CDKEYBOARDCONTROLLER_H_
 #define CONTROLLER_CDKEYBOARDCONTROLLER_H_
+#include "../CD/CDKeyboard.h"
+#include "AbstractController.h"
 
 class CDKeyboardController : public AbstractController{
 public:
@@ -17,6 +19,8 @@ public:
 	void setView(CDKeyboard* view);
 	CDKeyboard* getView();
 
+	void onActivate();
+	void onDeactivate();
 	void onForwardPressed();
 	void onForwardReleased();
 	void onForwardHolded();

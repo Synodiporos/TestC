@@ -21,3 +21,79 @@ void CDTextAreaController::init(){
 	CDKeyboard* keyboardView = new CDKeyboard(SCREEN_WIDTH);
 	this->keyboardCtrl = new CDKeyboardController(keyboardView);
 }
+
+void onActivate(){
+
+}
+
+void onDeactivate(){
+
+}
+
+void onActiveControllerChanged(AbstractController* activeCntrl){
+
+}
+
+void forwardPressed(){
+
+}
+
+void forwardReleased(){
+
+}
+
+void forwardHolded(){
+
+}
+
+void forwardClicked(){
+
+}
+
+void backwardPressed(){
+
+}
+
+void backwardReleased(){
+
+}
+
+void backwardHolded(){
+
+}
+
+void backwardClicked(){
+
+}
+
+void enterPressed(){
+
+}
+
+void enterReleased(){
+
+}
+
+void enterHolded(){
+
+}
+
+void enterClicked(){
+
+}
+
+void backPressed(){
+
+}
+
+void backReleased(){
+
+}
+
+void backHolded(){
+
+}
+
+void backClicked(){
+
+}

@@ -183,7 +183,7 @@ bool CDOptionPane::setSelectedOptionNode(Node* node){
 			node->getValue()->hover();
 		this->selected = node;
 
-		notifyActionPerformed(SELECTION_CHANGED);
+		notifyActionPerformed(SELECTION_CHANGE);
 		return true;
 	}
 	return false;
@@ -285,9 +285,9 @@ void CDOptionPane::validateChilds(){
 
 }
 
-void CDOptionPane::notifyActionPerformed(unsigned short int action){
+void CDOptionPane::notifyActionPerformed(unsigned short int actionId){
 	if(getActionListener()){
-		Action action = Action(this, action, 0, getSelectedOption());
+		Action action = Action(this, actionId, 0, getSelectedOption());
 		getActionListener()->actionPerformed(action);
 	}
 }

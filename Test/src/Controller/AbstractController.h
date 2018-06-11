@@ -27,8 +27,6 @@ public:
 	virtual AbstractCompController* getParent();
 	virtual AbstractCompController* getRootParent();
 
-	virtual void onActiveControllerChanged(AbstractController* activeCntrl) = 0;
-
 protected:
 	virtual void onActivate() = 0;
 	virtual void onDeactivate() = 0;

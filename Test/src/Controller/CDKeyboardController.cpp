@@ -20,6 +20,22 @@ CDKeyboardController::~CDKeyboardController() {
 	// TODO Auto-generated destructor stub
 }
 
+void CDKeyboardController::setView(CDKeyboard* view){
+	this->view = view;
+}
+
+CDKeyboard* CDKeyboardController::getView(){
+	return this->view;
+}
+
+void CDKeyboardController::onActivate(){
+
+}
+
+void CDKeyboardController::onDeactivate(){
+
+}
+
 void CDKeyboardController::onForwardPressed(){
 
 }

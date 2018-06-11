@@ -34,6 +34,7 @@ public:
 	virtual void onBackReleased();
 	virtual void onBackHolded();
 	virtual void onBackClicked();
+	virtual void onActiveControllerChanged(AbstractController* activeCntrl) = 0;
 
 protected:
 	//virtual void onActivate() = 0;

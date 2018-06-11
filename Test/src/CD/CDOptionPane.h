@@ -9,6 +9,7 @@
 #define CD_CDOPTIONPANE_H_
 #include "CDElement.h"
 #include "CDOption.h"
+#include "../Commons/IActionListener.h"
 #include <vector>
 using namespace std;
 

@@ -8,15 +8,18 @@
 #ifndef CONTROLLER_CDTEXTAREACONTROLLER_H_
 #define CONTROLLER_CDTEXTAREACONTROLLER_H_
 #include "AbstractCompController.h"
+#include "CDKeyboardController.h"
 
 class CDTextAreaController : public AbstractCompController{
 public:
 	CDTextAreaController();
 	virtual ~CDTextAreaController();
 
+	virtual void onActiveControllerChanged(AbstractController* activeCntrl) = 0;
+
+protected:
 	virtual void onActivate() = 0;
 	virtual void onDeactivate() = 0;
-	virtual void onActiveControllerChanged(AbstractController* activeCntrl) = 0;
 	virtual void forwardPressed() = 0;
 	virtual void forwardReleased() = 0;
 	virtual void forwardHolded() = 0;
@@ -36,7 +39,6 @@ public:
 
 private:
 	CDKeyboardController* keyboardCtrl = nullptr;
-
 	void init();
 };
 
