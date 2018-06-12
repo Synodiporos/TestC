@@ -300,7 +300,9 @@ void CDOptionPane::validateChilds(){
 
 }
 
-void CDOptionPane::notifyActionPerformed(unsigned short int actionId){
+void CDOptionPane::notifyActionPerformed(unsigned short int actionId,
+		uint8_t optionIndex){
+	ss
 	if(getActionListener()){
 		Action action = Action(this, actionId, 0, getSelectedOption());
 		getActionListener()->actionPerformed(action);

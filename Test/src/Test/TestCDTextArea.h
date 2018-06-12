@@ -30,10 +30,19 @@ public:
 		area.setCharAndAppend('v');
 		area.setCharAndAppend('r');
 		area.setCharAndAppend('o');
+		area.setCharAndAppend('s');
+		//area.getOptionPane()->setPosition(-1, 0);
+
+		//area.setSelectedIndex(6);
 
 		frame.setPage(&area, 0);
+
 		frame.print();
 
+
+		//area.getBounds()->print();
+
+		//area.setCharAndAppend('s');
 /*
 
 		clock_t start = clock();

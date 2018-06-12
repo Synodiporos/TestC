@@ -1,7 +1,7 @@
 /*
  * Rectangle.h
  *
- *  Created on: 13 Ξ�Ξ±Ξ� 2018
+ *  Created on: 13 Ξ�οΏ½Ξ�Β±Ξ�οΏ½ 2018
  *      Author: Synodiporos
  */
 
@@ -33,6 +33,7 @@ public:
 	static Rectangle intersection(Rectangle* rec1, Rectangle* rec2);
 	static bool intersects(Rectangle* rec1 , Rectangle* rec2);
 
+	void print();
 
 private:
 	Dimension dims = Dimension();

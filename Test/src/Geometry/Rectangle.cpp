@@ -1,12 +1,13 @@
 /*
  * Rectangle.cpp
  *
- *  Created on: 13 Ξ�Ξ±Ξ� 2018
+ *  Created on: 13 Ξ�οΏ½Ξ�Β±Ξ�οΏ½ 2018
  *      Author: Synodiporos
  */
 
+#include <iostream>
+using namespace std;
 #include "Rectangle.h"
-
 #include "GeometryUtil.h"
 
 Rectangle::Rectangle() {
@@ -109,4 +110,12 @@ bool Rectangle::intersects(Rectangle* A, Rectangle* B){
     						B->y, A->y, A->y + A->getHeight());
 
     return xOverlap && yOverlap;
+}
+
+void Rectangle::print(){
+	cout << "Rectanlge[" << (int)getX() <<
+			", " << (int)getY() <<
+			", " << (int)getWidth() <<
+			", " << (int)getHeight() <<
+			"]" << endl;
 }

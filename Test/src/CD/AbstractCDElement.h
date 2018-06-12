@@ -24,6 +24,8 @@ public:
 	virtual AbstractCDElement* getParent() = 0;
 	virtual bool hasParent();
 	virtual Rectangle* getBounds() = 0;
+	virtual uint8_t getWidth();
+	virtual uint8_t getHeight();
 	virtual void print(LCD* lcd);
 	virtual void reprint();
 	virtual void printArea(LCD* lcd, Rectangle* area) = 0;

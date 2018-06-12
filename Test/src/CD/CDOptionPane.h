@@ -68,7 +68,7 @@ public:
 		Node* prev = nullptr;
 	};
 
-private:
+protected:
 	uint8_t size = 0;
 	Node* selected = nullptr;
 	Node* tail = nullptr;
@@ -81,7 +81,6 @@ private:
 	bool setSelectedOptionNode(Node* node);
 	void notifyActionPerformed(unsigned short int action);
 
-protected:
 	virtual void printComponentsArea(LCD* lcd, Rectangle* area);
 	virtual void printChildsArea(LCD* lcd, Rectangle* area);
 	virtual void printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area);

@@ -26,7 +26,7 @@ public:
 	Dimension getDimensions();
 	//void setPreferedDimensions(uint8_t width, uint8_t height);
 	//Dimension getPreferedDimensions();
-	void setPosition(uint8_t x, uint8_t y);
+	void setPosition(int8_t x, int8_t y);
 	Point* getPosition();
 	void moveBy(uint8_t x, uint8_t y);
 	virtual Rectangle* getBounds();

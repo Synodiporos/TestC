@@ -127,8 +127,7 @@ void CDFrame::print(){
 }
 
 void CDFrame::print(LCD* lcd){
-	if(lcd)
-		printArea(lcd, getBounds());
+	printArea(lcd, getBounds());
 }
 
 void CDFrame::reprint(){
@@ -157,6 +156,7 @@ void CDFrame::printArea(LCD* lcd, Rectangle* area){
 		AbstractCDElement* cp = getCurrentPage();
 		if(cp){
 			Rectangle inter = cp->getBounds()->intersection(area);
+			inter.print();
 			if(!inter.isNull()){
 				lcd->setCursor(
 						cp->getBounds()->getX() - getBounds()->getX(),

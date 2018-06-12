@@ -37,7 +37,7 @@ Dimension CDElement::getDimensions(){
 	return this->bounds.getDimensions();
 }
 
-void CDElement::setPosition(uint8_t x, uint8_t y){
+void CDElement::setPosition(int8_t x, int8_t y){
 	if(this->bounds.setPoint(x, y)){
 		revalidate();
 	}

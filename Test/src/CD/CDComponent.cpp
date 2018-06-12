@@ -1,7 +1,7 @@
 /*
  * CDComponent.cpp
  *
- *  Created on: 12 Ξ�οΏ½Ξ�Β±Ξ�οΏ½ 2018
+ *  Created on: 12 Ξ�οΏ½ΞΏΞ�Β½Ξ�οΏ½Ξ’Β±Ξ�οΏ½ΞΏΞ�Β½ 2018
  *      Author: Synodiporos
  */
 
@@ -132,8 +132,8 @@ void CDComponent::printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area
 		Rectangle r = area->intersection(
 				child->getBounds());
 		if(!r.isNull()){
-			int cx =  0 + child->getBounds()->getX();
-			int cy =  0 + child->getBounds()->getY();
+			int cx =  child->getBounds()->getX();
+			int cy =  child->getBounds()->getY();
 
 			lcd->setCursorBy(cx, cy);
 

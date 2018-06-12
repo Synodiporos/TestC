@@ -36,6 +36,14 @@ bool AbstractCDElement::hasParent(){
 	return false;
 }
 
+uint8_t AbstractCDElement::getWidth(){
+	return getBounds()->getWidth();
+}
+
+uint8_t AbstractCDElement::getHeight(){
+	return getBounds()->getWidth();
+}
+
 void AbstractCDElement::print(LCD* lcd){
 	if(isVisible()){
 		Rectangle* r = new Rectangle(0, 0,
