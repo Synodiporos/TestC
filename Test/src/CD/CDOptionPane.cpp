@@ -115,6 +115,20 @@ AbstractCDOption* CDOptionPane::getOptionAt(uint8_t index){
 	return getOptionNodeAt(index)->getValue();
 }
 
+AbstractCDOption* CDOptionPane::getLastOption(){
+	Node* n = getOptionNodeAt(getSize()-1);
+	if(n)
+		return n->getValue();
+	return nullptr;
+}
+
+AbstractCDOption* CDOptionPane::getFirstOption(){
+	Node* n = getOptionNodeAt(0);
+	if(n)
+		return n->getValue();
+	return nullptr;
+}
+
 CDOptionPane::Node* CDOptionPane::getOptionNodeAt(uint8_t index){
 	if(index>=size)
 		return nullptr;
@@ -251,14 +265,15 @@ void CDOptionPane::printChildsArea(LCD* lcd, Rectangle* area){
 	int ccy = lcd->getCursorY();
 
 	Node* n = tail;
-	while(n->hasPrev()){
+	if(n){
+		while(n->hasPrev()){
+			printChild(n->getValue(), lcd, area);
+			lcd->setCursor(ccx, ccy);
+			n = n->getPrev();
+		}
 		printChild(n->getValue(), lcd, area);
 		lcd->setCursor(ccx, ccy);
-		n = n->getPrev();
 	}
-	printChild(n->getValue(), lcd, area);
-	lcd->setCursor(ccx, ccy);
-
 	cout << "]" << endl;
 }
 

@@ -16,6 +16,7 @@ public:
 	static const uint8_t SRCOLLBAR_STATE_AUTO = 1;
 	static const uint8_t SRCOLLBAR_STATE_ALWAYS = 2;
 
+	CDFrame(uint8_t width, uint8_t height);
 	CDFrame(uint8_t width, uint8_t height, uint8_t capacity);
 	CDFrame(short int x, short int y,
 			uint8_t width, uint8_t height, uint8_t capacity);

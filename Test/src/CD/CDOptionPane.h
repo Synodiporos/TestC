@@ -33,6 +33,8 @@ public:
 	bool removeOption(AbstractCDOption* option);
 	bool removeOptionAt(uint8_t index);
 	AbstractCDOption* getOptionAt(uint8_t index);
+	AbstractCDOption* getLastOption();
+	AbstractCDOption* getFirstOption();
 	bool setSelectedOption(AbstractCDOption* option);
 	bool setSelectedOptionIndex(uint8_t index);
 	AbstractCDOption* getSelectedOption();

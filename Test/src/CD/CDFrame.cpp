@@ -11,6 +11,13 @@ using namespace std;
 #include "CDFrame.h"
 #include "CDCharacters.h"
 
+CDFrame::CDFrame(uint8_t width, uint8_t height)
+	: lcd{LCD(0, 0, width, height)}{
+	//lcd = LCD(width, height);
+	this->capacity = 1;
+	init();
+}
+
 CDFrame::CDFrame(uint8_t width, uint8_t height,
 		uint8_t capacity) : lcd{LCD(0, 0, width, height)}{
 	//lcd = LCD(width, height);
@@ -113,7 +120,6 @@ bool CDFrame::isScrollbarVisible(){
 				getBounds()->getHeight();
 		return false;
 	}
-
 }
 
 void CDFrame::print(){

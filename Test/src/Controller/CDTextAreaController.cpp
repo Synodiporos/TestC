@@ -22,78 +22,78 @@ void CDTextAreaController::init(){
 	this->keyboardCtrl = new CDKeyboardController(keyboardView);
 }
 
-void onActivate(){
+void CDTextAreaController::onActivate(){
 
 }
 
-void onDeactivate(){
+void CDTextAreaController::onDeactivate(){
 
 }
 
-void onActiveControllerChanged(AbstractController* activeCntrl){
+void CDTextAreaController::onActiveControllerChanged(AbstractController* activeCntrl){
 
 }
 
-void forwardPressed(){
+void CDTextAreaController::forwardPressed(){
 
 }
 
-void forwardReleased(){
+void CDTextAreaController::forwardReleased(){
 
 }
 
-void forwardHolded(){
+void CDTextAreaController::forwardHolded(){
 
 }
 
-void forwardClicked(){
+void CDTextAreaController::forwardClicked(){
 
 }
 
-void backwardPressed(){
+void CDTextAreaController::backwardPressed(){
 
 }
 
-void backwardReleased(){
+void CDTextAreaController::backwardReleased(){
 
 }
 
-void backwardHolded(){
+void CDTextAreaController::backwardHolded(){
 
 }
 
-void backwardClicked(){
+void CDTextAreaController::backwardClicked(){
 
 }
 
-void enterPressed(){
+void CDTextAreaController::enterPressed(){
 
 }
 
-void enterReleased(){
+void CDTextAreaController::enterReleased(){
 
 }
 
-void enterHolded(){
+void CDTextAreaController::enterHolded(){
 
 }
 
-void enterClicked(){
+void CDTextAreaController::enterClicked(){
 
 }
 
-void backPressed(){
+void CDTextAreaController::backPressed(){
 
 }
 
-void backReleased(){
+void CDTextAreaController::backReleased(){
 
 }
 
-void backHolded(){
+void CDTextAreaController::backHolded(){
 
 }
 
-void backClicked(){
+void CDTextAreaController::backClicked(){
 
 }
