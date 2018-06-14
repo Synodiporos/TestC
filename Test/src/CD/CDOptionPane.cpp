@@ -79,6 +79,7 @@ bool CDOptionPane::insertOptionAt(uint8_t index, AbstractCDOption* option){
 
 bool CDOptionPane::removeOptionNode(Node* node){
 	if(node){
+		cout << "HERE" << endl;
 		if(selected==node)
 			setSelectedOption(nullptr);
 		Node* np = node->getPrev();
@@ -190,6 +191,7 @@ bool CDOptionPane::setSelectedOptionIndex(uint8_t index){
 }
 
 bool CDOptionPane::setSelectedOptionNode(Node* node){
+
 	if(selected!=node){
 		if(selected)
 			selected->getValue()->unhover();
@@ -300,9 +302,7 @@ void CDOptionPane::validateChilds(){
 
 }
 
-void CDOptionPane::notifyActionPerformed(unsigned short int actionId,
-		uint8_t optionIndex){
-	ss
+void CDOptionPane::notifyActionPerformed(unsigned short int actionId){
 	if(getActionListener()){
 		Action action = Action(this, actionId, 0, getSelectedOption());
 		getActionListener()->actionPerformed(action);

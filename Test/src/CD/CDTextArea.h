@@ -30,7 +30,7 @@ public:
 	bool canAppendArea();
 	bool appendArea();
 	bool setCharAndAppend(char ch);
-	bool erase();
+	bool eraseLastChar();
 
 	virtual void setParent(AbstractCDElement* parent); //Implements
 	virtual AbstractCDElement* getParent(); //Implements
@@ -49,7 +49,7 @@ private:
 
 	virtual void printChildsArea(LCD* lcd, Rectangle* area);
 	virtual void printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area);
-
+	void validateCelectionChange();
 };
 
 #endif /* CD_CDTEXTAREA_H_ */
