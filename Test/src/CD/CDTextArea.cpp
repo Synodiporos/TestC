@@ -69,26 +69,11 @@ CDOptionPane* CDTextArea::getOptionPane(){
 }
 
 bool CDTextArea::setSelectedIndex(uint8_t index){
-	if(this->optionPane->setSelectedOptionIndex(index)){
-		if(index>(getWidth()-1)){
-			int o = -(index-getWidth()+1);
-			cout << "OFFSET: " << o << endl;
-			optionPane->getBounds()->setPointBy(o, 0);
-		}
-	}
-	return false;
+	return this->optionPane->setSelectedOptionIndex(index);
 }
 
 bool CDTextArea::setSelected(CDCharOption* option){
-	if(this->optionPane->setSelectedOption(option)){
-		int8_t x = option->getBounds()->getX();
-		if(x>(getWidth()-1)){
-			int o = -(x-getWidth()+1);
-			cout << "OFFSET: " << o << endl;
-			optionPane->getBounds()->setPointBy(o, 0);
-		}
-	}
-	return false;
+	return this->optionPane->setSelectedOption(option);
 }
 
 bool CDTextArea::canAppendArea(){
@@ -122,11 +107,12 @@ bool CDTextArea::setCharAndAppend(char ch){
 	return false;
 }
 
-bool CDTextArea::erase(){
+bool CDTextArea::eraseLastChar(){
 	CDCharOption* chOp = (CDCharOption*)
 			this->optionPane->getLastOption();
 	if(chOp){
 		if(this->optionPane->removeOption(chOp)){
+			//setSelectedIndex(optionPane->getSize()-1);
 			return true;
 		}
 	}
@@ -155,7 +141,6 @@ void CDTextArea::printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area)
 		Rectangle r = area->intersection(
 				child->getBounds());
 		if(!r.isNull()){
-			cout << "HERE" <<endl;
 			int cx =  child->getBounds()->getX();
 			int cy =  child->getBounds()->getY();
 
@@ -177,7 +162,7 @@ void CDTextArea::actionPerformed(Action action){
 	//action.getContainer(); NO LIKE THIS
 	switch(actionId){
 		case CDOptionPane::SELECTION_CHANGE:{
-
+			validateCelectionChange();
 			break;
 		}
 		case CDOptionPane::SELECTION_CONFIRM:{
@@ -188,5 +173,31 @@ void CDTextArea::actionPerformed(Action action){
 
 			break;
 		}
+	}
+}
+
+void CDTextArea::validateCelectionChange(){
+	cout << "VALIDATE" << endl;
+	CDCharOption* selection = getSelected();
+	if(selection){
+		int8_t i = selection->getBounds()->getX();
+		int8_t x0 = getBounds()->getX();
+
+		//Is out of view area?
+		int o = 0;
+		if(i > (getWidth() - 1)){
+			o = -(i + x0 - getWidth() + 1);
+		}
+		else if(i<0){
+			o = -i;
+		}
+		cout << "O=" << o << endl;
+		if(this->optionPane->getBounds()->setX(o))
+			reprint();
+
+	}
+	else{
+		if(optionPane->getBounds()->setPoint(0, 0))
+			reprint();
 	}
 }

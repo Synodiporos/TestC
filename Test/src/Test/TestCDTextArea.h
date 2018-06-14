@@ -23,7 +23,7 @@ public:
 
 		CDFrame frame = CDFrame(16, 2);
 
-		CDTextArea area = CDTextArea(6, 8);
+		CDTextArea area = CDTextArea(6, 10);
 		area.setCharAndAppend('S');
 		area.setCharAndAppend('t');
 		area.setCharAndAppend('a');
@@ -39,10 +39,19 @@ public:
 
 		frame.print();
 
-
+		area.setCharAndAppend('!');
 		//area.getBounds()->print();
-
+		//frame.print();
 		//area.setCharAndAppend('s');
+		frame.print();
+
+		area.setSelectedIndex(2);
+		//frame.print();
+		area.setSelectedIndex(10);
+		//frame.print();
+		cout << "ERASE" << endl;
+		area.eraseLastChar();
+
 /*
 
 		clock_t start = clock();
