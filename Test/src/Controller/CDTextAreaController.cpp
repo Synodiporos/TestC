@@ -17,6 +17,14 @@ CDTextAreaController::~CDTextAreaController() {
 	// TODO Auto-generated destructor stub
 }
 
+void CDTextAreaController::setView(CDTextArea* view){
+	this->view = *view;
+}
+
+CDTextArea* CDTextAreaController::getView(){
+	return &this->view;
+}
+
 void CDTextAreaController::init(){
 	CDKeyboard* keyboardView = new CDKeyboard(SCREEN_WIDTH);
 	this->keyboardCtrl = new CDKeyboardController(keyboardView);
@@ -47,6 +55,12 @@ void CDTextAreaController::forwardHolded(){
 }
 
 void CDTextAreaController::forwardClicked(){
+	if(getView()->getOptionPane()->hasNextOption()){
+		getView()->setSelectedIndex();
+	}
+	else{
+
+	}
 
 }
 

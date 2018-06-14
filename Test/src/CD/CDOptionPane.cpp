@@ -79,14 +79,13 @@ bool CDOptionPane::insertOptionAt(uint8_t index, AbstractCDOption* option){
 
 bool CDOptionPane::removeOptionNode(Node* node){
 	if(node){
-		cout << "HERE" << endl;
 		if(selected==node)
 			setSelectedOption(nullptr);
 		Node* np = node->getPrev();
 		Node* nn = node->getNext();
-
 		if(tail==node){
-			np->setNext(nullptr);
+			if(np)
+				np->setNext(nullptr);
 			tail = np;
 		}
 		else if(np==nullptr){
@@ -121,6 +120,10 @@ AbstractCDOption* CDOptionPane::getLastOption(){
 	if(n)
 		return n->getValue();
 	return nullptr;
+}
+
+CDOptionPane::Node* CDOptionPane::getLastOptionNode(){
+	return getOptionNodeAt(getSize()-1);
 }
 
 AbstractCDOption* CDOptionPane::getFirstOption(){

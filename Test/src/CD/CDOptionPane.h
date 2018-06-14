@@ -68,6 +68,8 @@ public:
 		Node* prev = nullptr;
 	};
 
+	CDOptionPane::Node* getLastOptionNode();
+
 protected:
 	uint8_t size = 0;
 	Node* selected = nullptr;

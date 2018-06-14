@@ -11,6 +11,7 @@
 #include "CDOptionPane.h"
 #include "CDCharOption.h"
 #include "../Commons/IActionListener.h"
+#include <string>
 
 class CDTextArea : public AbstractCDElement, IActionListener{
 public:
@@ -26,11 +27,14 @@ public:
 	CDCharOption* getSelected();
 	bool setSelectedIndex(uint8_t index);
 	bool setSelected(CDCharOption* option);
+	bool selectNext();
+	bool selectPrevious();
 	CDOptionPane* getOptionPane();
 	bool canAppendArea();
 	bool appendArea();
 	bool setCharAndAppend(char ch);
 	bool eraseLastChar();
+	std::string getText();
 
 	virtual void setParent(AbstractCDElement* parent); //Implements
 	virtual AbstractCDElement* getParent(); //Implements

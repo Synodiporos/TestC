@@ -14,30 +14,39 @@ using namespace std;
 #include "../CD/CDFrame.h"
 #include "../CD/CDTextArea.h"
 #include "TestCDTextArea.h"
+#include <string>
 
 class TestCDTextArea {
 public:
 
 	static void run() {
+		bool res = false;
 		cout << "Test TextArea!" << endl;
 
 		CDFrame frame = CDFrame(16, 2);
 
-		CDTextArea area = CDTextArea(6, 10);
-		area.setCharAndAppend('S');
-		area.setCharAndAppend('t');
-		area.setCharAndAppend('a');
-		area.setCharAndAppend('v');
-		area.setCharAndAppend('r');
-		area.setCharAndAppend('o');
-		area.setCharAndAppend('s');
+		CDTextArea area = CDTextArea(4, 20);
+		res = area.setCharAndAppend('S');
+		cout << "Adding S res=" << res << endl;
+		res = area.setCharAndAppend('t');
+		cout << "Adding t res=" << res << endl;
+		res = area.setCharAndAppend('a');
+		cout << "Adding a res=" << res << endl;
+		res = area.setCharAndAppend('v');
+		cout << "Adding v res=" << res << endl;
+		res = area.setCharAndAppend('r');
+		cout << "Adding r res=" << res << endl;
+		res = area.setCharAndAppend('o');
+		cout << "Adding o res=" << res << endl;
+		res = area.setCharAndAppend('s');
+		cout << "Adding s res=" << res << endl;
 		//area.getOptionPane()->setPosition(-1, 0);
 
 		//area.setSelectedIndex(6);
 
 		frame.setPage(&area, 0);
 
-		frame.print();
+		//frame.print();
 
 		area.setCharAndAppend('!');
 		//area.getBounds()->print();
@@ -45,13 +54,29 @@ public:
 		//area.setCharAndAppend('s');
 		frame.print();
 
-		area.setSelectedIndex(2);
+		//area.setSelectedIndex(2);
 		//frame.print();
-		area.setSelectedIndex(10);
+		//area.setSelectedIndex(10);
 		//frame.print();
 		cout << "ERASE" << endl;
-		area.eraseLastChar();
 
+		//res = area.eraseLastChar();
+		//res = area.eraseLastChar();
+		//res = area.eraseLastChar();
+		/*res = area.eraseLastChar();
+		res = area.eraseLastChar();
+		res = area.eraseLastChar();
+		res = area.eraseLastChar();
+		res = area.eraseLastChar();
+		res = area.eraseLastChar();
+		res = area.eraseLastChar();*/
+		cout << "Erases res: " << res << endl;
+		area.reprint();
+
+		std::string str ("Test string");
+
+		str = area.getText();
+		cout << "TEXT: " << str << endl;
 /*
 
 		clock_t start = clock();
