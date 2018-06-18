@@ -11,12 +11,12 @@
 #include "AbstractCDOption.h"
 #include "CDConstants.h"
 
-class CDCharOption : public AbstractCDOption{
+class CDOptionChar : public AbstractCDOption{
 public:
 
-	CDCharOption(char c);
-	CDCharOption(int8_t x, int8_t y, char c);
-	virtual ~CDCharOption();
+	CDOptionChar(char c);
+	CDOptionChar(int8_t x, int8_t y, char c);
+	virtual ~CDOptionChar();
 
 	virtual void init();
 

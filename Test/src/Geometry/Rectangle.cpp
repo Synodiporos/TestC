@@ -62,6 +62,15 @@ bool Rectangle::isNull(){
 	return getWidth()==0 || getHeight()==0;
 }
 
+bool Rectangle::contains(int8_t x, int8_t y){
+	return GeometryUtil::valueInRange(x, getX(), getX()+getWidth()) &&
+				GeometryUtil::valueInRange(y, getY(), getY()+getHeight());
+}
+
+bool Rectangle::contains(Point p){
+	return contains(p.getX(), getY());
+}
+
 Rectangle Rectangle::intersection(Rectangle* rec){
 	if(rec)
 		return Rectangle::intersection(this, rec);

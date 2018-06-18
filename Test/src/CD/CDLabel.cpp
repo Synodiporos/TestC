@@ -55,6 +55,7 @@ void CDLabel::stopRolling(){
 }
 
 void CDLabel::setRollingState(uint8_t state){
+	//cout << getLabel() << " getRollingState()=" << (int)getRollingState() << endl;
 	if(this->rollState!=state){
 		this->rollState = state;
 		this->millis = clock();
@@ -75,7 +76,6 @@ void CDLabel::setLabelIndex(uint8_t index){
 	if(this->strIndex!=index){
 		this->strIndex = index;
 		//cout << "Label: " << label << " index: " << (int)strIndex << endl;
-		//
 		reprint();
 	}
 }
@@ -117,15 +117,14 @@ AbstractCDElement* CDLabel::getParent(){
 
 }
 */
-void CDLabel::reprint(){
-
+/*void CDLabel::reprint(){
 	AbstractCDElement::reprint();
-	/*
+
 	uint8_t x = strIndex;
 	char* p = CharUtil::strFilling(
 				label, lenght, width, x, ' ');
-	cout << "Reprint: " << p << endl;*/
-}
+	cout << "Reprint: " << p << endl;
+}*/
 
 void CDLabel::printArea(LCD* lcd, Rectangle* area){
 	if(area->getY()!=0)
@@ -140,6 +139,7 @@ void CDLabel::printArea(LCD* lcd, Rectangle* area){
 }
 
 void CDLabel::validate(){
+	//cout << "VALIDATE LABEL" << endl;
 	if(isRolling()){
 		unsigned int m = clock() - millis;
 

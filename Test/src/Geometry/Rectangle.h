@@ -28,6 +28,8 @@ public:
 	Dimension getDimensions();
 	bool isNull();
 
+	bool contains(int8_t x, int8_t y);
+	bool contains(Point p);
 	Rectangle intersection(Rectangle* rec);
 	bool intersects(Rectangle* rec);
 	static Rectangle intersection(Rectangle* rec1, Rectangle* rec2);

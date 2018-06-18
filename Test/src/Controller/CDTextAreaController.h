@@ -9,42 +9,45 @@
 #define CONTROLLER_CDTEXTAREACONTROLLER_H_
 #include "AbstractCompController.h"
 #include "CDKeyboardController.h"
+#include "../Commons/IActionListener.h"
 #include "../CD/CDTextArea.h"
 
-class CDTextAreaController : public AbstractCompController{
+class CDTextAreaController : public AbstractCompController, IActionListener{
 public:
 	CDTextAreaController();
+	CDTextAreaController(CDTextArea* view);
 	virtual ~CDTextAreaController();
-
+	void init();
 	void setView(CDTextArea* view);
 	CDTextArea* getView();
 
-	virtual void onActiveControllerChanged(AbstractController* activeCntrl) = 0;
+	virtual void onActiveControllerChanged(AbstractController* activeCntrl);
 
 protected:
-	virtual void onActivate() = 0;
-	virtual void onDeactivate() = 0;
-	virtual void forwardPressed() = 0;
-	virtual void forwardReleased() = 0;
-	virtual void forwardHolded() = 0;
-	virtual void forwardClicked() = 0;
-	virtual void backwardPressed() = 0;
-	virtual void backwardReleased() = 0;
-	virtual void backwardHolded() = 0;
-	virtual void backwardClicked() = 0;
-	virtual void enterPressed() = 0;
-	virtual void enterReleased() = 0;
-	virtual void enterHolded() = 0;
-	virtual void enterClicked() = 0;
-	virtual void backPressed() = 0;
-	virtual void backReleased() = 0;
-	virtual void backHolded() = 0;
-	virtual void backClicked() = 0;
+	virtual void onActivate();
+	virtual void onDeactivate();
+	virtual void forwardPressed();
+	virtual void forwardReleased();
+	virtual void forwardHolded();
+	virtual void forwardClicked();
+	virtual void backwardPressed();
+	virtual void backwardReleased();
+	virtual void backwardHolded();
+	virtual void backwardClicked();
+	virtual void enterPressed();
+	virtual void enterReleased();
+	virtual void enterHolded();
+	virtual void enterClicked();
+	virtual void backPressed();
+	virtual void backReleased();
+	virtual void backHolded();
+	virtual void backClicked();
+
+	void actionPerformed(Action action);
 
 private:
-	CDKeyboardController* keyboardCtrl = nullptr;
+	CDKeyboardController keyboardCtrl = CDKeyboardController();
 	CDTextArea view = CDTextArea();
-	void init();
 };
 
 #endif /* CONTROLLER_CDTEXTAREACONTROLLER_H_ */

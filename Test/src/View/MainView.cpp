@@ -9,9 +9,9 @@
 #include "ViewAssets.h"
 #include "ViewActionIds.h"
 
-MainView::MainView() : CDOptionPane(16, 2){
-	// TODO Auto-generated constructor stub
-
+MainView::MainView(uint8_t width, uint8_t height) :
+	CDOptionPane(width, height){
+	init();
 }
 
 MainView::~MainView() {
@@ -20,19 +20,19 @@ MainView::~MainView() {
 
 void MainView::init(){
 	char* c = LABEL_MAIN_MENU_AUTO;
-	CDOption* optionAuto = new CDOption(0, 0, 5, c, VIEW_ACTION_AUTO);
+	CDOptionLabel* optionAuto = new CDOptionLabel(0, 0, 5, c, VIEW_ACTION_AUTO);
 	this->insertOption(optionAuto);
 
 	char* c2 = LABEL_MAIN_MENU_MANUAL;
-	CDOption* optionManual = new CDOption(8, 0, 6, c2, VIEW_ACTION_MANUAL);
+	CDOptionLabel* optionManual = new CDOptionLabel(8, 0, 7, c2, VIEW_ACTION_MANUAL);
 	this->insertOption(optionManual);
 
 	char* c3 = LABEL_MAIN_MENU_SETTINGS;
-	CDOption* optionSettings = new CDOption(0, 1, 9, c3, VIEW_ACTION_SETTINGS);
+	CDOptionLabel* optionSettings = new CDOptionLabel(0, 1, 7, c3, VIEW_ACTION_SETTINGS);
 	this->insertOption(optionSettings);
 
 	char* c4 = LABEL_MAIN_MENU_STATISTICS;
-	CDOption* optionStats = new CDOption(8, 1, 9, c4, VIEW_ACTION_STATISTICS);
+	CDOptionLabel* optionStats = new CDOptionLabel(8, 1, 8, c4, VIEW_ACTION_STATISTICS);
 	this->insertOption(optionStats);
 
 	//setSelectedOptionIndex(0);

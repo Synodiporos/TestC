@@ -38,10 +38,10 @@ TaskMenuView::~TaskMenuView() {
 void TaskMenuView::init(){
 	uint8_t width = getBounds()->getWidth();
 
-	CDOption* opStart = new CDOption(0, 0,
+	CDOptionLabel* opStart = new CDOptionLabel(0, 0,
 				width, LABEL_TASK_MENU_START,
 				VIEW_ACTION_TASK_START);
-	CDOption* opDetails = new CDOption(0, 1,
+	CDOptionLabel* opDetails = new CDOptionLabel(0, 1,
 				width, LABEL_TASK_MENU_DETAILS,
 				VIEW_ACTION_TASK_DETAILS);
 	this->insertOption(opStart);
@@ -49,10 +49,10 @@ void TaskMenuView::init(){
 	setDimensions(width, 3);
 
 	if(editable){
-		CDOption* opModify = new CDOption(0, 2,
+		CDOptionLabel* opModify = new CDOptionLabel(0, 2,
 					width, LABEL_TASK_MENU_MODIFY,
 					VIEW_ACTION_TASK_MODIFY);
-		CDOption* opDelete = new CDOption(0, 3,
+		CDOptionLabel* opDelete = new CDOptionLabel(0, 3,
 					width, LABEL_TASK_MENU_DELETE,
 					VIEW_ACTION_TASK_DELETE);
 		this->insertOption(opModify);
@@ -60,7 +60,7 @@ void TaskMenuView::init(){
 		setDimensions(width, 5);
 	}
 
-	CDOption* opReturn = new CDOption(0, 4,
+	CDOptionLabel* opReturn = new CDOptionLabel(0, 4,
 				width, LABEL_TASK_MENU_DELETE,
 				VIEW_ACTION_RETURN);
 	this->insertOption(opReturn);

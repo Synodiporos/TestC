@@ -10,7 +10,7 @@ using namespace std;
 #include "LCD.h"
 #include "CDCharacters.h"
 
-LCD::LCD(int8_t x, int8_t y) : Rectangle(x, y){
+LCD::LCD(uint8_t width, uint8_t height) : Rectangle(0, 0, width, height){
 
 }
 
@@ -21,7 +21,7 @@ LCD::LCD(int8_t x, int8_t y, uint8_t width, uint8_t height)
 LCD::~LCD() {
 
 }
-
+/*
 void LCD::createCustomCharacters(){
 	createChar(0, CDCharacters::ch_hover);
 	createChar(1, CDCharacters::ch_click);
@@ -31,31 +31,30 @@ void LCD::createCustomCharacters(){
 	//createChar(5, CDCharacters::ch_hover);
 	//createChar(6, CDCharacters::ch_hover);
 	//createChar(7, CDCharacters::ch_hover);
-}
+}*/
 
-void LCD::setCursor(uint8_t x, uint8_t y){
-	if(!cursor.equals(x, y)){
-		this->cursor.setPoint(x, y);
 
-		/*cout << "\t>>>   LCD: Set Cursor[" <<
-				(int)x << ", "
-				<< (int)y << "] " << endl;*/
+bool LCD::setCursor(Point* cords){
+	if(this->cursor.setPoint(cords)){
+		return settingCursor(cords);
 	}
+	return false;
 }
 
-void LCD::setCursorBy(uint8_t x, uint8_t y){
-	setCursorBy(new Point(x, y));
+bool LCD::setCursor(uint8_t x, uint8_t y){
+	return setCursor(new Point(x,y));
 }
 
-void LCD::setCursor(Point* cords){
+bool LCD::setCursorBy(uint8_t x, uint8_t y){
+	return setCursorBy(new Point(x, y));
+}
+
+
+bool LCD::setCursorBy(Point* cords){
 	if(cords)
-		setCursor(cords->getX(), cords->getY());
-}
-
-void LCD::setCursorBy(Point* cords){
-	if(cords)
-		setCursor(getCursor()->getX() + cords->getX(),
+		return setCursor(getCursor()->getX() + cords->getX(),
 				getCursor()->getY() + cords->getY());
+	return false;
 }
 
 uint8_t LCD::getCursorX(){
@@ -70,18 +69,11 @@ Point* LCD::getCursor(){
 	return &this->cursor;
 }
 
-void LCD::createChar(uint8_t id, const uint8_t[8]){
-	//LCD Create Char.
+bool LCD::writeChar(uint8_t ch[8]){
+	uint8_t add = getCharBufferAddress();
+	return createChar(add, ch) && printChar(add);
 }
-
-void LCD::printChar(uint8_t id){
-
-}
-
-void LCD::writeChar(uint8_t ch[8]){
-
-}
-
+/*
 void LCD::print(char* str){
 	if(str){
 		sentCursorCoords();
@@ -94,13 +86,13 @@ void LCD::print(char ch){
 		sentCursorCoords();
 		cout << "\t>>>   LCD Print -> " << ch << endl;
 	}
-}
-
+}*/
+/*
 void LCD::sentCursorCoords(){
 	cout << "\t>>>   LCD: Set Cursor[" <<
 					(int)cursor.getX() << ", "
 					<< (int)cursor.getY() << "] " << endl;
-}
+}*/
 
 void LCD::fillArea(Rectangle* area, char c){
 
@@ -113,11 +105,15 @@ void LCD::fillArea(Rectangle* area, char c){
 		print(str);
 	}
 }
-
+/*
 void LCD::clear(){
 
 }
 
 void LCD::refresh(){
 
-}
+}*/
+
+
+
+

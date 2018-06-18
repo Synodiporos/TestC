@@ -10,7 +10,7 @@ using namespace std;
 #include "MainController.h"
 #include "../View/ViewActionIds.h"
 
-MainController::MainController(CDOptionPane* view) :
+MainController::MainController(MainView* view) :
 	view(view){
 	// TODO Auto-generated constructor stub
 	timer.setActionListener(this);
@@ -20,17 +20,40 @@ MainController::~MainController() {
 	// TODO Auto-generated destructor stub
 }
 
+void MainController::init(){
+
+	//taskContCtrl = TaskContainerFactory::createController();
+}
+
+void MainController::setFrame(CDFrame* frame){
+	this->frame = frame;
+}
+
+CDFrame* MainController::getFrame(){
+	return this->frame;
+}
+
+void MainController::setView(MainView* view){
+	this->view = view;
+}
+
+MainView* MainController::getView(){
+	return this->view;
+}
+
 void MainController::setTaskContainerController(
 		TaskContainerController* taskContCntrl){
 	this->taskContCtrl = taskContCntrl;
 }
 
 void MainController::onActivate(){
-
+	if(view)
+		view->setActionListener(this);
 }
 
 void MainController::onDeactivate(){
-
+	if(view)
+		view->setActionListener(nullptr);
 }
 
 void MainController::onActiveControllerChanged(AbstractController* activeCntrl){
@@ -38,6 +61,14 @@ void MainController::onActiveControllerChanged(AbstractController* activeCntrl){
 	if(!active)
 		active = this;
 	cout << "-ActiveControllerChanged to " << active << endl;
+}
+
+bool MainController::setActiveScreen(AbstractCDElement* screen){
+	bool res = AbstractController::setActiveScreen(screen);
+	cout << "View Changed!" << endl;
+	if(frame)
+		frame->setPage(screen);
+	return res;
 }
 
 void MainController::forwardPressed(){
@@ -104,13 +135,8 @@ void MainController::enterHolded(){
 }
 
 void MainController::enterClicked(){
-	AbstractCDOption* selected = this->view->getSelectedOption();
-	if(selected){
-		unsigned short int action = selected->getActionId();
-		onOptionClicked(action);
-	}
-	else{
-
+	if(view){
+		view->confirmSelection();
 	}
 }
 
@@ -124,7 +150,8 @@ void MainController::backReleased(){
 
 //Override
 void MainController::onBackReleased(){
-	setActiveController(nullptr);
+	if(view)
+		view->closePane();
 }
 
 void MainController::backHolded(){
@@ -134,30 +161,6 @@ void MainController::backHolded(){
 
 void MainController::backClicked(){
 
-}
-
-void MainController::onOptionClicked(unsigned int id){
-	cout << "#Action: " << id << " : at MainController" <<endl;
-	switch(id){
-		case VIEW_ACTION_AUTO :{
-			cout << "  AUTO" << endl;
-			//if(taskContCtrl)
-				setActiveController(taskContCtrl);
-			break;
-		}
-		case VIEW_ACTION_MANUAL :{
-			cout << "  MANUAL" << endl;
-			break;
-		}
-		case VIEW_ACTION_SETTINGS :{
-			cout << "  SETTINGS" << endl;
-			break;
-		}
-		case VIEW_ACTION_STATISTICS :{
-			cout << "  STATISTICS" << endl;
-			break;
-		}
-	}
 }
 
 void MainController::actionPerformed(Action action){
@@ -181,6 +184,48 @@ void MainController::actionPerformed(Action action){
 		}
 		case 44:{
 			onEnterClicked();
+			break;
+		}
+
+		case CDOptionPane::SELECTION_CHANGE:{
+			break;
+		}
+		case CDOptionPane::SELECTION_CONFIRM:{
+			AbstractCDOption* selected = this->view->getSelectedOption();
+			if(selected){
+				unsigned short int action = selected->getActionId();
+				onOptionClicked(action);
+			}
+			break;
+		}
+		case CDOptionPane::PANE_CLOSE:{
+			setActiveController(nullptr);
+			break;
+		}
+	}
+}
+
+
+void MainController::onOptionClicked(unsigned int id){
+	cout << "#Action: " << id << " : at MainController" <<endl;
+	switch(id){
+		case VIEW_ACTION_AUTO :{
+			cout << "  AUTO" << endl;
+			//if(taskContCtrl)
+			setActiveScreen(taskContCtrl->getView());
+			setActiveController(taskContCtrl);
+			break;
+		}
+		case VIEW_ACTION_MANUAL :{
+			cout << "  MANUAL" << endl;
+			break;
+		}
+		case VIEW_ACTION_SETTINGS :{
+			cout << "  SETTINGS" << endl;
+			break;
+		}
+		case VIEW_ACTION_STATISTICS :{
+			cout << "  STATISTICS" << endl;
 			break;
 		}
 	}

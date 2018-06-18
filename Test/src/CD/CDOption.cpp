@@ -10,19 +10,23 @@ using namespace std;
 #include "../Commons/State.h"
 #include "CDConstants.h"
 
-CDOption::CDOption(uint8_t width, char* label)
-	: AbstractCDOption(width), label(width-1, label){
+CDOption::CDOption(uint8_t width, AbstractCDElement* element)
+	: AbstractCDOption(width){
 	init();
+	setElement(element);
 }
 
-CDOption::CDOption(int8_t x, int8_t y, uint8_t width, char* label)
-	: AbstractCDOption(x, y, width), label(width-1, label){
+CDOption::CDOption(int8_t x, int8_t y, uint8_t width, AbstractCDElement* element)
+	: AbstractCDOption(x, y, width){
 	init();
+	setElement(element);
 }
 
-CDOption::CDOption(int8_t x, int8_t y, uint8_t width, char* label, unsigned int actionId)
-	: AbstractCDOption(x, y, width, actionId), label(width-1, label){
+CDOption::CDOption(int8_t x, int8_t y, uint8_t width,
+		AbstractCDElement* element, unsigned int actionId)
+	: AbstractCDOption(x, y, width, actionId){
 	init();
+	setElement(element);
 }
 
 CDOption::~CDOption() {
@@ -30,49 +34,36 @@ CDOption::~CDOption() {
 }
 
 void CDOption::init(){
-	this->label.setLocation(1,0);
-	this->label.setParent(this);
+	//this->label.setLocation(0,0);
+	//this->label.setParent(this);
 	//this->indicator.setParent(this);
 }
 
-CDLabel* CDOption::getLabel(){
+/*CDLabel* CDOption::getLabel(){
 	return &this->label;
+}*/
+
+bool CDOption::setElement(AbstractCDElement* element){
+	if(this->element != element){
+		if(this->element)
+			this->element->setParent(nullptr);
+		this->element = element;
+		this->element->setParent(this);
+		return true;
+	}
+	return false;
+}
+
+AbstractCDElement* CDOption::getElement(){
+	return this->element;
 }
 
 void CDOption::onOptionStateChanged(){
 	reprintIndicator();
-
-	if(AutoRolling_state==AutoRolling_Never){
-
-	}
-	else if(getOptionState()==HOVERED){
-		if(AutoRolling_state==AutoRolling_OnHover)
-			this->label.startRolling();
-		else
-			this->label.stopRolling();
-	}
-	else if(getOptionState()==CLICKED){
-		if(AutoRolling_state==AutoRolling_OnClick)
-			this->label.startRolling();
-		else
-			this->label.stopRolling();
-	}
 }
 
 
 void CDOption::printArea(LCD* lcd, Rectangle* area){
-	/*cout << "Option PrintArea: [";
-	cout << (int)area->getX();
-	cout << ", ";
-	cout << (int)area->getY();
-	cout << ", ";
-	cout << (int)area->getWidth();
-	cout << ", ";
-	cout << (int)area->getHeight();
-	cout << "] of " ;
-	cout << this << endl;*/
-
-
 	int ccx = lcd->getCursorX();
 	int ccy = lcd->getCursorY();
 
@@ -81,8 +72,9 @@ void CDOption::printArea(LCD* lcd, Rectangle* area){
 			area->getWidth()>0 && area->getHeight()>0)
 		printIndicator(lcd);
 
-	//Print Label
-	printChild(&label, lcd, area);
+	//Print Element
+	area->setDimensions(area->getWidth()-1, area->getHeight());
+	printChild(getElement(), lcd, area);
 
 	lcd->setCursor(ccx, ccy);
 }
@@ -92,7 +84,7 @@ void CDOption::printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area){
 		Rectangle r = area->intersection(
 				child->getBounds());
 		if(!r.isNull()){
-			int cx =  0 + child->getBounds()->getX();
+			int cx =  1 + child->getBounds()->getX();
 			int cy =  0 + child->getBounds()->getY();
 
 			lcd->setCursorBy(cx, cy);
@@ -128,7 +120,7 @@ void CDOption::reprintIndicator(){
 	AbstractCDElement::printArea(r);
 }
 
-void CDOption::reprintLabel(){
+void CDOption::reprintElement(){
 	uint8_t width = getWidth();
 	Rectangle* r = new Rectangle(1, 0, width, 1);
 	AbstractCDElement::printArea(r);
@@ -136,6 +128,7 @@ void CDOption::reprintLabel(){
 
 void CDOption::validate(){
 	//this->indicator.validate();
-	this->label.validate();
+	if(getElement())
+		getElement()->validate();
 }
 

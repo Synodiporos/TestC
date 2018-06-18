@@ -39,6 +39,10 @@ bool AbstractController::isActivated(){
 	return this->activated;
 }
 
+bool AbstractController::hasParent(){
+	return getParent()!=nullptr;
+}
+
 bool AbstractController::setParent(AbstractCompController* parent){
 	if(this->parent!=parent){
 		this->parent = parent;
@@ -55,4 +59,11 @@ AbstractCompController* AbstractController::getRootParent(){
 	if(getParent())
 		return getParent()->getRootParent();
 	return nullptr;
+}
+
+bool AbstractController::setActiveScreen(AbstractCDElement* screen){
+	if(hasParent()){
+		return getParent()->setActiveScreen(screen);
+	}
+	return false;
 }

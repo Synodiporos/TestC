@@ -8,6 +8,7 @@
 #ifndef VIEW_TASKCONTAINERVIEW_H_
 #define VIEW_TASKCONTAINERVIEW_H_
 #include "../CD/CDOptionPane.h"
+#include "../CD/CDOptionLabel.h"
 
 class TaskContainerView: public CDOptionPane {
 public:

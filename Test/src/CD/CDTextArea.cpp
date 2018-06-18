@@ -35,7 +35,7 @@ void CDTextArea::init(){
 	this->optionPane = new CDOptionPane(1, 1);
 	this->optionPane->setParent(this);
 	this->optionPane->setActionListener(this);
-	CDCharOption* c = new CDCharOption(0, 0, ' ');
+	CDOptionChar* c = new CDOptionChar(0, 0, ' ');
 	optionPane->insertOption(c);
 }
 
@@ -72,7 +72,7 @@ bool CDTextArea::setSelectedIndex(uint8_t index){
 	return this->optionPane->setSelectedOptionIndex(index);
 }
 
-bool CDTextArea::setSelected(CDCharOption* option){
+bool CDTextArea::setSelected(CDOptionChar* option){
 	return this->optionPane->setSelectedOption(option);
 }
 
@@ -88,14 +88,14 @@ bool CDTextArea::canAppendArea(){
 	return optionPane->getSize() < (getCapacity());
 }
 
-CDCharOption* CDTextArea::getSelected(){
-	return (CDCharOption*)this->optionPane->getSelectedOption();
+CDOptionChar* CDTextArea::getSelected(){
+	return (CDOptionChar*)this->optionPane->getSelectedOption();
 }
 
 bool CDTextArea::appendArea(){
 	if(canAppendArea()){
 		uint8_t x = getSize();
-		CDCharOption* c = new CDCharOption(x, 0, ' ');
+		CDOptionChar* c = new CDOptionChar(x, 0, ' ');
 		if(optionPane->insertOption(c)){
 			optionPane->setDimensions(
 					optionPane->getWidth()+1, 1);
@@ -109,7 +109,7 @@ bool CDTextArea::appendArea(){
 bool CDTextArea::setCharAndAppend(char ch){
 	if(getSize()>=capacity)
 		return false;
-	CDCharOption* chOp = getSelected();
+	CDOptionChar* chOp = getSelected();
 	if(chOp){
 		chOp->setCharacter(ch);
 		return appendArea();
@@ -118,7 +118,7 @@ bool CDTextArea::setCharAndAppend(char ch){
 }
 
 bool CDTextArea::eraseLastChar(){
-	CDCharOption* chOp = (CDCharOption*)
+	CDOptionChar* chOp = (CDOptionChar*)
 			this->optionPane->getLastOption();
 	if(getSize()<=1){
 		chOp->setCharacter(' ');
@@ -137,12 +137,12 @@ std::string CDTextArea::getText(){
 	if(n){
 		uint8_t i = getSize()-1;
 		while(n->hasPrev()){
-			char c = ((CDCharOption*)n->getValue())->getCharacter();
+			char c = ((CDOptionChar*)n->getValue())->getCharacter();
 			res = c + res;
 			n = n->getPrev();
 			i--;
 		}
-		char c = ((CDCharOption*)n->getValue())->getCharacter();
+		char c = ((CDOptionChar*)n->getValue())->getCharacter();
 		res = c + res;
 	}
 	return res;
@@ -206,8 +206,8 @@ void CDTextArea::actionPerformed(Action action){
 }
 
 void CDTextArea::validateCelectionChange(){
-	cout << "VALIDATE" << endl;
-	CDCharOption* selection = getSelected();
+	//cout << "VALIDATE" << endl;
+	CDOptionChar* selection = getSelected();
 	if(selection){
 		int8_t i = selection->getBounds()->getX();
 		int8_t x0 = getBounds()->getX();
@@ -220,7 +220,7 @@ void CDTextArea::validateCelectionChange(){
 		else if(i<0){
 			o = -i;
 		}
-		cout << "O=" << o << endl;
+		//cout << "O=" << o << endl;
 		if(this->optionPane->getBounds()->setX(o))
 			reprint();
 

@@ -41,7 +41,7 @@ public:
 	void setParent(AbstractCDElement* parent);
 	AbstractCDElement* getParent();
 
-	virtual void reprint();
+	//virtual void reprint();
 	virtual void printArea(LCD* lcd, Rectangle* area);
 	virtual void validate();
 

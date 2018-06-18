@@ -46,6 +46,12 @@ bool Point::setPoint(short int x, short int y){
 	return false;
 }
 
+bool Point::setPoint(Point* point){
+	if(point)
+		return setPoint(point->getX(), point->getY());
+	return false;
+}
+
 bool Point::setPointBy(short int x, short int y){
 	return setPoint(this->x + x, this->y + y);
 }

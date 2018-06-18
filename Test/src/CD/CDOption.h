@@ -14,20 +14,18 @@
 
 class CDOption : public AbstractCDOption{
 public:
-	static const uint8_t AutoRolling_Never = 10;
-	static const uint8_t AutoRolling_OnHover = 11;
-	static const uint8_t AutoRolling_OnClick = 12;
-	static const uint8_t AutoRolling_state = AutoRolling_OnClick;
-
-	CDOption(uint8_t width, char* label);
-	CDOption(int8_t x, int8_t y, uint8_t width, char* label);
-	CDOption(int8_t x, int8_t y, uint8_t width, char* label, unsigned int actionId);
+	CDOption(uint8_t width, AbstractCDElement* element);
+	CDOption(int8_t x, int8_t y, uint8_t width, AbstractCDElement* element);
+	CDOption(int8_t x, int8_t y, uint8_t width,
+			AbstractCDElement* element, unsigned int actionId);
 	virtual ~CDOption();
 
-	CDLabel* getLabel();
+	//CDLabel* getLabel();
+	bool setElement(AbstractCDElement* element);
+	AbstractCDElement* getElement();
 	virtual void printIndicator(LCD* lcd);
 	virtual void reprintIndicator();
-	virtual void reprintLabel();
+	virtual void reprintElement();
 	virtual void printArea(LCD* lcd, Rectangle* area); // Implement
 	virtual void validate(); // Implement
 
@@ -36,9 +34,7 @@ protected:
 	int8_t x = 0;
 	int8_t y = 0;
 	uint8_t width = 0;
-	IStateListener* stateListener = nullptr;
-	CDLabel label;
-	unsigned int actionId = 0;
+	AbstractCDElement* element = nullptr;
 
 	virtual void init();
 	virtual void onOptionStateChanged(); // Implement

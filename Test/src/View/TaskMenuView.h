@@ -8,6 +8,7 @@
 #ifndef VIEW_TASKMENUVIEW_H_
 #define VIEW_TASKMENUVIEW_H_
 #include "../CD/CDOptionPane.h"
+#include "../CD/CDOptionLabel.h"
 
 class TaskMenuView : public CDOptionPane{
 public:

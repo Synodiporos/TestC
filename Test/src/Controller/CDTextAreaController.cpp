@@ -4,17 +4,22 @@
  *  Created on: Jun 11, 2018
  *      Author: sgeorgiadis
  */
-
+#include <iostream>
+using namespace std;
 #include "CDTextAreaController.h"
 #include "../View/ViewAssets.h"
 
 CDTextAreaController::CDTextAreaController() {
-	// TODO Auto-generated constructor stub
+	init();
+}
 
+CDTextAreaController::CDTextAreaController(CDTextArea* view) :
+	view(*view){
+	init();
 }
 
 CDTextAreaController::~CDTextAreaController() {
-	// TODO Auto-generated destructor stub
+
 }
 
 void CDTextAreaController::setView(CDTextArea* view){
@@ -27,7 +32,14 @@ CDTextArea* CDTextAreaController::getView(){
 
 void CDTextAreaController::init(){
 	CDKeyboard* keyboardView = new CDKeyboard(SCREEN_WIDTH);
-	this->keyboardCtrl = new CDKeyboardController(keyboardView);
+	keyboardView->appendCharSet(LOWER_CASE_LETTERS);
+	keyboardView->appendCharSet(UPPER_CASE_LETTERS);
+	keyboardView->appendCharSet(TEXT_SYMBOLS);
+	keyboardView->appendCharSet(NUMBERS);
+	keyboardView->appendCharSet(SYMBOLS);
+
+	keyboardView->setActionListener(this);
+	this->keyboardCtrl.setView(keyboardView);
 }
 
 void CDTextAreaController::onActivate(){
@@ -38,8 +50,9 @@ void CDTextAreaController::onDeactivate(){
 
 }
 
-void CDTextAreaController::onActiveControllerChanged(AbstractController* activeCntrl){
-
+void CDTextAreaController::onActiveControllerChanged(
+		AbstractController* activeCntrl){
+	cout << "ActiveControllerChanged!" << endl;
 }
 
 void CDTextAreaController::forwardPressed(){
@@ -56,12 +69,11 @@ void CDTextAreaController::forwardHolded(){
 
 void CDTextAreaController::forwardClicked(){
 	if(getView()->getOptionPane()->hasNextOption()){
-		getView()->setSelectedIndex();
+		getView()->selectNext();
 	}
 	else{
 
 	}
-
 }
 
 void CDTextAreaController::backwardPressed(){
@@ -77,7 +89,12 @@ void CDTextAreaController::backwardHolded(){
 }
 
 void CDTextAreaController::backwardClicked(){
+	if(getView()->getOptionPane()->hasPreviousOption()){
+		getView()->selectPrevious();
+	}
+	else{
 
+	}
 }
 
 void CDTextAreaController::enterPressed(){
@@ -93,7 +110,9 @@ void CDTextAreaController::enterHolded(){
 }
 
 void CDTextAreaController::enterClicked(){
-
+	setActiveScreen(keyboardCtrl.getView());
+	setActiveController(&keyboardCtrl);
+	//Show Keyboard!
 }
 
 void CDTextAreaController::backPressed(){
@@ -109,5 +128,30 @@ void CDTextAreaController::backHolded(){
 }
 
 void CDTextAreaController::backClicked(){
+	if(getParent())
+		getParent()->setActiveController(nullptr);
+}
 
+void CDTextAreaController::actionPerformed(Action action){
+	unsigned short int actionId = action.getActionId();
+	//cout << "ActionPerformed: " << actionId << endl;
+	switch(actionId){
+		case CDOptionPane::SELECTION_CHANGE:{
+			break;
+		}
+		case CDOptionPane::SELECTION_CONFIRM:{
+			CDOptionPane* op = (CDOptionPane*)action.getSource();
+			CDOptionChar* oc = (CDOptionChar*)op->getSelectedOption();
+			char c = oc->getCharacter();
+			keyboardCtrl.getView()->closePane();
+			cout << "Selected Char: " << c << endl;
+			view.setCharAndAppend(c);
+			break;
+		}
+		case CDOptionPane::PANE_CLOSE:{
+			setActiveController(nullptr);
+			setActiveScreen(&view);
+			break;
+		}
+	}
 }

@@ -8,20 +8,24 @@
 #ifndef CD_CDKEYBOARD_H_
 #define CD_CDKEYBOARD_H_
 #include "CDOptionPane.h"
-#include "CDCharOption.h"
+#include "CDOptionChar.h"
 #include "../System/Timer.h"
 #include "../Commons/IActionListener.h"
 #include "../Commons/Action.h"
 #include "CDConstants.h"
 
-#define CHARS "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ,.:;'!?-_";
-#define NUMBERS "1234567890 !@#$%^&*()-+=/\\"
+#define LOWER_CASE_LETTERS (char*)"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+#define UPPER_CASE_LETTERS (char*)"ABCDEFGHIJKLMNOPQRSTUVWXYZ "
+#define TEXT_SYMBOLS (char*) ",.:;!?-' _"
+#define NUMBERS (char*)"1234567890"
+#define SYMBOLS (char*)"!@#$%^&*()-+=/\\"
 
 class CDKeyboard : public CDOptionPane, IActionListener{
 public:
 	CDKeyboard(uint8_t width);
 	virtual ~CDKeyboard();
 	void init();
+	void appendCharSet(char* set);
 	virtual void validate();
 	void actionPerformed(Action action);
 

@@ -16,9 +16,9 @@ using namespace std;
 class CDOptionPane : public CDElement{
 public:
 
-	static const unsigned short SELECTION_CHANGE = 1;
-	static const unsigned short  SELECTION_CONFIRM = 2;
-	static const unsigned short  PANE_CLOSE = 3;
+	static const unsigned short int SELECTION_CHANGE = 1;
+	static const unsigned short int SELECTION_CONFIRM = 2;
+	static const unsigned short int PANE_CLOSE = 3;
 
 	CDOptionPane();
 	CDOptionPane(int8_t w, int8_t h);

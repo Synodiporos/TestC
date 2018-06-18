@@ -12,7 +12,7 @@ using namespace std;
 #include "CD/CDElement.h"
 #include "CD/CDComponent.h"
 #include "CD/CDLabel.h"
-#include "CD/CDOption.h"
+#include "CD/CDOptionLabel.h"
 #include "CD/CDOptionPane.h"
 #include "CD/LCD.h"
 #include "CD/CDFrame.h"
@@ -30,6 +30,7 @@ using namespace std;
 #include "System/Timer.h"
 #include "CD/CDKeyboard.h"
 #include "Test/TestCDTextArea.h"
+#include "Test/TestCDOptionPane.h"
 
 #include <ctime>
 
@@ -101,61 +102,9 @@ int main() {
 	 comp->addElement(comp3);
 	 comp->addElement(comp4);*/
 
-	CDOption op1 = CDOption(0, 0, 4, (char*) "Op1");
-	CDOption op2 = CDOption(7, 0, 4, "Op2");
-	CDOption op3 = CDOption(0, 1, 12, "Op3");
-	CDOption op4 = CDOption(0, 2, 4, "Op4");
-	CDOption op5 = CDOption(7, 2, 4, "Op5");
-	CDOption op6 = CDOption(0, 3, 12, "Op6");
-	CDOptionPane op = CDOptionPane(0, 0, 12, 5);
-	op.insertOption(&op1);
-	op.insertOption(&op2);
-	op.insertOption(&op3);
-	op.insertOption(&op4);
-	op.insertOption(&op5);
-	op.insertOptionAt(5, &op6);
-	//op.setSelectedOption(&op2);
-	//op.removeOptionAt(10);
-
-	/*cout << "CDOptionPane: " << &op << " size: " <<
-	 (int)op.getSize()
-	 << "[" << endl;
-	 if(op.getSelectedOption())
-	 cout << "   selected: " <<
-	 op.getSelectedOption()->getLabel()->getLabel()
-	 << endl;
-	 while(op.hasPreviousOption()){
-	 op.selectPreviousOption();
-	 cout << "   selected: " <<
-	 op.getSelectedOption()->getLabel()->getLabel()
-	 << endl;
-	 }
-	 cout << "]" << endl;
-	 for(int i=0; i<op.getSize(); i++){
-	 CDOption* o = op.getOptionAt(i);
-	 cout << "   -Option at "<< i << ": " <<
-	 o->getLabel()->getLabel()
-	 << endl;
-	 }
 
 
-	 cout << "SetSelectedIndex(" << 0 << "): " <<
-	 op.setSelectedOptionIndex(0);
-	 cout << "   -- "<< 0 << ": " <<
-	 op.getSelectedOption()->getLabel()->getLabel()
-	 << endl;
-
-	 for(int i=100; i<op.getSize()+2; i++){
-	 cout << "SetSelectedIndex(" << i << "): " <<
-	 op.setSelectedOptionIndex(i);
-	 cout << "   -- "<< i << ": " <<
-	 op.getSelectedOption()->getLabel()->getLabel()
-	 << endl;
-	 }
-
-	 cout << "." << endl;*/
-
-	CDFrame frame = CDFrame(16, 2, 1);
+	//CDFrame frame = CDFrame(16, 2, 1);
 	//frame.setPage(&op, 0);
 	//frame.setPosition(0,2);
 	//frame.print();
@@ -347,11 +296,12 @@ int main() {
 
 	cout << "------------------" << endl;
 	//keyb.setSelectedOptionIndex(3);
-
 	//cout << "Size of comp: " << sizeof(*mainView) << endl;
 
-	TestCDTextArea::run();
 
+	//TestCDTextArea::run();
+	//TestCDTextArea::run2();
+	TestCDOptionPane::run2();
 
 	cout << endl;
 	cout << "Finished!" << endl;

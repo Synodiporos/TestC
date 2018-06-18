@@ -14,6 +14,13 @@ using namespace std;
 #include "../CD/CDFrame.h"
 #include "../CD/CDTextArea.h"
 #include "TestCDTextArea.h"
+#include "../Controller/CDTextAreaController.h"
+#include "../Factories/MainFactory.h"
+#include "../Model/TaskContainer.h"
+#include "../System/TaskLoader.h"
+#include "../View/ViewAssets.h"
+#include "../CD/LCDConsole.h"
+#include "../CD/LCDSimulator.h"
 #include <string>
 
 class TestCDTextArea {
@@ -23,7 +30,8 @@ public:
 		bool res = false;
 		cout << "Test TextArea!" << endl;
 
-		CDFrame frame = CDFrame(16, 2);
+		LCDConsole* lcd = new LCDConsole(SCREEN_WIDTH, SCREEN_HEIGHT);
+		CDFrame frame = CDFrame((int)SCREEN_WIDTH, 2, lcd);
 
 		CDTextArea area = CDTextArea(4, 20);
 		res = area.setCharAndAppend('S');
@@ -44,7 +52,7 @@ public:
 
 		//area.setSelectedIndex(6);
 
-		frame.setPage(&area, 0);
+		frame.setPage(&area);
 
 		//frame.print();
 
@@ -97,6 +105,80 @@ public:
 
 		cout << "Test TextArea: Finished!" << endl;
 	}
+
+	static void run2() {
+		bool res = false;
+		cout << "Test TextAreaController!" << endl;
+
+		LCD* lcd = new LCDConsole(SCREEN_WIDTH, SCREEN_HEIGHT);
+		LCD* lcd2 = new LCDSimulator(SCREEN_WIDTH, SCREEN_HEIGHT);
+		CDFrame frame = CDFrame((int)SCREEN_WIDTH, 2, lcd2);
+
+		TaskContainer* taskCont = new TaskContainer(TaskLoader::getAvailableTasks());
+		TaskContainerController* taskContCtrl =
+				TaskContainerFactory::createController(*taskCont);
+
+		MainController* mainCtrl = MainFactory::createController();
+		mainCtrl->setTaskContainerController(taskContCtrl);
+		mainCtrl->setFrame(&frame);
+		mainCtrl->activate();
+		frame.setPage(mainCtrl->getView());
+
+
+		frame.print();
+
+		mainCtrl->onForwardClicked();
+		mainCtrl->onForwardClicked();
+		/*mainCtrl->onEnterClicked();// AUTO
+		frame.print();
+
+		mainCtrl->onForwardClicked();
+		mainCtrl->onForwardClicked();
+		mainCtrl->onForwardClicked();// TASK
+		mainCtrl->onEnterClicked();
+		frame.print();*/
+
+
+		/*CDTextArea view = CDTextArea(10, 20);
+		CDTextAreaController* cntr = new CDTextAreaController(&view);
+
+
+		mainCtrl->onForwardClicked();
+		mainCtrl->onEnterClicked();
+		mainCtrl->onEnterClicked();
+
+		mainCtrl->onEnterClicked();
+		for(int i=0; i<12; i++)
+			mainCtrl->onForwardClicked();
+		mainCtrl->onEnterClicked();
+
+		frame.print();
+
+		mainCtrl->onEnterClicked();
+		for(int i=0; i<92; i++)
+			mainCtrl->onForwardClicked();
+		mainCtrl->onEnterClicked();
+
+		std::string txt = view.getText();
+		cout << "Text: " << txt << endl;*/
+
+		clock_t start = clock();
+		int i = 1;
+		while (clock() - start < 10000) {
+			unsigned long millis = clock() - start;
+			if (millis >= 4000 && i == 1) {
+				cout << "=================" << endl;
+				mainCtrl->onForwardClicked();
+				i++;
+			}
+			if (millis >= 5000 && i == 2) {
+
+				i++;
+			}
+			frame.validate();
+		}
+	}
+
 };
 
 #endif /* TEST_TESTCDTEXTAREA_H_ */

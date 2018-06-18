@@ -7,35 +7,35 @@
 
 #include <iostream>
 using namespace std;
-#include "CDCharOption.h"
+#include "CDOptionChar.h"
 
-CDCharOption::CDCharOption(char c) :
+CDOptionChar::CDOptionChar(char c) :
 	AbstractCDOption::AbstractCDOption(0, 0, 1), character(c){
 
 }
 
-CDCharOption::CDCharOption(int8_t x, int8_t y, char c)
+CDOptionChar::CDOptionChar(int8_t x, int8_t y, char c)
 	: AbstractCDOption::AbstractCDOption(x, y, 1), character(c){
 
 }
 
-CDCharOption::~CDCharOption() {
+CDOptionChar::~CDOptionChar() {
 	// TODO Auto-generated destructor stub
 }
 
-void CDCharOption::init(){
+void CDOptionChar::init(){
 
 }
 
-void CDCharOption::setCharacter(char c){
+void CDOptionChar::setCharacter(char c){
 	this->character = c;
 }
 
-char CDCharOption::getCharacter(){
+char CDOptionChar::getCharacter(){
 	return this->character;
 }
 
-bool CDCharOption::setStateVisible(bool visible){
+bool CDOptionChar::setStateVisible(bool visible){
 	if(this->stateVisible != visible){
 		this->stateVisible = visible;
 		reprint();
@@ -44,19 +44,19 @@ bool CDCharOption::setStateVisible(bool visible){
 	return false;
 }
 
-bool CDCharOption::isStateVisible(){
+bool CDOptionChar::isStateVisible(){
 	return this->stateVisible;
 }
 
-bool CDCharOption::toogleStateDiplay(){
+bool CDOptionChar::toogleStateDiplay(){
 	return setStateVisible(!stateVisible);
 }
 
-void CDCharOption::onOptionStateChanged(){
+void CDOptionChar::onOptionStateChanged(){
 	reprint();
 }
 
-void CDCharOption::printArea(LCD* lcd, Rectangle* area){
+void CDOptionChar::printArea(LCD* lcd, Rectangle* area){
 	if(area->getX()==0 && area->getY()==0 &&
 				area->getWidth()>0 && area->getHeight()>0){
 
@@ -75,6 +75,6 @@ void CDCharOption::printArea(LCD* lcd, Rectangle* area){
 	}
 }
 
-void CDCharOption::validate(){
+void CDOptionChar::validate(){
 
 }

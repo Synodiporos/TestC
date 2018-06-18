@@ -247,7 +247,8 @@ bool CDOptionPane::selectPreviousOption(){
 }
 
 void CDOptionPane::confirmSelection(){
-	notifyActionPerformed(SELECTION_CONFIRM);
+	if(getSelectedOption())
+		notifyActionPerformed(SELECTION_CONFIRM);
 }
 
 void CDOptionPane::closePane(){
@@ -298,7 +299,9 @@ void CDOptionPane::printChild(AbstractCDElement* child, LCD* lcd, Rectangle* are
 }
 
 void CDOptionPane::validate(){
-
+	AbstractCDOption* selected = getSelectedOption();
+	if(selected)
+		selected->validate();
 }
 
 void CDOptionPane::validateChilds(){

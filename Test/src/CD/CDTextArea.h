@@ -9,9 +9,9 @@
 #define CD_CDTEXTAREA_H_
 #include "AbstractCDElement.h"
 #include "CDOptionPane.h"
-#include "CDCharOption.h"
 #include "../Commons/IActionListener.h"
 #include <string>
+#include "CDOptionChar.h"
 
 class CDTextArea : public AbstractCDElement, IActionListener{
 public:
@@ -24,9 +24,9 @@ public:
 	void setCapacity(unsigned int capacity);
 	unsigned int getCapacity();
 	uint8_t getSize();
-	CDCharOption* getSelected();
+	CDOptionChar* getSelected();
 	bool setSelectedIndex(uint8_t index);
-	bool setSelected(CDCharOption* option);
+	bool setSelected(CDOptionChar* option);
 	bool selectNext();
 	bool selectPrevious();
 	CDOptionPane* getOptionPane();

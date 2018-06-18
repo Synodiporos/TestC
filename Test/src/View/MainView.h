@@ -8,11 +8,11 @@
 #ifndef VIEW_MAINVIEW_H_
 #define VIEW_MAINVIEW_H_
 #include "../CD/CDOptionPane.h"
-#include "../CD/CDOption.h"
+#include "../CD/CDOptionLabel.h"
 
 class MainView: public CDOptionPane {
 public:
-	MainView();
+	MainView(uint8_t width, uint8_t height);
 	virtual ~MainView();
 	void init();
 

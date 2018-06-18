@@ -8,6 +8,7 @@
 #ifndef CONTROLLER_CDKEYBOARDCONTROLLER_H_
 #define CONTROLLER_CDKEYBOARDCONTROLLER_H_
 #include "../CD/CDKeyboard.h"
+#include "../Commons/IActionListener.h"
 #include "AbstractController.h"
 
 class CDKeyboardController : public AbstractController{
@@ -15,6 +16,8 @@ public:
 	CDKeyboardController();
 	CDKeyboardController(CDKeyboard* view);
 	virtual ~CDKeyboardController();
+
+	void init();
 
 	void setView(CDKeyboard* view);
 	CDKeyboard* getView();

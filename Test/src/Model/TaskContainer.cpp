@@ -14,6 +14,8 @@ TaskContainer::TaskContainer(){
 
 TaskContainer::TaskContainer(std::vector<Task*> tasks){
 	this->tasks = tasks;
+	if(tasks.size()>0)
+		setSelectedTaskIndex(0);
 }
 
 TaskContainer::~TaskContainer() {
