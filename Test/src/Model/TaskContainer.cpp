@@ -30,7 +30,7 @@ bool TaskContainer::insertTask(Task* task){
 	if(task){
 		tasks.push_back(task);
 		notifyActionPerformed(
-				TaskContainer::ACTION_TASK_INSERTED, getSize());
+				TaskContainer::ACTION_TASK_INSERTED, getSize()-1);
 		return true;
 	}
 	return false;

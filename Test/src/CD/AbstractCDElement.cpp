@@ -41,7 +41,7 @@ uint8_t AbstractCDElement::getWidth(){
 }
 
 uint8_t AbstractCDElement::getHeight(){
-	return getBounds()->getWidth();
+	return getBounds()->getHeight();
 }
 
 void AbstractCDElement::print(LCD* lcd){

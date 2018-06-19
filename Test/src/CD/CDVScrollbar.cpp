@@ -91,20 +91,20 @@ void CDVScrollbar::recalculateValue(){
 
 	cout << "Scroll PY: " << sy << " round:"<< r << endl;
 }
+/*
+uint8_t CDVScrollbar::updateScrollBarValue(uint8_t height,
+		int8_t y, uint8_t screenHeight){
+	//AbstractCDElement* ce = getPage();
 
-void CDVScrollbar::updateScrollBarValue(){
-	AbstractCDElement* ce = getPage();
-	uint8_t sh = getBounds()->getHeight();
-	uint8_t w = ce->getBounds()->getHeight() - sh;
-	int8_t y = getBounds()->getY() -
-			ce->getBounds()->getY();
-	uint8_t steps = 9 + (sh-2)*8;
-	double  p = (double)y/w;
-	if(p<0) p=0;
-	else if(p>1) p = 1;
+	double value = ((double)y/(height + screenHeight))*100;
+	if(value<0) value=0;
+	else if(value>1) value = 1;
 
-	short int ip = std::ceil((double)p*steps);
-	if(p==1)
+	return value*100;
+
+	uint8_t steps = 9 + (screenHeight - 2)*8;
+	short int ip = std::ceil((double)value*steps);
+	if(value==1)
 		ip = steps + 1;
 
 	if(this->scrollbarValue!=ip){
@@ -161,4 +161,4 @@ void CDVScrollbar::reprintScrollbar(uint8_t value, uint8_t pixels){
 	}
 	cout<<endl;
 	lcd->setCursor(ccx, ccy);
-}
+}*/

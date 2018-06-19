@@ -7,17 +7,17 @@
 
 #include "CDOptionLabel.h"
 
-CDOptionLabel::CDOptionLabel(uint8_t width, char* text) :
+CDOptionLabel::CDOptionLabel(uint8_t width, const char* text) :
 	CDOption(width, new CDLabel(width, text)){
 
 }
 
-CDOptionLabel::CDOptionLabel(int8_t x, int8_t y, uint8_t width, char* text) :
+CDOptionLabel::CDOptionLabel(int8_t x, int8_t y, uint8_t width, const char* text) :
 	CDOption(x, y, width, new CDLabel(width, text)){
 
 }
 
-CDOptionLabel::CDOptionLabel(int8_t x, int8_t y, uint8_t width, char* text,
+CDOptionLabel::CDOptionLabel(int8_t x, int8_t y, uint8_t width, const char* text,
 	unsigned int actionId):
 	CDOption(x, y, width, new CDLabel(width, text), actionId){
 

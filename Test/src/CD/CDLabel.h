@@ -20,11 +20,11 @@ public:
 	static const uint8_t ROLLING_END = 3;
 	static const uint8_t ROLLING_STOP = 0;
 
-	CDLabel(uint8_t width, char* label);
-	CDLabel(int8_t x, int8_t y, uint8_t width, char* label);
+	CDLabel(uint8_t width, const char* label);
+	CDLabel(int8_t x, int8_t y, uint8_t width, const char* label);
 	virtual ~CDLabel();
-	void setLabel(char* label);
-	char* getLabel();
+	void setLabel(const char* label);
+	const char* getLabel();
 	void startRolling();
 	void startRollingImmediately();
 	void stopRolling();
@@ -52,7 +52,7 @@ private:
 	uint8_t width = 0;
 	uint8_t lenght = 0;
 	int8_t strIndex = 0;
-	char* label = '\0';
+	const char* label = '\0';
 	uint8_t rollState = ROLLING_STOP;
 	long millis = 0;
 

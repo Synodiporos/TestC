@@ -8,7 +8,8 @@
 #include <iostream>
 using namespace std;
 #include "TaskContainerController.h"
-#include "../Factories/TaskFactory.h"
+#include "../Factories/TaskMenuFactory.h"
+#include "../View/ViewAssets.h"
 
 TaskContainerController::TaskContainerController() :
 		AbstractCompController(){
@@ -154,12 +155,31 @@ void TaskContainerController::onOptionClicked(unsigned int id){
 	cout << "  SELECT TASK " << id << endl;
 	Task* task = model->getTaskAt(id);
 	TaskMenuController* ctrl =
-			TaskFactory::createMenuController(task);
+			TaskMenuFactory::createTaskMenuController(task);
 
 	setActiveController(ctrl);
 }
 
 void TaskContainerController::actionPerformed(Action action){
-
+	uint8_t actionId = action.getActionId();
+	cout << "ADDING NEW TASK!" << endl;
+	switch(actionId){
+		case TaskContainer::ACTION_TASK_INSERTED:{
+			uint8_t* index = (uint8_t*)action.getContainer();
+			Task* task = model->getTaskAt(*index);
+			if(task){
+				view->insertTaskOption(SCREEN_WIDTH-1,
+						task->getName(), task->getDuration(),
+						task->isEditable());
+			}
+			break;
+		}
+		case TaskContainer::ACTION_TASK_REMOVED:{
+			break;
+		}
+		case TaskContainer::ACTION_SELECTEDTASK_CHANGED:{
+			break;
+		}
+	}
 }
 

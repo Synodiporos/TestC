@@ -5,19 +5,19 @@
  *      Author: sgeorgiadis
  */
 
-#include "TaskFactory.h"
+#include "TaskMenuFactory.h"
 #include "../View/ViewAssets.h"
 
-TaskMenuView* TaskFactory::createMenuView(Task* model){
+TaskMenuView* TaskMenuFactory::createTaskMenuView(Task* model){
 	bool editable = model->isEditable();
 	TaskMenuView* view = new TaskMenuView(
-			SCREEN_WIDTH, editable);
+			SCREEN_WIDTH-1, editable);
 	view->init();
 	return view;
 }
 
-TaskMenuController* TaskFactory::createMenuController(Task* model){
-	TaskMenuView* view = createMenuView(model);
+TaskMenuController* TaskMenuFactory::createTaskMenuController(Task* model){
+	TaskMenuView* view = createTaskMenuView(model);
 	view->init();
 	TaskMenuController* ctrl = new TaskMenuController(model, view);
 	return ctrl;

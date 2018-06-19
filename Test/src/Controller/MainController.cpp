@@ -49,11 +49,15 @@ void MainController::setTaskContainerController(
 void MainController::onActivate(){
 	if(view)
 		view->setActionListener(this);
+	if(taskContCtrl)
+		taskContCtrl->activate();
 }
 
 void MainController::onDeactivate(){
 	if(view)
 		view->setActionListener(nullptr);
+	if(taskContCtrl)
+			taskContCtrl->deactivate();
 }
 
 void MainController::onActiveControllerChanged(AbstractController* activeCntrl){

@@ -11,13 +11,13 @@ using namespace std;
 #include "CDConstants.h"
 #include <ctime>
 
-CDLabel::CDLabel(uint8_t width, char* label){
+CDLabel::CDLabel(uint8_t width, const char* label){
 	setWidth(width);
 	setLabel(label);
 	recreateStr();
 }
 
-CDLabel::CDLabel(int8_t x, int8_t y, uint8_t width, char* label){
+CDLabel::CDLabel(int8_t x, int8_t y, uint8_t width, const char* label){
 	setLocation(x, y);
 	setWidth(width);
 	setLabel(label);
@@ -28,7 +28,7 @@ CDLabel::~CDLabel() {
 	// TODO Auto-generated destructor stub
 }
 
-void CDLabel::setLabel(char* label){
+void CDLabel::setLabel(const char* label){
 	this->label = label;
 	int i = 0;
 	while(label[i]!='\0')
@@ -37,7 +37,7 @@ void CDLabel::setLabel(char* label){
 	this->lenght = i;
 }
 
-char* CDLabel::getLabel(){
+const char* CDLabel::getLabel(){
 	return this->label;
 }
 

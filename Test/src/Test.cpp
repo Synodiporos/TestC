@@ -31,6 +31,7 @@ using namespace std;
 #include "CD/CDKeyboard.h"
 #include "Test/TestCDTextArea.h"
 #include "Test/TestCDOptionPane.h"
+#include "Test/TestCDVScrollbar.h"
 
 #include <ctime>
 
@@ -301,7 +302,8 @@ int main() {
 
 	//TestCDTextArea::run();
 	//TestCDTextArea::run2();
-	TestCDOptionPane::run2();
+	//TestCDOptionPane::run2();
+	TestCDVScrollbar::run();
 
 	cout << endl;
 	cout << "Finished!" << endl;

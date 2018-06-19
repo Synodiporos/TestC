@@ -16,9 +16,9 @@ public:
 	static const uint8_t AutoRolling_OnClick = 12;
 	static const uint8_t AutoRolling_state = AutoRolling_OnHover;
 
-	CDOptionLabel(uint8_t width, char* text);
-	CDOptionLabel(int8_t x, int8_t y, uint8_t width, char* text);
-	CDOptionLabel(int8_t x, int8_t y, uint8_t width, char* text,
+	CDOptionLabel(uint8_t width, const char* text);
+	CDOptionLabel(int8_t x, int8_t y, uint8_t width, const char* text);
+	CDOptionLabel(int8_t x, int8_t y, uint8_t width, const char* text,
 			unsigned int actionId);
 	virtual ~CDOptionLabel();
 

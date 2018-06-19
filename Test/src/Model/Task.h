@@ -10,18 +10,18 @@
 
 class Task {
 public:
-	Task(char* name, unsigned short duration);
-	Task(char* name, unsigned short duration, bool editable);
+	Task(const char* name, unsigned short duration);
+	Task(const char* name, unsigned short duration, bool editable);
 	virtual ~Task();
-	void setName(char* name);
-	char* getName();
+	void setName(const char* name);
+	const char* getName();
 	void setDuration(unsigned int duration);
 	unsigned int getDuration();
 	bool isEditable();
 	void setEditable(bool editable);
 
 private:
-	char* name;
+	const char* name;
 	//Duration in seconds
 	unsigned int duration = 0;
 	bool editable = true;

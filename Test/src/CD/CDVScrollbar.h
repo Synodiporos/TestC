@@ -33,7 +33,7 @@ private:
 	int8_t x = 0;
 	uint8_t height = 2;
 	uint8_t value = 0;
-	char* chard = nullptr;
+	char* chars = nullptr;
 
 	void recalculateValue();
 };
