@@ -63,6 +63,9 @@ public:
 
 		cout << "SET POSITION "<<endl;
 		taskContView->setPosition(0, -8);
+
+		cout << "SET POSITION "<<endl;
+		taskContView->setPosition(0, -0);
 /*
 
 		clock_t start = clock();

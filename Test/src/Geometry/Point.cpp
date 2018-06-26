@@ -67,3 +67,12 @@ bool Point::equals(const Point* c) const{
 bool Point::equals(short int x, short int y) const{
 	return this->x==x && this->y==y;
 }
+
+std::string Point::toString(){
+	std::string res = "Point[";
+	res += std::to_string((int)getX());
+	res += ", ";
+	res += std::to_string((int)getY());
+	res += "]\n";
+	return res;
+}

@@ -114,61 +114,31 @@ public:
 		LCD* lcd2 = new LCDSimulator(SCREEN_WIDTH, SCREEN_HEIGHT);
 		CDFrame frame = CDFrame((int)SCREEN_WIDTH, 2, lcd2);
 
-		TaskContainer* taskCont = new TaskContainer(TaskLoader::getAvailableTasks());
-		TaskContainerController* taskContCtrl =
-				TaskContainerFactory::createController(*taskCont);
+		CDKeyboard keyboard = CDKeyboard(SCREEN_WIDTH-1);
+		keyboard.appendCharSet(UPPER_CASE_LETTERS);
+		keyboard.appendCharSet(LOWER_CASE_LETTERS);
+		keyboard.appendCharSet(TEXT_SYMBOLS);
+		keyboard.appendCharSet(NUMBERS);
+		keyboard.appendCharSet(SYMBOLS);
+		CDKeyboardController keybCntr = CDKeyboardController(&keyboard);
 
-		MainController* mainCtrl = MainFactory::createController();
-		mainCtrl->setTaskContainerController(taskContCtrl);
-		mainCtrl->setFrame(&frame);
-		mainCtrl->activate();
-		frame.setPage(mainCtrl->getView());
+		frame.setPage(&keyboard);
 
+		//frame.print();
 
-		frame.print();
+		keybCntr.onForwardClicked();
+		keybCntr.onForwardClicked();
 
-		mainCtrl->onForwardClicked();
-		mainCtrl->onForwardClicked();
-		/*mainCtrl->onEnterClicked();// AUTO
-		frame.print();
+		//keyboard.setPosition(0, -1);
 
-		mainCtrl->onForwardClicked();
-		mainCtrl->onForwardClicked();
-		mainCtrl->onForwardClicked();// TASK
-		mainCtrl->onEnterClicked();
-		frame.print();*/
-
-
-		/*CDTextArea view = CDTextArea(10, 20);
-		CDTextAreaController* cntr = new CDTextAreaController(&view);
-
-
-		mainCtrl->onForwardClicked();
-		mainCtrl->onEnterClicked();
-		mainCtrl->onEnterClicked();
-
-		mainCtrl->onEnterClicked();
-		for(int i=0; i<12; i++)
-			mainCtrl->onForwardClicked();
-		mainCtrl->onEnterClicked();
-
-		frame.print();
-
-		mainCtrl->onEnterClicked();
-		for(int i=0; i<92; i++)
-			mainCtrl->onForwardClicked();
-		mainCtrl->onEnterClicked();
-
-		std::string txt = view.getText();
-		cout << "Text: " << txt << endl;*/
-
+		bool run = true;
 		clock_t start = clock();
 		int i = 1;
-		while (clock() - start < 10000) {
+		while (clock() - start < 10000 && run) {
 			unsigned long millis = clock() - start;
 			if (millis >= 4000 && i == 1) {
 				cout << "=================" << endl;
-				mainCtrl->onForwardClicked();
+
 				i++;
 			}
 			if (millis >= 5000 && i == 2) {
@@ -176,6 +146,7 @@ public:
 				i++;
 			}
 			frame.validate();
+			keyboard.validate();
 		}
 	}
 

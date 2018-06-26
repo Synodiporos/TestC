@@ -7,6 +7,8 @@
 
 #ifndef GEOMETRY_POINT_H_
 #define GEOMETRY_POINT_H_
+#include <string>
+using namespace std;
 
 class Point {
 public:
@@ -24,6 +26,8 @@ public:
 	Point copy();
 	bool equals(const Point* c) const;
 	bool equals(short int x, short int y) const;
+
+	std::string toString();
 
 protected:
 	short int x = 0;

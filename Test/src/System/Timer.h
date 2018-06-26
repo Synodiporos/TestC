@@ -19,8 +19,8 @@ class Timer {
 public:
 
 	Timer();
-	Timer(unsigned int interval, unsigned int iterations);
-	Timer(unsigned int interval, unsigned int iterations, unsigned int actionId);
+	Timer(unsigned long interval, unsigned int iterations);
+	Timer(unsigned long interval, unsigned int iterations, unsigned int actionId);
 	virtual ~Timer();
 
 	void start();

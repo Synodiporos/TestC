@@ -25,7 +25,7 @@
 #define CDOptionLabel_HOVERED '='
 #define CDOptionLabel_SELECTED '>'
 
-#define CDKeyboard_SELECTION_INTERVAL 400
+#define CDKeyboard_SELECTION_INTERVAL 250
 #define CDOptionChar_HOVER '_'
 #define CDOptionChar_SELECTED 255
 

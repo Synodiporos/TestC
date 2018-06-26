@@ -12,10 +12,11 @@ using namespace std;
 
 CDKeyboard::CDKeyboard(uint8_t width){
 	setDimensions(width, 0);
+	init();
 }
 
 CDKeyboard::~CDKeyboard(){
-
+	init();
 }
 
 void CDKeyboard::init(){
@@ -25,15 +26,21 @@ void CDKeyboard::init(){
 
 void CDKeyboard::appendCharSet(char* set){
 	uint8_t width = getDimensions().getWidth();
-	uint8_t height = 0;
-	if(getLastOption())
-		height = getLastOptionNode()->getValue()->getLocation()->getY();
+	uint8_t height = -0;
+	uint8_t x = -0;
+	if(getLastOption()){
+		height = getLastOptionNode()->getValue()->getLocation()->getY()+0;
+		x = getLastOptionNode()->getValue()->getLocation()->getX()+1;
+	}
 	int i = 0;
 	Point* p = new Point();
 
+	uint8_t heightH = height;
+	uint8_t xX = x;
 	while(set[i]!='\0'){
-		p = GeometryUtil::indexToCoordinates(i, width);
-		insertOption(new CDOptionChar(p->getX(), p->getY()+height, set[i]));
+		p = GeometryUtil::indexToCoordinates(i+xX, width);
+		//cout << set[i] << " at " << p->toString() << endl;
+		insertOption(new CDOptionChar(p->getX(), p->getY()+heightH, set[i]));
 		i++;
 	}
 	setDimensions(width, height+0);
@@ -45,7 +52,7 @@ void CDKeyboard::validate(){
 
 void CDKeyboard::actionPerformed(Action action){
 	CDOptionChar* op = (CDOptionChar*)getSelectedOption();
-	if(op)
+	if(op){
 		op->toogleStateDiplay();
-	//cout << "TIC " << endl;
+	}
 }

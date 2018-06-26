@@ -301,9 +301,9 @@ int main() {
 
 
 	//TestCDTextArea::run();
-	//TestCDTextArea::run2();
+	TestCDTextArea::run2();
 	//TestCDOptionPane::run2();
-	TestCDVScrollbar::run();
+	//TestCDVScrollbar::run();
 
 	cout << endl;
 	cout << "Finished!" << endl;

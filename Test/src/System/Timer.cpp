@@ -14,12 +14,12 @@ Timer::Timer() {
 	this->iterations = 1;
 }
 
-Timer::Timer(unsigned int interval,	unsigned int iterations){
+Timer::Timer(unsigned long interval,	unsigned int iterations){
 	this->iterations = iterations;
 	this->interval = interval;
 }
 
-Timer::Timer(unsigned int interval,
+Timer::Timer(unsigned long interval,
 		unsigned int iterations, unsigned int actionId){
 	this->iterations = iterations;
 	this->interval = interval;

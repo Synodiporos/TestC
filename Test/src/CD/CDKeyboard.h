@@ -14,7 +14,7 @@
 #include "../Commons/Action.h"
 #include "CDConstants.h"
 
-#define LOWER_CASE_LETTERS (char*)"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+#define LOWER_CASE_LETTERS (char*)"abcdefghijklmnopqrstuvwxyz "
 #define UPPER_CASE_LETTERS (char*)"ABCDEFGHIJKLMNOPQRSTUVWXYZ "
 #define TEXT_SYMBOLS (char*) ",.:;!?-' _"
 #define NUMBERS (char*)"1234567890"
