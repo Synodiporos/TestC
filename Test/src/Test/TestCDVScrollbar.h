@@ -21,9 +21,11 @@ public:
 		bool res = false;
 		cout << "Test CDVScrollbar!" << endl;
 
+
 		LCD* lcd = new LCDConsole(SCREEN_WIDTH, SCREEN_HEIGHT);
 		LCD* lcd2 = new LCDSimulator(SCREEN_WIDTH, SCREEN_HEIGHT);
 		CDFrame frame = CDFrame((int)SCREEN_WIDTH, 2, lcd2);
+
 
 		TaskContainer* taskCont = new TaskContainer(TaskLoader::getAvailableTasks());
 		TaskContainerController* taskContCtrl =
@@ -47,8 +49,10 @@ public:
 		cout << "View size: " << (int)taskContView->getSize() << endl;
 		cout << "View height: " << (int)taskContView->getHeight() << endl;
 
-		taskContView->setPosition(0, -5);
-		frame.print();
+
+
+
+		//frame.print();
 
 		mainCtrl->onForwardClicked();
 		mainCtrl->onForwardClicked();
@@ -57,7 +61,9 @@ public:
 		mainCtrl->onEnterClicked();
 
 
-
+		cout << "SET POSITION "<<endl;
+		taskContView->setPosition(0, -8);
+/*
 
 		clock_t start = clock();
 		int i = 1;
@@ -75,7 +81,9 @@ public:
 			}
 			frame.validate();
 		}
+		*/
 	}
+
 
 };
 

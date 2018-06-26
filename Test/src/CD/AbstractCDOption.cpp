@@ -45,15 +45,15 @@ unsigned int AbstractCDOption::getActionId(){
 }
 
 
-Rectangle* AbstractCDOption::getBounds(){
-	return new Rectangle(x, y, width, 1);
+const Rectangle AbstractCDOption::getBounds() const{
+	return Rectangle(x, y, width, 1);
 }
 
 void AbstractCDOption::setWidth(uint8_t width){
 	this->width = width;
 }
 
-uint8_t AbstractCDOption::getWidth(){
+const uint8_t AbstractCDOption::getWidth() const{
 	return this->width;
 }
 
@@ -62,7 +62,7 @@ void AbstractCDOption::setLocation(int8_t x, int8_t y){
 	this->y = y;
 }
 
-Point* AbstractCDOption::getLocation(){
+const Point* AbstractCDOption::getLocation(){
 	return new Point(this->x, this->y);
 }
 

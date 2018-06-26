@@ -14,16 +14,16 @@ CDTextArea::CDTextArea() {
 	init();
 }
 
-CDTextArea::CDTextArea(int8_t w, unsigned int capacity)
+CDTextArea::CDTextArea(int8_t width, unsigned int capacity)
 	: capacity(capacity){
-	bounds->setDimensions(w, 1);
+	setWidth(width);
 	init();
 }
 
-CDTextArea::CDTextArea(uint8_t x, uint8_t y, int8_t w, unsigned int capacity)
+CDTextArea::CDTextArea(uint8_t x, uint8_t y, int8_t width, unsigned int capacity)
 	: capacity(capacity){
-	bounds->setPoint(x, y);
-	bounds->setWidth(w);
+	setPosition(x, y);
+	setWidth(width);
 	init();
 }
 
@@ -48,8 +48,31 @@ AbstractCDElement* CDTextArea::getParent(){
 	return this->parent;
 }
 
-Rectangle* CDTextArea::getBounds(){
-	return this->bounds;
+const Rectangle CDTextArea::getBounds() const{
+	return Rectangle(this->x, this->y, 1, this->width);
+}
+
+bool CDTextArea::setPosition(int8_t x, uint8_t y){
+	if(this->x!=x || this->y!=y){
+		Rectangle old = getBounds();
+		this->x = x;
+		this->y = y;
+		notifyPropertyChanged(AbstractCDElement::DIMENSIONS_PROPERTY,
+				&old);
+		return true;
+	}
+	return false;
+}
+
+bool CDTextArea::setWidth(uint8_t width){
+	if(getWidth()!=width){
+		Rectangle old = getBounds();
+		this->width = width;
+		notifyPropertyChanged(AbstractCDElement::DIMENSIONS_PROPERTY,
+				&old);
+		return true;
+	}
+	return false;
 }
 
 void CDTextArea::setCapacity(unsigned int capacity){
@@ -148,12 +171,12 @@ std::string CDTextArea::getText(){
 	return res;
 }
 
-void CDTextArea::printArea(LCD* lcd, Rectangle* area){
+void CDTextArea::printArea(LCD* lcd, const Rectangle* area){
 
 	printChildsArea(lcd, area);
 }
 
-void CDTextArea::printChildsArea(LCD* lcd, Rectangle* area){
+void CDTextArea::printChildsArea(LCD* lcd, const Rectangle* area){
 	//cout << " childs[ " << endl;
 
 	int ccx = lcd->getCursorX();
@@ -165,18 +188,19 @@ void CDTextArea::printChildsArea(LCD* lcd, Rectangle* area){
 
 }
 
-void CDTextArea::printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area){
+void CDTextArea::printChild(
+		AbstractCDElement* child, LCD* lcd, const Rectangle* area){
 	if(child && child->isVisible()){
-		Rectangle r = area->intersection(
-				child->getBounds());
+		Rectangle cb = child->getBounds();
+		Rectangle r = area->intersection(&cb);
 		if(!r.isNull()){
-			int cx =  child->getBounds()->getX();
-			int cy =  child->getBounds()->getY();
+			int cx =  child->getBounds().getX();
+			int cy =  child->getBounds().getY();
 
 			lcd->setCursorBy(cx, cy);
 
-			r.setPointBy(-child->getBounds()->getX(),
-					-child->getBounds()->getY());
+			r.setPointBy(-child->getBounds().getX(),
+					-child->getBounds().getY());
 			child->printArea(lcd, &r);
 		}
 	}
@@ -209,8 +233,8 @@ void CDTextArea::validateCelectionChange(){
 	//cout << "VALIDATE" << endl;
 	CDOptionChar* selection = getSelected();
 	if(selection){
-		int8_t i = selection->getBounds()->getX();
-		int8_t x0 = getBounds()->getX();
+		int8_t i = selection->getBounds().getX();
+		int8_t x0 = getBounds().getX();
 
 		//Is out of view area?
 		int o = 0;
@@ -221,12 +245,12 @@ void CDTextArea::validateCelectionChange(){
 			o = -i;
 		}
 		//cout << "O=" << o << endl;
-		if(this->optionPane->getBounds()->setX(o))
+		if(this->optionPane->setPosition(
+				o, this->optionPane->getPosition()->getY()) )
 			reprint();
-
 	}
 	else{
-		if(optionPane->getBounds()->setPoint(0, 0))
+		if(optionPane->setPosition(0, 0))
 			reprint();
 	}
 }

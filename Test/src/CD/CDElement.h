@@ -22,21 +22,21 @@ public:
 	CDElement(uint8_t x, uint8_t y, int8_t w, int8_t h);
 	virtual ~CDElement();
 
-	void setDimensions(uint8_t width, uint8_t height);
+	bool setDimensions(uint8_t width, uint8_t height);
 	Dimension getDimensions();
 	//void setPreferedDimensions(uint8_t width, uint8_t height);
 	//Dimension getPreferedDimensions();
-	void setPosition(int8_t x, int8_t y);
-	Point* getPosition();
-	void moveBy(uint8_t x, uint8_t y);
-	virtual Rectangle* getBounds();
-	virtual void setBounds(Rectangle bounds);
-	virtual void setBounds(uint8_t x, uint8_t y, int8_t w, int8_t h);
+	bool setPosition(int8_t x, int8_t y);
+	const Point* getPosition();
+	bool moveBy(uint8_t x, uint8_t y);
+	virtual const Rectangle getBounds() const;
+	virtual bool setBounds(Rectangle bounds);
+	virtual bool setBounds(uint8_t x, uint8_t y, int8_t w, int8_t h);
 
 	virtual void setParent(AbstractCDElement* parent);
 	virtual AbstractCDElement* getParent();
 
-	virtual void printArea(LCD* lcd, Rectangle* area);
+	virtual void printArea(LCD* lcd, const Rectangle* area);
 	virtual void validate();
 	virtual void revalidate();
 

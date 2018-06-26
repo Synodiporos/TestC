@@ -255,17 +255,17 @@ void CDOptionPane::closePane(){
 	notifyActionPerformed(PANE_CLOSE);
 }
 
-void CDOptionPane::printArea(LCD* lcd, Rectangle* area){
+void CDOptionPane::printArea(LCD* lcd, const Rectangle* area){
 	printComponentsArea(lcd, area);
 	printChildsArea(lcd, area);
 }
 
-void CDOptionPane::printComponentsArea(LCD* lcd, Rectangle* area){
+void CDOptionPane::printComponentsArea(LCD* lcd, const Rectangle* area){
 	if(label && label->isVisible())
 		label->printArea(lcd, area);
 }
 
-void CDOptionPane::printChildsArea(LCD* lcd, Rectangle* area){
+void CDOptionPane::printChildsArea(LCD* lcd, const Rectangle* area){
 	cout << " childs[ " << endl;
 	int ccx = lcd->getCursorX();
 	int ccy = lcd->getCursorY();
@@ -283,16 +283,17 @@ void CDOptionPane::printChildsArea(LCD* lcd, Rectangle* area){
 	cout << "]" << endl;
 }
 
-void CDOptionPane::printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area){
+void CDOptionPane::printChild(
+		AbstractCDElement* child, LCD* lcd, const Rectangle* area){
 	if(child && child->isVisible()){
-		Rectangle r = area->intersection(
-				child->getBounds());
+		Rectangle cb = child->getBounds();
+		Rectangle r = area->intersection(&cb);
 		if(!r.isNull()){
-			int cx =  0 + child->getBounds()->getX();
-			int cy =  0 + child->getBounds()->getY();
+			int cx =  0 + child->getBounds().getX();
+			int cy =  0 + child->getBounds().getY();
 			lcd->setCursorBy(cx, cy);
-			r.setPointBy(-child->getBounds()->getX(),
-					-child->getBounds()->getY());
+			r.setPointBy(-child->getBounds().getX(),
+					-child->getBounds().getY());
 			child->printArea(lcd, &r);
 		}
 	}

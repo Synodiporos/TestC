@@ -56,7 +56,7 @@ void CDOptionChar::onOptionStateChanged(){
 	reprint();
 }
 
-void CDOptionChar::printArea(LCD* lcd, Rectangle* area){
+void CDOptionChar::printArea(LCD* lcd, const Rectangle* area){
 	if(area->getX()==0 && area->getY()==0 &&
 				area->getWidth()>0 && area->getHeight()>0){
 

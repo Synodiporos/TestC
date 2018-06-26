@@ -19,11 +19,11 @@ public:
 
 	static const uint8_t emptyChar[8];
 
-	static uint8_t* copyOfChar(const uint8_t c[8]);
+	//static uint8_t* copyOfChar(const uint8_t c[8]);
 
-	static uint8_t* createScrollbarTopChar(uint8_t i);
-	static uint8_t* createScrollbarBottomChar(uint8_t i);
-	static uint8_t* createScrollbarMiddleChar(uint8_t i);
+	static void createScrollbarTopChar(uint8_t i, uint8_t c[8]);
+	static void createScrollbarBottomChar(uint8_t i, uint8_t c[8]);
+	static void createScrollbarMiddleChar(uint8_t i, uint8_t c[8]);
 
 };
 

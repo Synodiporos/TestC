@@ -18,7 +18,7 @@ CDLabel::CDLabel(uint8_t width, const char* label){
 }
 
 CDLabel::CDLabel(int8_t x, int8_t y, uint8_t width, const char* label){
-	setLocation(x, y);
+	setPosition(x, y);
 	setWidth(width);
 	setLabel(label);
 	recreateStr();
@@ -84,25 +84,35 @@ uint8_t CDLabel::getLabelIndex(){
 	return this->strIndex;
 }
 
-void CDLabel::setWidth(uint8_t width){
-	this->width = width;
+bool CDLabel::setWidth(uint8_t width){
+	if(this->width!=width){
+		Rectangle old = getBounds();
+		this->width = width;
+		notifyPropertyChanged(AbstractCDElement::DIMENSIONS_PROPERTY,
+				&old);
+		return true;
+	}
+	return false;
 }
 
-uint8_t CDLabel::getWidth(){
+const uint8_t CDLabel::getWidth() const{
 	return this->width;
 }
 
-void CDLabel::setLocation(int8_t x, int8_t y){
-	this->x = x;
-	this->y = y;
+bool CDLabel::setPosition(int8_t x, int8_t y){
+	if(this->x!=x || this->y!=y){
+		Rectangle old = getBounds();
+		this->x = x;
+		this->y = y;
+		notifyPropertyChanged(AbstractCDElement::POSITION_PROPERTY,
+				&old);
+				return true;
+	}
+	return false;
 }
 
-Point* CDLabel::getLocation(){
-	return new Point(this->x, this->y);
-}
-
-Rectangle* CDLabel::getBounds(){
-	return new Rectangle(this->x, this->y, this->width, 1);
+const Rectangle CDLabel::getBounds() const{
+	return Rectangle(this->x, this->y, this->width, 1);
 }
 
 void CDLabel::setParent(AbstractCDElement* parent){
@@ -126,7 +136,7 @@ AbstractCDElement* CDLabel::getParent(){
 	cout << "Reprint: " << p << endl;
 }*/
 
-void CDLabel::printArea(LCD* lcd, Rectangle* area){
+void CDLabel::printArea(LCD* lcd, const Rectangle* area){
 	if(area->getY()!=0)
 		return;
 

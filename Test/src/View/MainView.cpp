@@ -32,7 +32,7 @@ void MainView::init(){
 	this->insertOption(optionSettings);
 
 	char* c4 = LABEL_MAIN_MENU_STATISTICS;
-	CDOptionLabel* optionStats = new CDOptionLabel(8, 1, 8, c4, VIEW_ACTION_STATISTICS);
+	CDOptionLabel* optionStats = new CDOptionLabel(8, 1, 7, c4, VIEW_ACTION_STATISTICS);
 	this->insertOption(optionStats);
 
 	//setSelectedOptionIndex(0);

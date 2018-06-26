@@ -75,7 +75,7 @@ AbstractCDElement* CDComponent::getElementAt(uint8_t index){
 AbstractCDElement* CDComponent::getElementAt(uint8_t x, uint8_t y){
 	for(unsigned int i=0; i<capacity; i++){
 		AbstractCDElement* elem = elements[i];
-		if(elem->getBounds()->equals(x, y))
+		if(elem->getBounds().equals(x, y))
 			return elem;
 	}
 	return nullptr;
@@ -104,16 +104,16 @@ void CDComponent::removeElementAt(uint8_t index){
 	}
 }
 
-void CDComponent::printArea(LCD* lcd, Rectangle* area){
+void CDComponent::printArea(LCD* lcd, const Rectangle* area){
 	printComponentsArea(lcd, area);
 	printChildsArea(lcd, area);
 }
 
-void CDComponent::printComponentsArea(LCD* lcd, Rectangle* area){
+void CDComponent::printComponentsArea(LCD* lcd, const Rectangle* area){
 	CDElement::printArea(lcd, area);
 }
 
-void CDComponent::printChildsArea(LCD* lcd, Rectangle* area){
+void CDComponent::printChildsArea(LCD* lcd, const Rectangle* area){
 	//cout << " childs[ " << endl;
 
 	int ccx = lcd->getCursorX();
@@ -127,18 +127,18 @@ void CDComponent::printChildsArea(LCD* lcd, Rectangle* area){
 	//cout << "]" << endl;
 }
 
-void CDComponent::printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area){
+void CDComponent::printChild(AbstractCDElement* child, LCD* lcd, const Rectangle* area){
 	if(child && child->isVisible()){
-		Rectangle r = area->intersection(
-				child->getBounds());
+		Rectangle cb = child->getBounds();
+		Rectangle r = area->intersection(&cb);
 		if(!r.isNull()){
-			int cx =  child->getBounds()->getX();
-			int cy =  child->getBounds()->getY();
+			int cx =  child->getBounds().getX();
+			int cy =  child->getBounds().getY();
 
 			lcd->setCursorBy(cx, cy);
 
-			r.setPointBy(-child->getBounds()->getX(),
-					-child->getBounds()->getY());
+			r.setPointBy(-child->getBounds().getX(),
+					-child->getBounds().getY());
 			child->printArea(lcd, &r);
 		}
 	}

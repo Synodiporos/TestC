@@ -17,45 +17,53 @@
 	const uint8_t CDCharacters::emptyChar[8] = {
 			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-	uint8_t* CDCharacters::copyOfChar(const uint8_t c[8]){
+	/*uint8_t* CDCharacters::copyOfChar(const uint8_t c[8]){
 		static uint8_t res[8];
 		for(int i=0; i<8; i++)
 			res[i] = c[i];
 		return res;
-	}
+	}*/
 
-	uint8_t* CDCharacters::createScrollbarTopChar(uint8_t i){
-		if(i==0 || i>5)
-			return CDCharacters::copyOfChar(
-					CDCharacters::emptyChar);
+	void CDCharacters::createScrollbarTopChar(uint8_t value, uint8_t c[8]){
+		if(value==0 || value>5)
+			return ;
 		else{
-			static uint8_t* c = CDCharacters::copyOfChar(
-					CDCharacters::emptyChar);
-			c[i+3] = 0x1F;
-			return c;
+			c[0] = 0x04;
+			c[1] = 0x0A;
+			c[2] = 0x11;
+
+			for(int i=3; i<8; i++)
+				if(i == value + 2)
+					c[i] = 0x1F;
+				else
+					c[i] = 0x00;
 		}
 	}
 
-	uint8_t* CDCharacters::createScrollbarBottomChar(uint8_t i){
-		if(i==0 || i>5)
-			return CDCharacters::copyOfChar(
-					CDCharacters::emptyChar);
+	void CDCharacters::createScrollbarBottomChar(uint8_t value, uint8_t c[8]){
+		if(value==0 || value>5)
+			return ;
 		else{
-			static uint8_t* c = CDCharacters::copyOfChar(
-					CDCharacters::emptyChar);
-			c[i] = 0x1F;
-			return c;
+			c[5] = 0x11;
+			c[6] = 0x0A;
+			c[7] = 0x04;
+
+			for(int i=0; i<8; i++)
+				if(i == value - 1)
+					c[i] = 0x1F;
+				else
+					c[i] = 0x00;
 		}
 	}
 
-	uint8_t* CDCharacters::createScrollbarMiddleChar(uint8_t i){
-		if(i==0 || i>8)
-			return CDCharacters::copyOfChar(
-					CDCharacters::emptyChar);
+	void CDCharacters::createScrollbarMiddleChar(uint8_t value, uint8_t c[8]){
+		if(value==0 || value>8)
+			return;
 		else{
-			static uint8_t* c = CDCharacters::copyOfChar(
-					CDCharacters::emptyChar);
-			c[i] = 0x1F;
-			return c;
+			for(int i=0; i<8; i++)
+				if(i == value - 1)
+					c[i] = 0x1F;
+				else
+					c[i] = 0x00;
 		}
 	}

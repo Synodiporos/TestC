@@ -27,11 +27,11 @@ public:
 	void setActionId(unsigned int actionId);
 	unsigned int getActionId();
 	virtual AbstractCDElement* getParent();
-	virtual Rectangle* getBounds();
+	virtual const Rectangle getBounds() const;
 	void setWidth(uint8_t width);
-	uint8_t getWidth();
+	const uint8_t getWidth() const;
 	void setLocation(int8_t x, int8_t y);
-	Point* getLocation();
+	const Point* getLocation();
 
 	void setOptionState(uint8_t state);
 	uint8_t getOptionState();
@@ -43,7 +43,7 @@ public:
 	IStateListener* getStateListener();
 
 	//virtual void printIndicator();
-	virtual void printArea(LCD* lcd, Rectangle* area) = 0;
+	virtual void printArea(LCD* lcd, const Rectangle* area) = 0;
 	virtual void validate() = 0;
 
 protected:

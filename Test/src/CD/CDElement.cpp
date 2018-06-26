@@ -27,43 +27,58 @@ CDElement::~CDElement() {
 
 }
 
-void CDElement::setDimensions(uint8_t width, uint8_t height){
+bool CDElement::setDimensions(uint8_t width, uint8_t height){
 	if(this->bounds.setDimensions(width, height)){
 		revalidate();
+		notifyPropertyChanged(AbstractCDElement::DIMENSIONS_PROPERTY,
+				&this->bounds);
+		return true;
 	}
+	return false;
 }
 
 Dimension CDElement::getDimensions(){
 	return this->bounds.getDimensions();
 }
 
-void CDElement::setPosition(int8_t x, int8_t y){
+bool CDElement::setPosition(int8_t x, int8_t y){
 	if(this->bounds.setPoint(x, y)){
 		revalidate();
+		notifyPropertyChanged(AbstractCDElement::POSITION_PROPERTY,
+						&this->bounds);
+		return true;
 	}
+	return false;
 }
 
-Point* CDElement::getPosition(){
+const Point* CDElement::getPosition(){
 	return &this->bounds;
 }
 
-void CDElement::moveBy(uint8_t x, uint8_t y){
+bool CDElement::moveBy(uint8_t x, uint8_t y){
 	if(this->bounds.setPointBy(x, y)){
 		revalidate();
+		return true;
 	}
+	return false;
 }
 
-Rectangle* CDElement::getBounds(){
-	return &this->bounds;
+const Rectangle CDElement::getBounds() const{
+	return this->bounds;
 }
 
-void CDElement::setBounds(Rectangle bounds){
-	setBounds(bounds.getX(), bounds.getY(),
+bool CDElement::setBounds(Rectangle bounds){
+	return setBounds(bounds.getX(), bounds.getY(),
 			bounds.getWidth(), bounds.getHeight());
 }
 
-void CDElement::setBounds(uint8_t x, uint8_t y, int8_t w, int8_t h){
-	this->bounds.setRectangle(x, y, w, h);
+bool CDElement::setBounds(uint8_t x, uint8_t y, int8_t w, int8_t h){
+	if(this->bounds.setRectangle(x, y, w, h)){
+		notifyPropertyChanged(AbstractCDElement::DIMENSIONS_PROPERTY,
+						&this->bounds);
+		return true;
+	}
+	return false;
 }
 
 void CDElement::setParent(AbstractCDElement* parent){
@@ -83,7 +98,7 @@ void CDElement::reprint(){
 	AbstractCDElement::reprint();
 }*/
 
-void CDElement::printArea(LCD* lcd, Rectangle* area){
+void CDElement::printArea(LCD* lcd, const Rectangle* area){
 	//if(area->intersects(getBounds())){
 		//Rectangle r = area->intersection(getBounds());
 		//int ccx = lcd->getCursorX();

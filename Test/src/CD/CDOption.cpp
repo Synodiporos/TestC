@@ -63,7 +63,7 @@ void CDOption::onOptionStateChanged(){
 }
 
 
-void CDOption::printArea(LCD* lcd, Rectangle* area){
+void CDOption::printArea(LCD* lcd, const Rectangle* area){
 	int ccx = lcd->getCursorX();
 	int ccy = lcd->getCursorY();
 
@@ -73,24 +73,25 @@ void CDOption::printArea(LCD* lcd, Rectangle* area){
 		printIndicator(lcd);
 
 	//Print Element
-	area->setDimensions(area->getWidth()-1, area->getHeight());
-	printChild(getElement(), lcd, area);
+	//area->setDimensions(area->getWidth()-1, area->getHeight());
+	Rectangle* const r = new Rectangle(area->getX(), area->getY(),
+			area->getWidth()-1, area->getHeight());
+	printChild(getElement(), lcd, r);
 
 	lcd->setCursor(ccx, ccy);
 }
 
-void CDOption::printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area){
+void CDOption::printChild(AbstractCDElement* child, LCD* lcd, const Rectangle* area){
 	if(child){
-		Rectangle r = area->intersection(
-				child->getBounds());
+		Rectangle cb = child->getBounds();
+		Rectangle r = area->intersection(&cb);
 		if(!r.isNull()){
-			int cx =  1 + child->getBounds()->getX();
-			int cy =  0 + child->getBounds()->getY();
+			int cx =  1 + cb.getX();
+			int cy =  0 + cb.getY();
 
 			lcd->setCursorBy(cx, cy);
 
-			r.setPointBy(-child->getBounds()->getX(),
-					-child->getBounds()->getY());
+			r.setPointBy(-cb.getX(), -cb.getY());
 			child->printArea(lcd, &r);
 		}
 	}

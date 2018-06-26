@@ -33,16 +33,15 @@ public:
 	bool isRolling();
 	void setLabelIndex(uint8_t index);
 	uint8_t getLabelIndex();
-	void setWidth(uint8_t width);
-	uint8_t getWidth();
-	void setLocation(int8_t x, int8_t y);
-	Point* getLocation();
-	Rectangle* getBounds();
+	bool setWidth(uint8_t width);
+	const uint8_t getWidth() const;
+	bool setPosition(int8_t x, int8_t y);
+	const Rectangle getBounds() const;
 	void setParent(AbstractCDElement* parent);
 	AbstractCDElement* getParent();
 
 	//virtual void reprint();
-	virtual void printArea(LCD* lcd, Rectangle* area);
+	virtual void printArea(LCD* lcd, const Rectangle* area);
 	virtual void validate();
 
 private:

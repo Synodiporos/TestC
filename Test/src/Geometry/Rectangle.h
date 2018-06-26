@@ -23,22 +23,24 @@ public:
 	bool setHeight(uint8_t height);
 	bool setDimensions(uint8_t width, uint8_t height);
 	bool setDimensions(Dimension dims);
-	uint8_t getWidth();
-	uint8_t getHeight();
-	Dimension getDimensions();
+	const uint8_t getWidth() const;
+	const uint8_t getHeight() const;
+	const Dimension getDimensions() const;
 	bool isNull();
 
-	bool contains(int8_t x, int8_t y);
-	bool contains(Point p);
-	Rectangle intersection(Rectangle* rec);
+	bool contains(int8_t x, int8_t y) const;
+	bool contains(const Point p) const;
+	Rectangle intersection(const Rectangle* rec) const;
 	bool intersects(Rectangle* rec);
-	static Rectangle intersection(Rectangle* rec1, Rectangle* rec2);
-	static bool intersects(Rectangle* rec1 , Rectangle* rec2);
+	static Rectangle intersection(
+			const Rectangle* rec1, const Rectangle* rec2);
+	static bool intersects(
+			const Rectangle* rec1 , const Rectangle* rec2);
 
-	void print();
+	void print() const;
 
 private:
-	Dimension dims = Dimension();
+	mutable Dimension dims = Dimension();
 };
 
 #endif /* GEOMETRY_RECTANGLE_H_ */

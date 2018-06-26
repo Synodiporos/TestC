@@ -36,7 +36,7 @@ TaskMenuView::~TaskMenuView() {
 }
 
 void TaskMenuView::init(){
-	uint8_t width = getBounds()->getWidth();
+	uint8_t width = getBounds().getWidth();
 
 	CDOptionLabel* opStart = new CDOptionLabel(0, 0,
 				width, LABEL_TASK_MENU_START,

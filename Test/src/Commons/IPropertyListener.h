@@ -10,10 +10,12 @@
 
 class IPropertyListener {
 public:
-	IPropertyListener();
-	virtual ~IPropertyListener();
+	virtual ~IPropertyListener(){};
 
-	virtual void propertyChanged(void* source, void* property) = 0;
+	virtual void propertyChanged(
+			void* source,
+			unsigned short int propertyId,
+			const void* oldPropery) = 0;
 };
 
 #endif /* COMMONS_IPROPERTYLISTENER_H_ */

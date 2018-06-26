@@ -162,7 +162,6 @@ void TaskContainerController::onOptionClicked(unsigned int id){
 
 void TaskContainerController::actionPerformed(Action action){
 	uint8_t actionId = action.getActionId();
-	cout << "ADDING NEW TASK!" << endl;
 	switch(actionId){
 		case TaskContainer::ACTION_TASK_INSERTED:{
 			uint8_t* index = (uint8_t*)action.getContainer();

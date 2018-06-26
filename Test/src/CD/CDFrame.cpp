@@ -9,7 +9,6 @@
 #include <cmath>
 using namespace std;
 #include "CDFrame.h"
-#include "CDCharacters.h"
 
 CDFrame::CDFrame(uint8_t width, uint8_t height, LCD* lcd)
 	: lcd(lcd){
@@ -27,8 +26,8 @@ CDFrame::~CDFrame() {
 }
 
 void CDFrame::init(){
-	scrollbar.setX(getBounds()->getX()+getBounds()->getWidth()-1);
-	scrollbar.setHeight(getBounds()->getHeight());
+	scrollbar.setX(getBounds().getX()+getBounds().getWidth()-1);
+	scrollbar.setHeight(getBounds().getHeight());
 }
 
 void CDFrame::setLCD(LCD* lcd){
@@ -41,10 +40,14 @@ LCD* CDFrame::getLCD(){
 
 void CDFrame::setPage(AbstractCDElement* elem){
 	if(this->page!=elem){
-		if(this->page)
+		if(this->page){
 			this->page->setParent(nullptr);
-		if(elem)
+			this->page->setPropertyListener(nullptr);
+		}
+		if(elem){
 			elem->setParent(this);
+			elem->setPropertyListener(this);
+		}
 		this->page = elem;
 		clean();
 		print();
@@ -63,8 +66,8 @@ AbstractCDElement* CDFrame::getParent(){
 	return nullptr;//this->parent;
 }
 
-Rectangle* CDFrame::getBounds(){
-	return lcd;
+const Rectangle CDFrame::getBounds() const{
+	return *lcd;
 }
 
 void CDFrame::setPosition(short int x, short int y){
@@ -88,18 +91,20 @@ bool CDFrame::isScrollbarVisible(){
 	else{
 		AbstractCDElement* ce = getPage();
 		if(ce)
-			return ce->getBounds()->getHeight()>
-				getBounds()->getHeight();
+			return ce->getBounds().getHeight()>
+				getBounds().getHeight();
 		return false;
 	}
 }
 
 void CDFrame::print(){
+	//clean();
 	print(this->lcd);
 }
 
 void CDFrame::print(LCD* lcd){
-	printArea(lcd, getBounds());
+	Rectangle bounds = getBounds();
+	printArea(lcd, &bounds);
 }
 
 void CDFrame::reprint(){
@@ -107,7 +112,7 @@ void CDFrame::reprint(){
 }
 
 //To Global Coordinates
-void CDFrame::printArea(LCD* lcd, Rectangle* area){
+void CDFrame::printArea(LCD* lcd, const Rectangle* area){
 	cout << "!!  PrintArea Of Root Parent  area:" << endl;
 	//lcd->setCursor(0, 0);
 
@@ -135,27 +140,28 @@ void CDFrame::printArea(LCD* lcd, Rectangle* area){
 	}
 }
 
-void CDFrame::printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area){
+void CDFrame::printChild(
+		AbstractCDElement* child, LCD* lcd, const Rectangle* area){
 	int ccx = lcd->getCursorX();
 	int ccy = lcd->getCursorY();
 
 	if(child && child->isVisible()){
-		Rectangle inter = child->getBounds()->intersection(area);
+		Rectangle inter = child->getBounds().intersection(area);
 		//inter.print();
 		if(!inter.isNull()){
 			lcd->setCursor(
-					child->getBounds()->getX() - getBounds()->getX(),
-					child->getBounds()->getY() - getBounds()->getY());
-			inter.setPointBy(-child->getBounds()->getX(),
-					-child->getBounds()->getY());
+					child->getBounds().getX() - getBounds().getX(),
+					child->getBounds().getY() - getBounds().getY());
+			inter.setPointBy(-child->getBounds().getX(),
+					-child->getBounds().getY());
 			child->printArea(lcd, &inter);
 		}
 	}
 	lcd->setCursor(ccx, ccy);
 }
 
-void CDFrame::printArea(Rectangle* area){
-	Rectangle inter = getBounds()->intersection(area);
+void CDFrame::printArea(const Rectangle* area){
+	Rectangle inter = getBounds().intersection(area);
 	if(!inter.isNull())
 		printArea(lcd, &inter);
 }
@@ -175,17 +181,19 @@ void CDFrame::validate(){
 void CDFrame::revalidate(){
 	//cout << "Revalidate Frame: ";
 
-	updateScrollBarValue();
+	//updateScrollBarValue();
+	revalidateScrollbar();
 }
+/*
 
 void CDFrame::updateScrollBarValue(){
 
 	if(isScrollbarVisible()){
 		AbstractCDElement* ce = getPage();
-		uint8_t sh = getBounds()->getHeight();
-		uint8_t w = ce->getBounds()->getHeight() - sh;
-		int8_t y = getBounds()->getY() -
-				ce->getBounds()->getY();
+		uint8_t sh = getBounds().getHeight();
+		uint8_t w = ce->getBounds().getHeight() - sh;
+		int8_t y = getBounds().getY() -
+				ce->getBounds().getY();
 		uint8_t steps = 9 + (sh-2)*8;
 		double  p = (double)y/w;
 		if(p<0) p=0;
@@ -205,9 +213,9 @@ void CDFrame::updateScrollBarValue(){
 void CDFrame::reprintScrollbar(uint8_t value, uint8_t pixels){
 	int ccx = lcd->getCursorX();
 	int ccy = lcd->getCursorY();
-	uint8_t sw = getBounds()->getWidth()-1;
-	uint8_t sh = getBounds()->getHeight()-1;
-	cout<< "Scroll bar: Y=" << (int)getBounds()->getY()  ;
+	uint8_t sw = getBounds().getWidth()-1;
+	uint8_t sh = getBounds().getHeight()-1;
+	cout<< "Scroll bar: Y=" << (int)getBounds().getY()  ;
 
 	cout << " - Pixel char: " ;
 	if(value<=5){
@@ -250,5 +258,42 @@ void CDFrame::reprintScrollbar(uint8_t value, uint8_t pixels){
 	}
 	cout<<endl;
 	lcd->setCursor(ccx, ccy);
+}
+*/
+
+void CDFrame::revalidateScrollbar(){
+	if(getPage()){
+		if(this->scrollbarState == CDFrame::SRCOLLBAR_STATE_NEVER){
+
+			}
+		else if(this->scrollbarState == CDFrame::SRCOLLBAR_STATE_ALWAYS
+				|| (getPage()->getHeight()>getHeight())){
+
+			uint8_t scrollbarValue = CDVScrollbar::scrollbarValue(getPage(), this);
+			cout << "Scrollbar Value: " << (int)scrollbarValue
+					<< " round:" << endl;
+			this->scrollbar.setValue(scrollbarValue);
+		}
+	}
+}
+
+void CDFrame::propertyChanged(
+			void* source, unsigned short int propertyId, const void* oldPropery){
+	AbstractCDElement* ae = (AbstractCDElement*)source;
+
+	switch (propertyId){
+		case AbstractCDElement::DIMENSIONS_PROPERTY:{
+
+			break;
+		}
+		case AbstractCDElement::POSITION_PROPERTY:{
+			if(getPage()==ae){
+				revalidateScrollbar();
+				clean();
+				print();
+			}
+			break;
+		}
+	}
 }
 

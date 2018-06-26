@@ -26,7 +26,7 @@ public:
 	virtual void printIndicator(LCD* lcd);
 	virtual void reprintIndicator();
 	virtual void reprintElement();
-	virtual void printArea(LCD* lcd, Rectangle* area); // Implement
+	virtual void printArea(LCD* lcd, const Rectangle* area); // Implement
 	virtual void validate(); // Implement
 
 protected:
@@ -38,7 +38,8 @@ protected:
 
 	virtual void init();
 	virtual void onOptionStateChanged(); // Implement
-	virtual void printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area);
+	virtual void printChild(
+			AbstractCDElement* child, LCD* lcd, const Rectangle* area);
 };
 
 #endif /* CD_CDOPTION_H_ */

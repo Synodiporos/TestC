@@ -27,7 +27,7 @@ public:
 	bool isStateVisible();
 	bool toogleStateDiplay();
 
-	virtual void printArea(LCD* lcd, Rectangle* area); // Implements
+	virtual void printArea(LCD* lcd, const Rectangle* area); // Implements
 	virtual void validate(); // Implements
 
 protected:

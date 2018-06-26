@@ -46,15 +46,15 @@ bool Rectangle::setDimensions(uint8_t width, uint8_t height){
 	return this->dims.setDimensions(width, height);
 }
 
-uint8_t Rectangle::getWidth(){
+const uint8_t Rectangle::getWidth() const{
 	return this->dims.getWidth();
 }
 
-uint8_t Rectangle::getHeight(){
+const uint8_t Rectangle::getHeight() const{
 	return this->dims.getHeight();
 }
 
-Dimension Rectangle::getDimensions(){
+const Dimension Rectangle::getDimensions() const{
 	return this->dims;
 }
 
@@ -62,16 +62,16 @@ bool Rectangle::isNull(){
 	return getWidth()==0 || getHeight()==0;
 }
 
-bool Rectangle::contains(int8_t x, int8_t y){
+bool Rectangle::contains(int8_t x, int8_t y) const{
 	return GeometryUtil::valueInRange(x, getX(), getX()+getWidth()) &&
 				GeometryUtil::valueInRange(y, getY(), getY()+getHeight());
 }
 
-bool Rectangle::contains(Point p){
+bool Rectangle::contains(const Point p) const{
 	return contains(p.getX(), getY());
 }
 
-Rectangle Rectangle::intersection(Rectangle* rec){
+Rectangle Rectangle::intersection(const Rectangle* rec) const{
 	if(rec)
 		return Rectangle::intersection(this, rec);
 	return Rectangle();
@@ -84,8 +84,7 @@ bool Rectangle::intersects(Rectangle* rec){
 }
 
 Rectangle Rectangle::intersection(
-		Rectangle* rec1, Rectangle* rec2){
-
+		const Rectangle* rec1, const Rectangle* rec2){
 	if(!rec1 || !rec2)
 		return Rectangle();
 
@@ -104,7 +103,7 @@ Rectangle Rectangle::intersection(
 	return Rectangle(left, top, right, bottom);
 }
 
-bool Rectangle::intersects(Rectangle* A, Rectangle* B){
+bool Rectangle::intersects(const Rectangle* A, const Rectangle* B){
 	if(!A || !B)
 			return false;
 
@@ -121,7 +120,7 @@ bool Rectangle::intersects(Rectangle* A, Rectangle* B){
     return xOverlap && yOverlap;
 }
 
-void Rectangle::print(){
+void Rectangle::print() const{
 	cout << "Rectanlge[" << (int)getX() <<
 			", " << (int)getY() <<
 			", " << (int)getWidth() <<

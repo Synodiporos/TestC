@@ -9,6 +9,7 @@
 #define CD_CDVSCROLLBAR_H_
 
 #include "AbstractCDElement.h"
+#include "CDCharacters.h"
 
 class CDVScrollbar: public AbstractCDElement {
 public:
@@ -20,22 +21,26 @@ public:
 	uint8_t getValue();
 	virtual void setParent(AbstractCDElement* parent);
 	virtual AbstractCDElement* getParent();
-	virtual Rectangle* getBounds();
+	virtual const Rectangle getBounds() const;
 	void setX(int8_t x);
-	int8_t getX();
-	void setHeight(uint8_t height);
-	uint8_t getHeight();
-	virtual void printArea(LCD* lcd, Rectangle* area);
+	int8_t getX() const;
+	void setHeight(uint8_t height) const;
+	const uint8_t getHeight() const;
+	virtual void printArea(LCD* lcd, const Rectangle* area);
 	virtual void validate();
+
+	static uint8_t scrollbarValue(AbstractCDElement* page,
+			AbstractCDElement* frame);
 
 private:
 	AbstractCDElement* parent = nullptr;
 	int8_t x = 0;
-	uint8_t height = 2;
+	mutable uint8_t height = 2;
 	uint8_t value = 0;
 	char* chars = nullptr;
 
-	void recalculateValue();
+	uint8_t calculateLevelValue();
+	void printChar(LCD* lcd, uint8_t index, uint8_t value);
 };
 
 #endif /* CD_CDVSCROLLBAR_H_ */

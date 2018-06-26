@@ -36,37 +36,51 @@ bool AbstractCDElement::hasParent(){
 	return false;
 }
 
-uint8_t AbstractCDElement::getWidth(){
-	return getBounds()->getWidth();
+const uint8_t AbstractCDElement::getWidth() const{
+	return getBounds().getWidth();
 }
 
-uint8_t AbstractCDElement::getHeight(){
-	return getBounds()->getHeight();
+const uint8_t AbstractCDElement::getHeight() const{
+	return getBounds().getHeight();
 }
 
 void AbstractCDElement::print(LCD* lcd){
 	if(isVisible()){
 		Rectangle* r = new Rectangle(0, 0,
-					getBounds()->getWidth(),
-					getBounds()->getHeight());
+					getBounds().getWidth(),
+					getBounds().getHeight());
 		printArea(lcd, r);
 	}
 }
 
 void AbstractCDElement::reprint(){
 	Rectangle* r = new Rectangle(0, 0,
-			getBounds()->getWidth(),
-			getBounds()->getHeight());
+			getBounds().getWidth(),
+			getBounds().getHeight());
 	printArea(r);
 }
 
-void AbstractCDElement::printArea(Rectangle* area){
+void AbstractCDElement::printArea(const Rectangle* area){
 	if(hasParent() && isVisible()){
 		Rectangle* r = new Rectangle(
-				area->getX() + getBounds()->getX(),
-				area->getY() + getBounds()->getY(),
+				area->getX() + getBounds().getX(),
+				area->getY() + getBounds().getY(),
 				area->getWidth(),
 				area->getHeight());
 		getParent()->printArea(r);
 	}
+}
+
+void AbstractCDElement::setPropertyListener(IPropertyListener* listener){
+	this->propertyListener = listener;
+}
+
+IPropertyListener* AbstractCDElement::getPropertyListener(){
+	return this->propertyListener;
+}
+
+void AbstractCDElement::notifyPropertyChanged(
+		unsigned short int propertyId, const void* old){
+	if(this->getPropertyListener())
+		getPropertyListener()->propertyChanged(this, propertyId, old);
 }

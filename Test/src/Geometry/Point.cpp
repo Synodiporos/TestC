@@ -25,7 +25,7 @@ bool Point::setX(short int x){
 	return setPoint(x, y);
 }
 
-short int Point::getX(){
+const short int Point::getX() const{
 	return this->x;
 }
 
@@ -33,7 +33,7 @@ bool Point::setY(short int y){
 	return setPoint(x, y);
 }
 
-short int Point::getY(){
+const short int Point::getY() const{
 	return this->y;
 }
 
@@ -60,10 +60,10 @@ Point Point::copy(){
 	return Point(this->x, this->y);
 }
 
-bool Point::equals(Point* c){
+bool Point::equals(const Point* c) const{
 	return equals(c->x, c->y);
 }
 
-bool Point::equals(short int x, short int y){
+bool Point::equals(short int x, short int y) const{
 	return this->x==x && this->y==y;
 }

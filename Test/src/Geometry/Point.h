@@ -15,15 +15,15 @@ public:
 	virtual ~Point();
 
 	bool setX(short int x);
-	short int getX();
+	const short int getX() const;
 	bool setY(short int y);
-	short int getY();
+	const short int getY() const;
 	bool setPoint(short int x, short int y);
 	bool setPoint(Point* point);
 	bool setPointBy(short int x, short int y);
 	Point copy();
-	bool equals(Point* c);
-	bool equals(short int x, short int y);
+	bool equals(const Point* c) const;
+	bool equals(short int x, short int y) const;
 
 protected:
 	short int x = 0;

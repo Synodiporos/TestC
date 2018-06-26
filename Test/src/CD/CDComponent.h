@@ -29,7 +29,7 @@ public:
 	void removeElement(AbstractCDElement* element);
 	void removeElementAt(uint8_t index);
 
-	virtual void printArea(LCD* lcd, Rectangle* area);
+	virtual void printArea(LCD* lcd, const Rectangle* area);
 	virtual void validate();
 
 private:
@@ -38,9 +38,9 @@ private:
 	AbstractCDElement** elements = nullptr;
 
 protected:
-	virtual void printComponentsArea(LCD* lcd, Rectangle* area);
-	virtual void printChildsArea(LCD* lcd, Rectangle* area);
-	virtual void printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area);
+	virtual void printComponentsArea(LCD* lcd, const Rectangle* area);
+	virtual void printChildsArea(LCD* lcd, const Rectangle* area);
+	virtual void printChild(AbstractCDElement* child, LCD* lcd, const Rectangle* area);
 	virtual void validateChilds();
 };
 

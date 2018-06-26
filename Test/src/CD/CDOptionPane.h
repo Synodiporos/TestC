@@ -47,7 +47,7 @@ public:
 	void confirmSelection();
 	void closePane();
 
-	virtual void printArea(LCD* lcd, Rectangle* area);
+	virtual void printArea(LCD* lcd, const Rectangle* area);
 	virtual void validate();
 
 	class Node{
@@ -83,9 +83,10 @@ protected:
 	bool setSelectedOptionNode(Node* node);
 	void notifyActionPerformed(unsigned short int action);
 
-	virtual void printComponentsArea(LCD* lcd, Rectangle* area);
-	virtual void printChildsArea(LCD* lcd, Rectangle* area);
-	virtual void printChild(AbstractCDElement* child, LCD* lcd, Rectangle* area);
+	virtual void printComponentsArea(LCD* lcd, const Rectangle* area);
+	virtual void printChildsArea(LCD* lcd, const Rectangle* area);
+	virtual void printChild(
+			AbstractCDElement* child, LCD* lcd, const Rectangle* area);
 	virtual void validateChilds();
 
 };
