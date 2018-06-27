@@ -79,8 +79,7 @@ bool CDOptionPane::insertOptionAt(uint8_t index, AbstractCDOption* option){
 
 bool CDOptionPane::removeOptionNode(Node* node){
 	if(node){
-		if(selected==node)
-			setSelectedOption(nullptr);
+
 		Node* np = node->getPrev();
 		Node* nn = node->getNext();
 		if(tail==node){
@@ -97,6 +96,14 @@ bool CDOptionPane::removeOptionNode(Node* node){
 		}
 		size--;
 		node->getValue()->setParent(nullptr);
+
+		if(selected==node )
+			if(size>0)
+				//setSelectedOption(nullptr);
+				setSelectedOptionIndex(getSize()-1);
+			else
+				setSelectedOption(nullptr);
+
 		return true;
 	}
 	return false;
@@ -194,7 +201,6 @@ bool CDOptionPane::setSelectedOptionIndex(uint8_t index){
 }
 
 bool CDOptionPane::setSelectedOptionNode(Node* node){
-
 	if(selected!=node){
 		if(selected)
 			selected->getValue()->unhover();

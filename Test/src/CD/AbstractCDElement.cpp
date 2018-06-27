@@ -36,6 +36,12 @@ bool AbstractCDElement::hasParent(){
 	return false;
 }
 
+CDFrame* AbstractCDElement::getRootFrame(){
+	if(hasParent())
+		return getParent()->getRootFrame();
+	return nullptr;
+}
+
 const uint8_t AbstractCDElement::getWidth() const{
 	return getBounds().getWidth();
 }

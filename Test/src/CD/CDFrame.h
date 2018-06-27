@@ -29,6 +29,7 @@ public:
 
 	void setParent(AbstractCDElement* parent);
 	AbstractCDElement* getParent();
+	CDFrame* getRootFrame();
 	const Rectangle getBounds() const;
 	void setPosition(short int x, short int y);
 	bool isScrollbarVisible();

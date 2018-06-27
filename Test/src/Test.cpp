@@ -301,7 +301,7 @@ int main() {
 
 
 	//TestCDTextArea::run();
-	TestCDTextArea::run2();
+	TestCDTextArea::run();
 	//TestCDOptionPane::run2();
 	//TestCDVScrollbar::run();
 

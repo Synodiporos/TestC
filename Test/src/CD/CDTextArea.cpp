@@ -49,7 +49,7 @@ AbstractCDElement* CDTextArea::getParent(){
 }
 
 const Rectangle CDTextArea::getBounds() const{
-	return Rectangle(this->x, this->y, 1, this->width);
+	return Rectangle(this->x, this->y, this->width, 1);
 }
 
 bool CDTextArea::setPosition(int8_t x, uint8_t y){
@@ -122,14 +122,19 @@ bool CDTextArea::appendArea(){
 		if(optionPane->insertOption(c)){
 			optionPane->setDimensions(
 					optionPane->getWidth()+1, 1);
-			setSelected(c);
-			return true;;
+			cout << "Append size:" << (int)x << " width:" <<
+					(int)optionPane->getWidth() << endl;
+
+
+			setSelected(c); // Prints Char
+			return true;
 		}
 	}
 	return false;
 }
 
 bool CDTextArea::setCharAndAppend(char ch){
+	cout << "SET AND APPEND" << endl;
 	if(getSize()>=capacity)
 		return false;
 	CDOptionChar* chOp = getSelected();
@@ -148,7 +153,7 @@ bool CDTextArea::eraseLastChar(){
 		return false;
 	}
 	if(this->optionPane->removeOption(chOp)){
-		setSelectedIndex(optionPane->getSize()-1);
+		//setSelectedIndex(optionPane->getSize()-1);
 		return true;
 	}
 	return false;
@@ -181,7 +186,6 @@ void CDTextArea::printChildsArea(LCD* lcd, const Rectangle* area){
 
 	int ccx = lcd->getCursorX();
 	int ccy = lcd->getCursorY();
-
 	AbstractCDElement* elem = this->optionPane;
 	printChild(elem, lcd, area);
 	lcd->setCursor(ccx, ccy);
@@ -215,7 +219,7 @@ void CDTextArea::actionPerformed(Action action){
 	//action.getContainer(); NO LIKE THIS
 	switch(actionId){
 		case CDOptionPane::SELECTION_CHANGE:{
-			validateCelectionChange();
+			validateSelectionChange();
 			break;
 		}
 		case CDOptionPane::SELECTION_CONFIRM:{
@@ -229,8 +233,8 @@ void CDTextArea::actionPerformed(Action action){
 	}
 }
 
-void CDTextArea::validateCelectionChange(){
-	//cout << "VALIDATE" << endl;
+void CDTextArea::validateSelectionChange(){
+	cout << "VALIDATE SELECTION CHANGED" << endl;
 	CDOptionChar* selection = getSelected();
 	if(selection){
 		int8_t i = selection->getBounds().getX();

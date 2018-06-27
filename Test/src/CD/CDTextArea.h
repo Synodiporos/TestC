@@ -58,7 +58,7 @@ private:
 	virtual void printChildsArea(LCD* lcd, const Rectangle* area);
 	virtual void printChild(
 			AbstractCDElement* child, LCD* lcd, const Rectangle* area);
-	void validateCelectionChange();
+	void validateSelectionChange();
 };
 
 #endif /* CD_CDTEXTAREA_H_ */

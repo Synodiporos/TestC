@@ -31,9 +31,12 @@ public:
 		cout << "Test TextArea!" << endl;
 
 		LCDConsole* lcd = new LCDConsole(SCREEN_WIDTH, SCREEN_HEIGHT);
-		CDFrame frame = CDFrame((int)SCREEN_WIDTH, 2, lcd);
+		LCD* lcd2 = new LCDSimulator(SCREEN_WIDTH, SCREEN_HEIGHT);
+		CDFrame frame = CDFrame((int)SCREEN_WIDTH, 2, lcd2);
 
-		CDTextArea area = CDTextArea(4, 20);
+		CDTextArea area = CDTextArea(6, 20);
+		CDTextAreaController taCtrl = CDTextAreaController(&area);
+
 		res = area.setCharAndAppend('S');
 		cout << "Adding S res=" << res << endl;
 		res = area.setCharAndAppend('t');
@@ -60,17 +63,18 @@ public:
 		//area.getBounds()->print();
 		//frame.print();
 		//area.setCharAndAppend('s');
-		frame.print();
+		//frame.print();
 
 		//area.setSelectedIndex(2);
 		//frame.print();
 		//area.setSelectedIndex(10);
 		//frame.print();
+		cout << endl;
 		cout << "ERASE" << endl;
 
-		//res = area.eraseLastChar();
-		//res = area.eraseLastChar();
-		//res = area.eraseLastChar();
+		res = area.eraseLastChar();
+		res = area.eraseLastChar();
+		res = area.eraseLastChar();
 		/*res = area.eraseLastChar();
 		res = area.eraseLastChar();
 		res = area.eraseLastChar();
@@ -78,30 +82,51 @@ public:
 		res = area.eraseLastChar();
 		res = area.eraseLastChar();
 		res = area.eraseLastChar();*/
+
 		cout << "Erases res: " << res << endl;
-		area.reprint();
+		//area.reprint();
 
 		std::string str ("Test string");
 
 		str = area.getText();
 		cout << "TEXT: " << str << endl;
-/*
 
+
+
+
+		bool run = true;
 		clock_t start = clock();
-		int i = 1;
-		while (clock() - start < 4000) {
-			unsigned long millis = clock() - start;
-			if (millis >= 1000 && i == 1) {
+		//int i = 1;
+		char c = '.';
+		while (clock() - start < 60000 && run && c!='s') {
+			//unsigned long millis = clock() - start;
 
-				i++;
-			}
-			if (millis >= 2000 && i == 2) {
+			cout << "Please enter an char value: ";
+			cin >> c;
 
-				i++;
+			switch(c){
+				case 'x':{
+					cout << "Left" << endl;
+					taCtrl.onForwardClicked();
+					break;
+				}
+				case 'z':{
+					cout << "Right" << endl;
+					taCtrl.onBackwardClicked();
+					break;
+				}
+				case 'c':{
+					cout << "OK" << endl;
+					taCtrl.onEnterClicked();
+					break;
+				}
+				case 'v':{
+					cout << "Back" << endl;
+					taCtrl.onBackClicked();
+					break;
+				}
 			}
 		}
-*/
-
 
 		cout << "Test TextArea: Finished!" << endl;
 	}
@@ -150,6 +175,42 @@ public:
 		}
 	}
 
+	static void run3() {
+
+
+		bool run = true;
+		clock_t start = clock();
+		//int i = 1;
+		char c = '.';
+		while (clock() - start < 30000 && run && c!='s') {
+			//unsigned long millis = clock() - start;
+
+			cout << "Please enter an char value: ";
+			cin >> c;
+
+			switch(c){
+				case 'z':{
+					cout << "Left" << endl;
+					break;
+				}
+				case 'x':{
+					cout << "Right" << endl;
+					break;
+				}
+				case 'c':{
+					cout << "OK" << endl;
+					break;
+				}
+				case 'v':{
+					cout << "Back" << endl;
+					break;
+				}
+			}
+		}
+	}
+
 };
+
+
 
 #endif /* TEST_TESTCDTEXTAREA_H_ */

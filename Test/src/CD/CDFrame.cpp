@@ -62,6 +62,10 @@ void CDFrame::setParent(AbstractCDElement* parent){
 	//this->parent = parent;
 }
 
+CDFrame* CDFrame::getRootFrame(){
+	return this;
+}
+
 AbstractCDElement* CDFrame::getParent(){
 	return nullptr;//this->parent;
 }

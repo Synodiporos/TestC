@@ -15,6 +15,8 @@
 #include "../Geometry/Point.h"
 #include "../Commons/IPropertyListener.h"
 
+class CDFrame;
+
 class AbstractCDElement {
 public:
 	static const unsigned short int POSITION_PROPERTY = 111;
@@ -27,6 +29,7 @@ public:
 	virtual void setParent(AbstractCDElement* parent) = 0;
 	virtual AbstractCDElement* getParent() = 0;
 	virtual bool hasParent();
+	virtual CDFrame* getRootFrame();
 	virtual const Rectangle getBounds() const = 0;
 	virtual const uint8_t getWidth() const;
 	virtual const uint8_t getHeight() const;
