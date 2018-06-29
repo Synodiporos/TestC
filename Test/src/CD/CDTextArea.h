@@ -33,6 +33,8 @@ public:
 	bool canAppendArea();
 	bool appendArea();
 	bool setCharAndAppend(char ch);
+	bool setChar(char ch);
+
 	bool eraseLastChar();
 	std::string getText();
 

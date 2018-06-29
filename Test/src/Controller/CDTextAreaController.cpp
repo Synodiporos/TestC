@@ -14,7 +14,7 @@ CDTextAreaController::CDTextAreaController() {
 }
 
 CDTextAreaController::CDTextAreaController(CDTextArea* view) :
-	view(*view){
+	view(view){
 	init();
 }
 
@@ -23,11 +23,19 @@ CDTextAreaController::~CDTextAreaController() {
 }
 
 void CDTextAreaController::setView(CDTextArea* view){
-	this->view = *view;
+	this->view = view;
 }
 
 CDTextArea* CDTextAreaController::getView(){
-	return &this->view;
+	return this->view;
+}
+
+void CDTextAreaController::setRootFrame(CDFrame* frame){
+	this->frame = frame;
+}
+
+CDFrame* CDTextAreaController::getRootFrame(){
+	return this->frame;
 }
 
 void CDTextAreaController::init(){
@@ -50,9 +58,19 @@ void CDTextAreaController::onDeactivate(){
 
 }
 
+bool CDTextAreaController::setActiveScreen(AbstractCDElement* screen){
+	if(getRootFrame()){
+		bool res = getRootFrame()->setPage(screen);
+		cout << "SET ACTIVE SCREEN " << screen
+				<< " ? " << res << endl;
+		return res;
+	}
+	return false;
+}
+
 void CDTextAreaController::onActiveControllerChanged(
 		AbstractController* activeCntrl){
-	cout << "ActiveControllerChanged!" << endl;
+	cout << "ActiveControllerChanged! " << activeCntrl << endl;
 }
 
 void CDTextAreaController::forwardPressed(){
@@ -91,6 +109,7 @@ void CDTextAreaController::backwardHolded(){
 void CDTextAreaController::backwardClicked(){
 	if(getView()->getOptionPane()->hasPreviousOption()){
 		getView()->selectPrevious();
+		cout << "   HERE " << getView()->getRootFrame() << endl;
 	}
 	else{
 
@@ -112,7 +131,6 @@ void CDTextAreaController::enterHolded(){
 void CDTextAreaController::enterClicked(){
 	setActiveScreen(keyboardCtrl.getView());
 	setActiveController(&keyboardCtrl);
-	//Show Keyboard!
 }
 
 void CDTextAreaController::backPressed(){
@@ -145,12 +163,12 @@ void CDTextAreaController::actionPerformed(Action action){
 			char c = oc->getCharacter();
 			keyboardCtrl.getView()->closePane();
 			cout << "Selected Char: " << c << endl;
-			view.setCharAndAppend(c);
+			view->setCharAndAppend(c);
 			break;
 		}
 		case CDOptionPane::PANE_CLOSE:{
 			setActiveController(nullptr);
-			setActiveScreen(&view);
+			setActiveScreen(view);
 			break;
 		}
 	}

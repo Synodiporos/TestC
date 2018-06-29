@@ -38,7 +38,7 @@ LCD* CDFrame::getLCD(){
 	return lcd;
 }
 
-void CDFrame::setPage(AbstractCDElement* elem){
+bool CDFrame::setPage(AbstractCDElement* elem){
 	if(this->page!=elem){
 		if(this->page){
 			this->page->setParent(nullptr);
@@ -51,7 +51,9 @@ void CDFrame::setPage(AbstractCDElement* elem){
 		this->page = elem;
 		clean();
 		print();
+		return true;
 	}
+	return false;
 }
 
 AbstractCDElement* CDFrame::getPage(){

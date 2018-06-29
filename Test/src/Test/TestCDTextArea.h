@@ -36,6 +36,7 @@ public:
 
 		CDTextArea area = CDTextArea(6, 20);
 		CDTextAreaController taCtrl = CDTextAreaController(&area);
+		taCtrl.setRootFrame(&frame);
 
 		res = area.setCharAndAppend('S');
 		cout << "Adding S res=" << res << endl;

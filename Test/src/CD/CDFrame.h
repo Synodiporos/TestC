@@ -24,7 +24,7 @@ public:
 
 	void setLCD(LCD* lcd);
 	LCD* getLCD();
-	void setPage(AbstractCDElement* elem);
+	bool setPage(AbstractCDElement* elem);
 	AbstractCDElement* getPage();
 
 	void setParent(AbstractCDElement* parent);

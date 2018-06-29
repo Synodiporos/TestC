@@ -122,8 +122,9 @@ bool CDTextArea::appendArea(){
 		if(optionPane->insertOption(c)){
 			optionPane->setDimensions(
 					optionPane->getWidth()+1, 1);
-			cout << "Append size:" << (int)x << " width:" <<
-					(int)optionPane->getWidth() << endl;
+
+			//cout << "Append size:" << (int)x << " width:" <<
+			//		(int)optionPane->getWidth() << endl;
 
 
 			setSelected(c); // Prints Char
@@ -134,13 +135,30 @@ bool CDTextArea::appendArea(){
 }
 
 bool CDTextArea::setCharAndAppend(char ch){
-	cout << "SET AND APPEND" << endl;
+	//cout << "SET AND APPEND" << endl;
 	if(getSize()>=capacity)
 		return false;
 	CDOptionChar* chOp = getSelected();
 	if(chOp){
-		chOp->setCharacter(ch);
-		return appendArea();
+		//Is the last option?
+		AbstractCDOption* chOpL =
+				this->optionPane->getLastOption();
+		if(chOp == chOpL){
+			chOp->setCharacter(ch);
+			return appendArea();
+		}
+		else
+			return setChar(ch);
+	}
+	return false;
+}
+
+bool CDTextArea::setChar(char ch){
+	CDOptionChar* chOp = getSelected();
+	if(chOp){
+		bool res = chOp->setCharacter(ch);
+		if(res)
+			chOp->reprint();
 	}
 	return false;
 }
@@ -234,7 +252,7 @@ void CDTextArea::actionPerformed(Action action){
 }
 
 void CDTextArea::validateSelectionChange(){
-	cout << "VALIDATE SELECTION CHANGED" << endl;
+	//cout << "VALIDATE SELECTION CHANGED" << endl;
 	CDOptionChar* selection = getSelected();
 	if(selection){
 		int8_t i = selection->getBounds().getX();
