@@ -16,7 +16,7 @@ TaskLoader::TaskLoader() {
 }
 
 TaskLoader::~TaskLoader() {
-	// TODO Auto-generated destructor stub
+	delete instance;
 }
 
 TaskLoader* TaskLoader::getInstance(){

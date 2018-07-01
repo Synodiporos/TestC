@@ -13,7 +13,8 @@
 #include <string>
 #include "CDOptionChar.h"
 
-class CDTextArea : public AbstractCDElement, IActionListener{
+class CDTextArea : public AbstractCDElement,
+	IActionListener, IPropertyListener{
 public:
 
 	CDTextArea();
@@ -25,6 +26,7 @@ public:
 	unsigned int getCapacity();
 	uint8_t getSize();
 	CDOptionChar* getSelected();
+	bool isLastOptionSelected();
 	bool setSelectedIndex(uint8_t index);
 	bool setSelected(CDOptionChar* option);
 	bool selectNext();
@@ -33,8 +35,12 @@ public:
 	bool canAppendArea();
 	bool appendArea();
 	bool setCharAndAppend(char ch);
+	bool setChar(char c, uint8_t index);
 	bool eraseLastChar();
 	std::string getText();
+
+	void show();
+	void close();
 
 	virtual void setParent(AbstractCDElement* parent); //Implements
 	virtual AbstractCDElement* getParent(); //Implements
@@ -44,14 +50,16 @@ public:
 	virtual void printArea(LCD* lcd, const Rectangle* area); //Implements
 	virtual void validate(); //Implements
 
-	void actionPerformed(Action action);
+	virtual void actionPerformed(Action action);
+	virtual void propertyChanged(void* source,
+				unsigned short int propertyId, const void* oldPropery);
 
 private:
 	int8_t x = 0;
 	int8_t y = 0;
 	uint8_t width = 0;
 	AbstractCDElement* parent = nullptr;
-	CDOptionPane* optionPane = nullptr;
+	CDOptionPane optionPane = CDOptionPane(1, 1);
 	unsigned int capacity = 0;
 	//bool autoRollEnabled = true;
 

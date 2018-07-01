@@ -21,6 +21,7 @@ using namespace std;
 #include "../View/ViewAssets.h"
 #include "../CD/LCDConsole.h"
 #include "../CD/LCDSimulator.h"
+#include "../Display/SystemDisplayManager.h"
 #include <string>
 
 class TestCDTextArea {
@@ -34,47 +35,56 @@ public:
 		LCD* lcd2 = new LCDSimulator(SCREEN_WIDTH, SCREEN_HEIGHT);
 		CDFrame frame = CDFrame((int)SCREEN_WIDTH, 2, lcd2);
 
-		CDTextArea area = CDTextArea(6, 20);
-		CDTextAreaController taCtrl = CDTextAreaController(&area);
+		SystemDisplayManager::getInstanse()->
+				setDefaultSystemDisplay(&frame);
 
-		res = area.setCharAndAppend('S');
+		cout << "FRAME: " << &frame << endl;
+
+		CDTextAreaController taCtrl = CDTextAreaController();
+		CDTextArea* area = taCtrl.getView();
+
+		cout << "AREA: " << area << endl;
+
+		/*res = area->setCharAndAppend('S');
 		cout << "Adding S res=" << res << endl;
-		res = area.setCharAndAppend('t');
+		res = area->setCharAndAppend('t');
 		cout << "Adding t res=" << res << endl;
-		res = area.setCharAndAppend('a');
+		res = area->setCharAndAppend('a');
 		cout << "Adding a res=" << res << endl;
-		res = area.setCharAndAppend('v');
+		res = area->setCharAndAppend('v');
 		cout << "Adding v res=" << res << endl;
-		res = area.setCharAndAppend('r');
+		res = area->setCharAndAppend('r');
 		cout << "Adding r res=" << res << endl;
-		res = area.setCharAndAppend('o');
+		res = area->setCharAndAppend('o');
 		cout << "Adding o res=" << res << endl;
-		res = area.setCharAndAppend('s');
-		cout << "Adding s res=" << res << endl;
+		res = area->setCharAndAppend('s');
+		cout << "Adding s res=" << res << endl;*/
 		//area.getOptionPane()->setPosition(-1, 0);
 
+		for(int i=0; i<20; i++){
+			char c = std::to_string(i).c_str()[0];
+			if(i>9){
+				c = (char)( 'A' + i-10);
+			}
+			area->setCharAndAppend(c);
+		}
+
+		area->getOptionPane()->setScrollMode(CDOptionPane::SCROLL_MODE_ITEM);
+		area->getOptionPane()->setPosition(0,0);
+		area->setSelectedIndex(0);
+		area->setSelectedIndex(6);
+
+		//area->setSelectedIndex(0);
+		//area->setChar('a', 19);
+
+		//area->setCharAndAppend('a');
+
 		//area.setSelectedIndex(6);
+		cout<< "SEt Page"<<endl;
+		frame.setPage(area);
 
-		frame.setPage(&area);
+		cout<< "Size: "<< (int)area->getSize() << endl;
 
-		//frame.print();
-
-		area.setCharAndAppend('!');
-		//area.getBounds()->print();
-		//frame.print();
-		//area.setCharAndAppend('s');
-		//frame.print();
-
-		//area.setSelectedIndex(2);
-		//frame.print();
-		//area.setSelectedIndex(10);
-		//frame.print();
-		cout << endl;
-		cout << "ERASE" << endl;
-
-		res = area.eraseLastChar();
-		res = area.eraseLastChar();
-		res = area.eraseLastChar();
 		/*res = area.eraseLastChar();
 		res = area.eraseLastChar();
 		res = area.eraseLastChar();
@@ -83,12 +93,9 @@ public:
 		res = area.eraseLastChar();
 		res = area.eraseLastChar();*/
 
-		cout << "Erases res: " << res << endl;
-		//area.reprint();
-
 		std::string str ("Test string");
 
-		str = area.getText();
+		str = area->getText();
 		cout << "TEXT: " << str << endl;
 
 

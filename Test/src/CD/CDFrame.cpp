@@ -17,7 +17,7 @@ CDFrame::CDFrame(uint8_t width, uint8_t height, LCD* lcd)
 
 CDFrame::CDFrame(short int x, short int y,
 		uint8_t width, uint8_t height, LCD* lcd)
-		:lcd(lcd){
+	: lcd(lcd){
 	init();
 }
 
@@ -38,10 +38,10 @@ LCD* CDFrame::getLCD(){
 	return lcd;
 }
 
-void CDFrame::setPage(AbstractCDElement* elem){
+bool CDFrame::setPage(AbstractCDElement* elem){
 	if(this->page!=elem){
 		if(this->page){
-			this->page->setParent(nullptr);
+			//this->page->setParent(nullptr);
 			this->page->setPropertyListener(nullptr);
 		}
 		if(elem){
@@ -51,11 +51,57 @@ void CDFrame::setPage(AbstractCDElement* elem){
 		this->page = elem;
 		clean();
 		print();
+		return true;
 	}
+	return false;
 }
 
 AbstractCDElement* CDFrame::getPage(){
 	return this->page;
+}
+
+bool CDFrame::setPopUp(AbstractCDElement* popUp){
+	if(this->popUp!=popUp){
+		if(this->popUp){
+			this->popUp->setPropertyListener(nullptr);
+			this->popUp->setParent(nullptr);
+		}
+		if(popUp){
+			popUp->setPropertyListener(this);
+			popUp->setParent(this);
+		}
+		this->popUp = popUp;
+		clean();
+		print();
+		return true;
+	}
+	return false;
+}
+
+AbstractCDElement* CDFrame::getPopUp(){
+	return this->popUp;
+}
+
+bool CDFrame::setToolTip(AbstractCDElement* toolTip){
+	if(this->toolTip!=toolTip){
+		if(this->toolTip){
+			this->toolTip->setPropertyListener(nullptr);
+			this->toolTip->setParent(nullptr);
+		}
+		if(toolTip){
+			toolTip->setPropertyListener(this);
+			toolTip->setParent(this);
+		}
+		this->toolTip = toolTip;
+		clean();
+		print();
+		return true;
+	}
+	return false;
+}
+
+AbstractCDElement* CDFrame::getToolTip(){
+	return this->toolTip;
 }
 
 void CDFrame::setParent(AbstractCDElement* parent){
@@ -125,8 +171,14 @@ void CDFrame::printArea(LCD* lcd, const Rectangle* area){
 
 
 	if(lcd){
-		AbstractCDElement* cp = getPage();
-		printChild(cp, lcd, area);
+
+		if(getToolTip())
+			printChild(getToolTip(), lcd, area);
+		else if(getPopUp())
+			printChild(getPopUp(), lcd, area);
+		else if(getPage())
+			printChild(getPage(), lcd, area);
+
 		printChild(&scrollbar, lcd, area);
 	}
 }
@@ -152,6 +204,7 @@ void CDFrame::printChild(
 }
 
 void CDFrame::printArea(const Rectangle* area){
+	cout << "printArea: " << area << endl;
 	Rectangle inter = getBounds().intersection(area);
 	if(!inter.isNull())
 		printArea(lcd, &inter);

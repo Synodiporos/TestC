@@ -118,7 +118,7 @@ void CDKeyboardController::onBackHolded(){
 
 void CDKeyboardController::onBackClicked(){
 	if(view)
-	view->closePane();
+	view->close();
 	//AbstractCompController* parent = getParent();
 	//if(parent)
 	//	parent->setActiveController(nullptr);
