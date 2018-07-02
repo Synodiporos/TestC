@@ -155,7 +155,7 @@ void MainController::backReleased(){
 //Override
 void MainController::onBackReleased(){
 	if(view)
-		view->closePane();
+		view->close();
 }
 
 void MainController::backHolded(){

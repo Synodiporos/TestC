@@ -56,6 +56,15 @@ public:
 	static bool valueInRange(int value, int min, int max){
 		return (value >= min) && (value <= max);
 	}
+
+	static int inRange(int value, int min, int max){
+		if(value<min)
+			return value - min;
+		else if(value>max)
+			return value - max;
+		else
+			return 0;
+	}
 };
 
 #endif /* GEOMETRY_GEOMETRYUTIL_H_ */

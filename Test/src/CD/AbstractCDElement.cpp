@@ -8,6 +8,8 @@
 #include <iostream>
 using namespace std;
 #include "AbstractCDElement.h"
+#include "../CD/CDFrame.h"
+#include "../Display/SystemDisplayManager.h"
 
 AbstractCDElement::AbstractCDElement() {
 	// TODO Auto-generated constructor stub

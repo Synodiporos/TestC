@@ -10,17 +10,17 @@ using namespace std;
 #include "CDOptionPane.h"
 
 CDOptionPane::CDOptionPane()
-	: CDElement(){
+	: CDPage(){
 
 }
 
 CDOptionPane::CDOptionPane(int8_t w, int8_t h)
-	: CDElement(0, 0, w, h){
+	: CDPage(w, h){
 
 }
 
 CDOptionPane::CDOptionPane(uint8_t x, uint8_t y, int8_t w, int8_t h)
-	: CDElement(x, y, w, h){
+	: CDPage(x, y, w, h){
 
 }
 
@@ -38,6 +38,26 @@ CDLabel* CDOptionPane::getLabel(){
 
 uint8_t CDOptionPane::getSize(){
 	return this->size;
+}
+
+void CDOptionPane::setViewPort(Dimension* viewPort){
+	this->viewPort = viewPort;
+}
+
+void CDOptionPane::setViewPort(uint8_t width, uint8_t height){
+	this->viewPort = new Dimension(width, height);
+}
+
+Dimension* CDOptionPane::getViewPort(){
+	return this->viewPort;
+}
+
+void CDOptionPane::setScrollMode(uint8_t mode){
+	this->scrollMode = mode;
+}
+
+uint8_t CDOptionPane::getScrollMode(){
+	return this->scrollMode;
 }
 
 bool CDOptionPane::insertOption(AbstractCDOption* option){
@@ -140,6 +160,14 @@ AbstractCDOption* CDOptionPane::getFirstOption(){
 	return nullptr;
 }
 
+bool CDOptionPane::isLastOption(AbstractCDOption* option){
+	return option==getLastOption();
+}
+
+bool CDOptionPane::isFirstOption(AbstractCDOption* option){
+	return option==getFirstOption();
+}
+
 CDOptionPane::Node* CDOptionPane::getOptionNodeAt(uint8_t index){
 	if(index>=size)
 		return nullptr;
@@ -167,7 +195,7 @@ bool CDOptionPane::setSelectedOption(AbstractCDOption* option){
 	if(size==0)
 		return false;
 	if(option==nullptr)
-		setSelectedOptionNode(nullptr);
+		return setSelectedOptionNode(nullptr);
 	if(tail->getValue()==option)
 		return setSelectedOptionNode(tail);
 
@@ -202,13 +230,16 @@ bool CDOptionPane::setSelectedOptionIndex(uint8_t index){
 
 bool CDOptionPane::setSelectedOptionNode(Node* node){
 	if(selected!=node){
-		if(selected)
+		if(selected){
 			selected->getValue()->unhover();
-		if(node)
+		}
+		if(node){
 			node->getValue()->hover();
+		}
 		this->selected = node;
 
 		notifyActionPerformed(SELECTION_CHANGE);
+		onSelectionChanged(selected->getValue());
 		return true;
 	}
 	return false;
@@ -257,10 +288,6 @@ void CDOptionPane::confirmSelection(){
 		notifyActionPerformed(SELECTION_CONFIRM);
 }
 
-void CDOptionPane::closePane(){
-	notifyActionPerformed(PANE_CLOSE);
-}
-
 void CDOptionPane::printArea(LCD* lcd, const Rectangle* area){
 	printComponentsArea(lcd, area);
 	printChildsArea(lcd, area);
@@ -272,7 +299,7 @@ void CDOptionPane::printComponentsArea(LCD* lcd, const Rectangle* area){
 }
 
 void CDOptionPane::printChildsArea(LCD* lcd, const Rectangle* area){
-	cout << " childs[ " << endl;
+	//cout << " childs[ " << endl;
 	int ccx = lcd->getCursorX();
 	int ccy = lcd->getCursorY();
 
@@ -286,7 +313,7 @@ void CDOptionPane::printChildsArea(LCD* lcd, const Rectangle* area){
 		printChild(n->getValue(), lcd, area);
 		lcd->setCursor(ccx, ccy);
 	}
-	cout << "]" << endl;
+	//cout << "]" << endl;
 }
 
 void CDOptionPane::printChild(
@@ -319,6 +346,94 @@ void CDOptionPane::notifyActionPerformed(unsigned short int actionId){
 	if(getActionListener()){
 		Action action = Action(this, actionId, 0, getSelectedOption());
 		getActionListener()->actionPerformed(action);
+	}
+}
+
+void CDOptionPane::onSelectionChanged(AbstractCDOption* selected){
+	if(getViewPort() && getScrollMode()!=SCROLL_MODE_NONE &&
+			getSelectedOption()){
+		Dimension* viewPort = getViewPort();
+		AbstractCDOption* selected = getSelectedOption();
+
+		int oX = selected->getLocation()->getX() + getPosition()->getX();
+		int oY = selected->getLocation()->getY() + getPosition()->getY();
+
+		int inRangeX = GeometryUtil::inRange(oX, 0, viewPort->getWidth()-1);
+		int inRangeY = GeometryUtil::inRange(oY, 0, viewPort->getHeight()-1);
+
+		/*cout << "onSelectionChanged: oX=" << oX <<
+				" dimW=" << viewPort->getWidth() <<
+				" inRangeX=" << inRangeX <<
+				" oY=" << oY <<
+				" dimH=" << viewPort->getHeight() <<
+				" inRangeY=" << inRangeY <<
+				endl;*/
+
+		if(inRangeX!=0){
+			performScrolling(inRangeX, 0);
+		}
+		if(inRangeY!=0){
+			performScrolling(inRangeY, 1);
+		}
+	}
+}
+
+void CDOptionPane::performScrolling(int value, int dim){
+	if(value!=0){
+		if(value>0){
+			if(dim==0){
+				int x;
+				if(getScrollMode()==SCROLL_MODE_PAGE){
+					int vXY = getViewPort()->getWidth() + value;
+					x = getPosition()->getX() - vXY + getSelectedOption()->getWidth();
+				}
+				else
+					x = getPosition()->getX() - value + getSelectedOption()->getWidth();
+
+				int help = -(getWidth() - getViewPort()->getWidth());
+				if( x < help)
+					x = help;
+				setPosition(x, getPosition()->getY());
+			}
+			else{
+				int y;
+				if(getScrollMode()==SCROLL_MODE_PAGE){
+					int vXY = getViewPort()->getHeight() + value;
+					y = getPosition()->getY() - vXY + getSelectedOption()->getHeight();
+				}
+				else
+					y = getPosition()->getY() - value + getSelectedOption()->getHeight();
+
+				int help = -(getHeight() - getViewPort()->getHeight());
+				if( y < help)
+					y = help;
+				setPosition( getPosition()->getX(), y);
+			}
+		}
+		else{
+			if(dim==0){
+				int x ;
+				if(getScrollMode()==SCROLL_MODE_PAGE)
+					x = getPosition()->getX() - value + getViewPort()->getWidth()
+								- getSelectedOption()->getWidth();
+				else
+					x = getPosition()->getX() - value ;
+				if(x>0)
+					x = 0;
+				setPosition(x, getPosition()->getY());
+			}
+			else{
+				int y;
+				if(getScrollMode()==SCROLL_MODE_PAGE)
+					y = getPosition()->getY() - value + getViewPort()->getHeight()
+								- getSelectedOption()->getHeight();
+				else
+					y = getPosition()->getY() - value ;
+				if(y>0)
+					y = 0;
+				setPosition(getPosition()->getX(), y);
+			}
+		}
 	}
 }
 

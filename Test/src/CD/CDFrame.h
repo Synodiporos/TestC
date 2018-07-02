@@ -10,8 +10,10 @@
 #include "AbstractCDElement.h"
 #include "CDVScrollbar.h"
 #include "../Commons/IPropertyListener.h"
+#include "../Display/SystemDisplay.h"
 
-class CDFrame : public AbstractCDElement, IPropertyListener{
+class CDFrame : public AbstractCDElement, public SystemDisplay,
+	IPropertyListener{
 public:
 	static const uint8_t SRCOLLBAR_STATE_NEVER = 0;
 	static const uint8_t SRCOLLBAR_STATE_AUTO = 1;
@@ -24,8 +26,13 @@ public:
 
 	void setLCD(LCD* lcd);
 	LCD* getLCD();
+
 	bool setPage(AbstractCDElement* elem);
 	AbstractCDElement* getPage();
+	bool setPopUp(AbstractCDElement* popUp);
+	AbstractCDElement* getPopUp();
+	bool setToolTip(AbstractCDElement* toolTip);
+	AbstractCDElement* getToolTip();
 
 	void setParent(AbstractCDElement* parent);
 	AbstractCDElement* getParent();
@@ -51,6 +58,8 @@ private:
 	//AbstractCDElement* parent = nullptr;
 	LCD* lcd;
 	AbstractCDElement* page = nullptr;
+	AbstractCDElement* popUp = nullptr;
+	AbstractCDElement* toolTip = nullptr;
 	uint8_t scrollbarState = SRCOLLBAR_STATE_AUTO;
 	CDVScrollbar scrollbar = CDVScrollbar();
 

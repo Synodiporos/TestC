@@ -107,7 +107,7 @@ IStateListener* AbstractCDOption::getStateListener(){
 }
 
 void AbstractCDOption::notifyStateChanged(){
-	if(this->stateListener!=nullptr){
+	if(this->stateListener){
 		State* s = new State(this,'\0', nullptr);
 		this->stateListener->stateChanged(s);
 	}

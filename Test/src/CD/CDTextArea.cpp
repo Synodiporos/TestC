@@ -32,11 +32,12 @@ CDTextArea::~CDTextArea() {
 }
 
 void CDTextArea::init(){
-	this->optionPane = new CDOptionPane(1, 1);
-	this->optionPane->setParent(this);
-	this->optionPane->setActionListener(this);
+	this->optionPane.setScrollMode(CDOptionPane::SCROLL_MODE_ITEM);
+	this->optionPane.setParent(this);
+	this->optionPane.setActionListener(this);
+	this->optionPane.setPropertyListener(this);
 	CDOptionChar* c = new CDOptionChar(0, 0, ' ');
-	optionPane->insertOption(c);
+	optionPane.insertOption(c);
 }
 
 void CDTextArea::setParent(AbstractCDElement* parent){
@@ -68,6 +69,9 @@ bool CDTextArea::setWidth(uint8_t width){
 	if(getWidth()!=width){
 		Rectangle old = getBounds();
 		this->width = width;
+
+		this->optionPane.setViewPort(width, 1);
+
 		notifyPropertyChanged(AbstractCDElement::DIMENSIONS_PROPERTY,
 				&old);
 		return true;
@@ -84,48 +88,50 @@ unsigned int CDTextArea::getCapacity(){
 }
 
 uint8_t CDTextArea::getSize(){
-	return optionPane->getSize();
+	return optionPane.getSize();
 }
 
 CDOptionPane* CDTextArea::getOptionPane(){
-	return this->optionPane;
+	return &this->optionPane;
 }
 
 bool CDTextArea::setSelectedIndex(uint8_t index){
-	return this->optionPane->setSelectedOptionIndex(index);
+	return this->optionPane.setSelectedOptionIndex(index);
 }
 
 bool CDTextArea::setSelected(CDOptionChar* option){
-	return this->optionPane->setSelectedOption(option);
+	return this->optionPane.setSelectedOption(option);
 }
 
 bool CDTextArea::selectNext(){
-	return this->optionPane->selectNextOption();
+	return this->optionPane.selectNextOption();
 }
 
 bool CDTextArea::selectPrevious(){
-	return this->optionPane->selectPreviousOption();
+	return this->optionPane.selectPreviousOption();
 }
 
 bool CDTextArea::canAppendArea(){
-	return optionPane->getSize() < (getCapacity());
+	return optionPane.getSize() < (getCapacity());
 }
 
 CDOptionChar* CDTextArea::getSelected(){
-	return (CDOptionChar*)this->optionPane->getSelectedOption();
+	return (CDOptionChar*)this->optionPane.getSelectedOption();
+}
+
+bool CDTextArea::isLastOptionSelected(){
+	return this->optionPane.isLastOption(getSelected());
 }
 
 bool CDTextArea::appendArea(){
 	if(canAppendArea()){
 		uint8_t x = getSize();
 		CDOptionChar* c = new CDOptionChar(x, 0, ' ');
-		if(optionPane->insertOption(c)){
-			optionPane->setDimensions(
-					optionPane->getWidth()+1, 1);
-
-			//cout << "Append size:" << (int)x << " width:" <<
-			//		(int)optionPane->getWidth() << endl;
-
+		if(optionPane.insertOption(c)){
+			optionPane.setDimensions(
+					optionPane.getWidth()+1, 1);
+			//cout << "Append size:" << (int)getSize() << " width:" <<
+			//		(int)optionPane.getWidth() << endl;
 
 			setSelected(c); // Prints Char
 			return true;
@@ -135,43 +141,41 @@ bool CDTextArea::appendArea(){
 }
 
 bool CDTextArea::setCharAndAppend(char ch){
-	//cout << "SET AND APPEND" << endl;
-	if(getSize()>=capacity)
+	/*if(getSize()>=capacity)
 		return false;
 	CDOptionChar* chOp = getSelected();
 	if(chOp){
-		//Is the last option?
-		AbstractCDOption* chOpL =
-				this->optionPane->getLastOption();
-		if(chOp == chOpL){
-			chOp->setCharacter(ch);
-			return appendArea();
-		}
-		else
-			return setChar(ch);
+		chOp->setCharacter(ch);
+		return appendArea();
+	}*/
+	if( setChar(ch, getSize()-1) ){
+		appendArea();
+		return true;
 	}
 	return false;
 }
 
-bool CDTextArea::setChar(char ch){
-	CDOptionChar* chOp = getSelected();
-	if(chOp){
-		bool res = chOp->setCharacter(ch);
-		if(res)
-			chOp->reprint();
+bool CDTextArea::setChar(char c, uint8_t index){
+	if(index < capacity){
+		CDOptionChar* op = (CDOptionChar*)this->optionPane.getOptionAt(index);
+		if(op){
+			cout << "setChar: " << c << endl;
+			op->setCharacter(c);
+			return true;
+		}
 	}
 	return false;
 }
 
 bool CDTextArea::eraseLastChar(){
 	CDOptionChar* chOp = (CDOptionChar*)
-			this->optionPane->getLastOption();
+			this->optionPane.getLastOption();
 	if(getSize()<=1){
 		chOp->setCharacter(' ');
 		return false;
 	}
-	if(this->optionPane->removeOption(chOp)){
-		//setSelectedIndex(optionPane->getSize()-1);
+	if(this->optionPane.removeOption(chOp)){
+		//setSelectedIndex(optionPane.getSize()-1);
 		return true;
 	}
 	return false;
@@ -179,7 +183,7 @@ bool CDTextArea::eraseLastChar(){
 
 std::string CDTextArea::getText(){
 	std::string res;
-	CDOptionPane::Node* n = optionPane->getLastOptionNode();
+	CDOptionPane::Node* n = optionPane.getLastOptionNode();
 	if(n){
 		uint8_t i = getSize()-1;
 		while(n->hasPrev()){
@@ -189,9 +193,25 @@ std::string CDTextArea::getText(){
 			i--;
 		}
 		char c = ((CDOptionChar*)n->getValue())->getCharacter();
-		res = c + res;
+		res = c + res ;
 	}
 	return res;
+}
+
+void CDTextArea::show(){
+	SystemDisplay* display =
+			SystemDisplayManager::getInstanse()->getDefaultSystemDisplay();
+	if(display){
+		display->setPage(this);
+	}
+}
+
+void CDTextArea::close(){
+	SystemDisplay* display =
+			SystemDisplayManager::getInstanse()->getDefaultSystemDisplay();
+	if(display){
+		display->setPage(this);
+	}
 }
 
 void CDTextArea::printArea(LCD* lcd, const Rectangle* area){
@@ -204,7 +224,7 @@ void CDTextArea::printChildsArea(LCD* lcd, const Rectangle* area){
 
 	int ccx = lcd->getCursorX();
 	int ccy = lcd->getCursorY();
-	AbstractCDElement* elem = this->optionPane;
+	AbstractCDElement* elem = &this->optionPane;
 	printChild(elem, lcd, area);
 	lcd->setCursor(ccx, ccy);
 
@@ -229,7 +249,7 @@ void CDTextArea::printChild(
 }
 
 void CDTextArea::validate(){
-	this->optionPane->validate();
+	this->optionPane.validate();
 }
 
 void CDTextArea::actionPerformed(Action action){
@@ -237,7 +257,7 @@ void CDTextArea::actionPerformed(Action action){
 	//action.getContainer(); NO LIKE THIS
 	switch(actionId){
 		case CDOptionPane::SELECTION_CHANGE:{
-			validateSelectionChange();
+			//validateSelectionChange();
 			break;
 		}
 		case CDOptionPane::SELECTION_CONFIRM:{
@@ -245,6 +265,20 @@ void CDTextArea::actionPerformed(Action action){
 			break;
 		}
 		case CDOptionPane::PANE_CLOSE:{
+
+			break;
+		}
+	}
+}
+
+void CDTextArea::propertyChanged(void* source,
+				unsigned short int propertyId, const void* oldPropery){
+	switch(propertyId){
+		case CDOptionPane::POSITION_PROPERTY:{
+			reprint();
+			break;
+		}
+		case CDOptionPane::DIMENSIONS_PROPERTY:{
 
 			break;
 		}
@@ -267,12 +301,12 @@ void CDTextArea::validateSelectionChange(){
 			o = -i;
 		}
 		//cout << "O=" << o << endl;
-		if(this->optionPane->setPosition(
-				o, this->optionPane->getPosition()->getY()) )
+		if(this->optionPane.setPosition(
+				o, this->optionPane.getPosition()->getY()) )
 			reprint();
 	}
 	else{
-		if(optionPane->setPosition(0, 0))
+		if(optionPane.setPosition(0, 0))
 			reprint();
 	}
 }
