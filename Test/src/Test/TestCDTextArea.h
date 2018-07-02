@@ -39,6 +39,7 @@ public:
 				setDefaultSystemDisplay(&frame);
 
 		cout << "FRAME: " << &frame << endl;
+		//TEST REPO
 
 		CDTextAreaController taCtrl = CDTextAreaController();
 		CDTextArea* area = taCtrl.getView();
