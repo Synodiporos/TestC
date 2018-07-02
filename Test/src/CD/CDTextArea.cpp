@@ -130,8 +130,8 @@ bool CDTextArea::appendArea(){
 		if(optionPane.insertOption(c)){
 			optionPane.setDimensions(
 					optionPane.getWidth()+1, 1);
-			cout << "Append size:" << (int)getSize() << " width:" <<
-					(int)optionPane.getWidth() << endl;
+			//cout << "Append size:" << (int)getSize() << " width:" <<
+			//		(int)optionPane.getWidth() << endl;
 
 			setSelected(c); // Prints Char
 			return true;
@@ -286,7 +286,7 @@ void CDTextArea::propertyChanged(void* source,
 }
 
 void CDTextArea::validateSelectionChange(){
-	cout << "VALIDATE SELECTION CHANGED" << endl;
+	//cout << "VALIDATE SELECTION CHANGED" << endl;
 	CDOptionChar* selection = getSelected();
 	if(selection){
 		int8_t i = selection->getBounds().getX();

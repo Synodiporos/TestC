@@ -36,6 +36,7 @@ public:
 	bool appendArea();
 	bool setCharAndAppend(char ch);
 	bool setChar(char c, uint8_t index);
+
 	bool eraseLastChar();
 	std::string getText();
 

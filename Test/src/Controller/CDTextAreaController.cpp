@@ -53,9 +53,19 @@ void CDTextAreaController::onDeactivate(){
 
 }
 
+bool CDTextAreaController::setActiveScreen(AbstractCDElement* screen){
+	if(getRootFrame()){
+		bool res = getRootFrame()->setPage(screen);
+		cout << "SET ACTIVE SCREEN " << screen
+				<< " ? " << res << endl;
+		return res;
+	}
+	return false;
+}
+
 void CDTextAreaController::onActiveControllerChanged(
 		AbstractController* activeCntrl){
-	cout << "ActiveControllerChanged!" << endl;
+	cout << "ActiveControllerChanged! " << activeCntrl << endl;
 }
 
 void CDTextAreaController::forwardPressed(){
@@ -119,6 +129,7 @@ void CDTextAreaController::enterClicked(){
 	setActiveController(&keyboardCtrl);
 	//Show Keyboard!
 	keyboardCtrl.getView()->showAsPopUp();
+
 }
 
 void CDTextAreaController::backPressed(){
@@ -151,12 +162,11 @@ void CDTextAreaController::actionPerformed(Action action){
 			char c = oc->getCharacter();
 			keyboardCtrl.getView()->close();
 			cout << "Selected Char: " << c << endl;
-
-
 			if(view.isLastOptionSelected())
 				view.setCharAndAppend(c);
 			else
 				view.getSelected()->setCharacter(c);
+
 			break;
 		}
 		case CDOptionPane::PANE_CLOSE:{

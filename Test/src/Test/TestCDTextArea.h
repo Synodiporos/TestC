@@ -34,7 +34,7 @@ public:
 		LCDConsole* lcd = new LCDConsole(SCREEN_WIDTH, SCREEN_HEIGHT);
 		LCD* lcd2 = new LCDSimulator(SCREEN_WIDTH, SCREEN_HEIGHT);
 		CDFrame frame = CDFrame((int)SCREEN_WIDTH, 2, lcd2);
-
+    
 		SystemDisplayManager::getInstanse()->
 				setDefaultSystemDisplay(&frame);
 

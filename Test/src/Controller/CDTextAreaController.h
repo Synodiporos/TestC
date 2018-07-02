@@ -13,6 +13,7 @@
 #include "../CD/CDTextArea.h"
 #include "../System/SystemConstants.h"
 
+
 class CDTextAreaController : public AbstractCompController, IActionListener{
 public:
 	CDTextAreaController();
@@ -21,7 +22,10 @@ public:
 	void init();
 	//void setView(CDTextArea* view);
 	CDTextArea* getView();
+	void setRootFrame(CDFrame* frame);
+	CDFrame* getRootFrame();
 
+	bool setActiveScreen(AbstractCDElement* screen);
 	virtual void onActiveControllerChanged(AbstractController* activeCntrl);
 
 protected:
@@ -49,6 +53,7 @@ protected:
 private:
 	CDKeyboardController keyboardCtrl = CDKeyboardController();
 	CDTextArea view = CDTextArea(TASK_TEXTAREA_WIDTH, TASK_NAME_SIZE);
+
 };
 
 #endif /* CONTROLLER_CDTEXTAREACONTROLLER_H_ */

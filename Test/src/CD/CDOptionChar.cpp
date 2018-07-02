@@ -27,8 +27,12 @@ void CDOptionChar::init(){
 
 }
 
-void CDOptionChar::setCharacter(char c){
-	this->character = c;
+bool CDOptionChar::setCharacter(char c){
+	if(this->character!=c){
+		this->character = c;
+		return true;
+	}
+	return false;
 }
 
 char CDOptionChar::getCharacter(){

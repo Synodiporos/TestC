@@ -20,7 +20,7 @@ public:
 
 	virtual void init();
 
-	void setCharacter(char c);
+	bool setCharacter(char c);
 	char getCharacter();
 
 	bool setStateVisible(bool visible);
