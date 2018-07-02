@@ -26,24 +26,24 @@ CDPage::~CDPage() {
 	// TODO Auto-generated destructor stub
 }
 
-std::vector<IActionListener*> CDPage::getActionListeners(){
-	return this->actionListeners;
+std::vector<IActionListener*> CDPage::getPageListeners(){
+	return this->pageListeners;
 }
 
-void CDPage::addActionListener(IActionListener* actionListener){
-	this->actionListeners.push_back(actionListener);
+void CDPage::addPageListener(IActionListener* actionListener){
+	this->pageListeners.push_back(actionListener);
 }
 
-void CDPage::removeActionListener(IActionListener* actionListener){
-	for (std::vector<IActionListener*>::iterator it = actionListeners.begin() ;
-			it != actionListeners.end(); ++it){
+void CDPage::removePageListener(IActionListener* actionListener){
+	for (std::vector<IActionListener*>::iterator it = pageListeners.begin() ;
+			it != pageListeners.end(); ++it){
 		if( *it == actionListener)
-			actionListeners.erase(it);
+			pageListeners.erase(it);
 	}
 }
 
-IActionListener* CDPage::getActionListener(unsigned int index){
-	return *(actionListeners.begin() + index);
+IActionListener* CDPage::getPageListener(unsigned int index){
+	return *(pageListeners.begin() + index);
 }
 
 bool CDPage::showAsPage(){
@@ -97,9 +97,9 @@ bool CDPage::close(){
 }
 
 void CDPage::notifyActionPerformed(unsigned short int actionId){
-	for (std::vector<IActionListener*>::iterator it = actionListeners.begin() ;
-			it != actionListeners.end(); ++it){
-		Action action = Action(this, actionId, "", nullptr);
+	for (std::vector<IActionListener*>::iterator it = pageListeners.begin() ;
+			it != pageListeners.end(); ++it){
+		Action action = Action(this, actionId, nullptr, nullptr);
 		(*it)->actionPerformed(action);
 	}
 }

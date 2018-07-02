@@ -35,10 +35,12 @@ public:
 		LCD* lcd2 = new LCDSimulator(SCREEN_WIDTH, SCREEN_HEIGHT);
 		CDFrame frame = CDFrame((int)SCREEN_WIDTH, 2, lcd2);
     
+		cout << "FRAME: " << &frame << endl;
+
 		SystemDisplayManager::getInstanse()->
 				setDefaultSystemDisplay(&frame);
 
-		cout << "FRAME: " << &frame << endl;
+
 		//TEST REPO 3
 
 		CDTextAreaController taCtrl = CDTextAreaController();

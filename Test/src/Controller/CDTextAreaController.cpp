@@ -41,6 +41,7 @@ void CDTextAreaController::init(){
 	keyboardView->appendCharSet(SYMBOLS);
 	keyboardView->setViewPort(SCREEN_WIDTH-1, SCREEN_HEIGHT);
 	keyboardView->setActionListener(this);
+	keyboardView->addPageListener(this);
 	keyboardView->setParent(&view);
 	this->keyboardCtrl.setView(keyboardView);
 }
@@ -54,12 +55,12 @@ void CDTextAreaController::onDeactivate(){
 }
 
 bool CDTextAreaController::setActiveScreen(AbstractCDElement* screen){
-	if(getRootFrame()){
+	/*if(getRootFrame()){
 		bool res = getRootFrame()->setPage(screen);
 		cout << "SET ACTIVE SCREEN " << screen
 				<< " ? " << res << endl;
 		return res;
-	}
+	}*/
 	return false;
 }
 

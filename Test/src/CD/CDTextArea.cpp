@@ -159,7 +159,6 @@ bool CDTextArea::setChar(char c, uint8_t index){
 	if(index < capacity){
 		CDOptionChar* op = (CDOptionChar*)this->optionPane.getOptionAt(index);
 		if(op){
-			cout << "setChar: " << c << endl;
 			op->setCharacter(c);
 			return true;
 		}
@@ -215,7 +214,6 @@ void CDTextArea::close(){
 }
 
 void CDTextArea::printArea(LCD* lcd, const Rectangle* area){
-
 	printChildsArea(lcd, area);
 }
 

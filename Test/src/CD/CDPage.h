@@ -23,10 +23,10 @@ public:
 	CDPage(uint8_t x, uint8_t y, int8_t w, int8_t h);
 	virtual ~CDPage();
 
-	std::vector<IActionListener*> getActionListeners();
-	void addActionListener(IActionListener* actionListener);
-	void removeActionListener(IActionListener* actionListener);
-	IActionListener* getActionListener(unsigned int index);
+	std::vector<IActionListener*> getPageListeners();
+	void addPageListener(IActionListener* actionListener);
+	void removePageListener(IActionListener* actionListener);
+	IActionListener* getPageListener(unsigned int index);
 
 	bool showAsPage();
 	bool showAsPopUp();
@@ -34,7 +34,7 @@ public:
 	bool close();
 
 protected:
-	std::vector<IActionListener*> actionListeners =
+	std::vector<IActionListener*> pageListeners =
 			vector<IActionListener*>();
 	void notifyActionPerformed(unsigned short int actionId);
 

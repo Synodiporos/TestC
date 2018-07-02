@@ -19,7 +19,7 @@ SystemDisplayManager::~SystemDisplayManager() {
 }
 
 SystemDisplayManager* SystemDisplayManager::getInstanse(){
-	if(instance)
+	if(!instance)
 		instance = new SystemDisplayManager();
 
 	return instance;
