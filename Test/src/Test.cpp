@@ -32,6 +32,7 @@ using namespace std;
 #include "Test/TestCDTextArea.h"
 #include "Test/TestCDOptionPane.h"
 #include "Test/TestCDVScrollbar.h"
+#include "Test/TestCMD.h"
 #include <ctime>
 
 int main() {
@@ -39,12 +40,29 @@ int main() {
 	cout << endl;
 
 
-	TestCDTextArea::run();
+	//TestCDTextArea::run();
 	//TestCDOptionPane::run2();
 	//TestCDVScrollbar::run();
+	TestCMD::run();
 
 	cout << endl;
 	cout << "Finished!" << endl;
+
+
+
+
+
+	//=========================================  loop
+
+	clock_t start = clock();
+	int i = 1;
+	bool run = false;
+	while ( run && (clock() - start < 10000)) {
+		unsigned long millis = clock() - start;
+
+
+	}
+
 	return 0;
 }
 
